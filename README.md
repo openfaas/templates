@@ -1,0 +1,2 @@
+# templates
+Official OpenFaaS templates
