@@ -1,0 +1,1 @@
+def handle(input: String): Unit = println(input)
