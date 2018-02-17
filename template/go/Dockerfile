@@ -1,4 +1,4 @@
-FROM golang:1.8.3-alpine3.6
+FROM golang:1.8.3-alpine3.6 as builder
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
@@ -26,8 +26,8 @@ RUN chown app /home/app
 
 WORKDIR /home/app
 
-COPY --from=0 /go/src/handler/handler    .
-COPY --from=0 /usr/bin/fwatchdog         .
+COPY --from=builder /go/src/handler/handler    .
+COPY --from=builder /usr/bin/fwatchdog         .
 
 USER app
 

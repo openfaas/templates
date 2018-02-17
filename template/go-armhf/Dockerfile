@@ -1,4 +1,4 @@
-FROM alexellis2/go-armhf:1.8.4
+FROM alexellis2/go-armhf:1.8.4 as builder
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
@@ -26,8 +26,8 @@ RUN chown app /home/app
 
 WORKDIR /home/app
 
-COPY --from=0 /go/src/handler/handler    .
-COPY --from=0 /usr/bin/fwatchdog         .
+COPY --from=builder /go/src/handler/handler    .
+COPY --from=builder /usr/bin/fwatchdog         .
 
 USER app
 
