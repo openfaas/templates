@@ -1,0 +1,2 @@
+language: scala-ammonite
+fprocess: amm -s Main.sc
