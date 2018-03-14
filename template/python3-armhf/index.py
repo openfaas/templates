@@ -6,8 +6,11 @@ from function import handler
 
 def get_stdin():
     buf = ""
-    for line in sys.stdin:
-        buf = buf + line
+    while(True):
+        line = sys.stdin.readline()
+        buf += line
+        if line == "":
+            break
     return buf
 
 if(__name__ == "__main__"):
@@ -15,3 +18,4 @@ if(__name__ == "__main__"):
     ret = handler.handle(st)
     if ret != None:
         print(ret)
+    
