@@ -4,4 +4,4 @@ def handle(req):
         req (str): request body
     """
 
-    print(req)
+    return req

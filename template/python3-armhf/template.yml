@@ -1,0 +1,2 @@
+language: python3-armhf
+fprocess: python3 index.py
