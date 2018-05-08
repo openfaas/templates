@@ -4,11 +4,11 @@ ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
 
 # Optimize for Docker builder caching by adding projects first.
 
-RUN mkdir -p /root/src/function
-WORKDIR /root/src/function
+RUN mkdir -p /home/app/src/function
+WORKDIR /home/app/src/function
 COPY ./function/Function.csproj  .
 
-WORKDIR /root/src/
+WORKDIR /home/app/src/
 COPY ./root.csproj  .
 RUN dotnet restore ./root.csproj
 
@@ -17,6 +17,9 @@ COPY .  .
 RUN dotnet publish -c release -o published
 
 FROM microsoft/dotnet:2.0-runtime
+
+# Create a non-root user
+RUN addgroup --system app && adduser --system --ingroup app app
 
 RUN apt-get update -qy \
     && apt-get install -qy curl ca-certificates --no-install-recommends \ 
@@ -27,8 +30,12 @@ RUN apt-get update -qy \
     && apt-get clean \
     && rm -rf /var/lib/apt/lists/*
 
-WORKDIR /root/
-COPY --from=builder /root/src/published .
+WORKDIR /home/app/
+COPY --from=builder /home/app/src/published .
+
+RUN chown app /home/app
+
+USER app
 
 ENV fprocess="dotnet ./root.dll"
 EXPOSE 8080
