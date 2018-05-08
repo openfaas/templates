@@ -7,7 +7,13 @@ RUN apk --no-cache add curl \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl --no-cache
 
-WORKDIR /root/
+# Add non root user
+RUN addgroup -S app && adduser -S -g app app
+RUN chown app /home/app
+
+USER app
+
+WORKDIR /home/app/
 
 COPY index.py           .
 COPY requirements.txt   .
@@ -15,11 +21,11 @@ RUN pip install -r requirements.txt
 
 RUN mkdir -p function
 RUN touch ./function/__init__.py
-WORKDIR /root/function/
+WORKDIR /home/app/function/
 COPY function/requirements.txt	.
-RUN pip install -r requirements.txt
+RUN pip install --user app -r requirements.txt
 
-WORKDIR /root/
+WORKDIR /home/app/
 COPY function           function
 
 ENV fprocess="python index.py"
