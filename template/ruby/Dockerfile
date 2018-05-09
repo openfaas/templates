@@ -7,17 +7,24 @@ RUN apk --no-cache add curl \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl --no-cache
 
-WORKDIR /root/
+WORKDIR /home/app
 
-COPY Gemfile		.
+COPY Gemfile    		.
 COPY index.rb           .
 COPY function           function
+
+RUN bundle install \
+  && mkdir -p /home/app/function
+
+WORKDIR /home/app/function
+
 RUN bundle install 
 
-WORKDIR /root/function/
-RUN bundle install 
+RUN addgroup -S app && adduser -S -g app app
+RUN chown app:app -R /home/app
 
-WORKDIR /root/
+WORKDIR /home/app
+
 ENV fprocess="ruby index.rb"
 HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1
 
