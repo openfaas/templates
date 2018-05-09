@@ -36,4 +36,6 @@ USER app
 
 ENV fprocess="./handler"
 
+HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1
+
 CMD ["./fwatchdog"]

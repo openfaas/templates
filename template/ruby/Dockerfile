@@ -20,12 +20,15 @@ WORKDIR /home/app/function
 
 RUN bundle install 
 
-RUN addgroup -S app && adduser -S -g app app
+RUN addgroup -S app \
+  && adduser -S -g app app
+
 RUN chown app:app -R /home/app
 
 WORKDIR /home/app
 
 ENV fprocess="ruby index.rb"
+
 HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["fwatchdog"]
