@@ -18,7 +18,7 @@ COPY requirements.txt   .
 RUN chown -R app /home/app
 
 USER app
-
+ENV PATH=$PATH:/home/app/.local/bin
 RUN pip install --user app  -r requirements.txt
 
 RUN mkdir -p function

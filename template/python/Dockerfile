@@ -13,6 +13,8 @@ RUN chown app /home/app
 
 USER app
 
+ENV PATH=$PATH:/home/app/.local/bin
+
 WORKDIR /home/app/
 
 COPY index.py           .

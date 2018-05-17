@@ -12,6 +12,7 @@ RUN addgroup -S app && adduser -S -g app app
 RUN chown app /home/app
 
 USER app
+ENV PATH=$PATH:/home/app/.local/bin
 
 WORKDIR /home/app/
 
