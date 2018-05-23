@@ -1,2 +1,13 @@
 language: python3
 fprocess: python3 index.py
+build_options: 
+  - name: dev
+    packages: 
+      - make
+      - automake
+      - gcc
+      - g++
+      - subversion
+      - python3-dev
+      - musl-dev
+      - libffi-dev
