@@ -11,3 +11,4 @@ build_options:
       - python3-dev
       - musl-dev
       - libffi-dev
+      - git
