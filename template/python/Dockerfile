@@ -29,7 +29,11 @@ COPY function/requirements.txt	.
 RUN pip install --user -r requirements.txt
 
 WORKDIR /home/app/
+
+USER root
 COPY function           function
+RUN chown -R app:app ./
+USER app
 
 ENV fprocess="python index.py"
 
