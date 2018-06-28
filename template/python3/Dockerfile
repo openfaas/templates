@@ -22,14 +22,14 @@ RUN chown -R app /home/app
 
 USER app
 ENV PATH=$PATH:/home/app/.local/bin
-RUN pip install --user app  -r requirements.txt
+RUN pip install --user -r requirements.txt
 
 RUN mkdir -p function
 RUN touch ./function/__init__.py
 
 WORKDIR /home/app/function/
 COPY function/requirements.txt	.
-RUN pip install --user app -r requirements.txt
+RUN pip install --user -r requirements.txt
 
 WORKDIR /home/app/
 COPY function           function

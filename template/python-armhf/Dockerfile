@@ -19,14 +19,14 @@ WORKDIR /home/app/
 
 COPY index.py           .
 COPY requirements.txt   .
-RUN pip install --user app -r requirements.txt
+RUN pip install --user -r requirements.txt
 
 RUN mkdir -p function
 RUN touch ./function/__init__.py
 
 WORKDIR /home/app/function/
 COPY function/requirements.txt	.
-RUN pip install --user app -r requirements.txt
+RUN pip install --user -r requirements.txt
 
 WORKDIR /home/app/
 COPY function           function
