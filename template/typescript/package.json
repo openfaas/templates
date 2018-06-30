@@ -1,0 +1,21 @@
+{
+  "name": "TypescriptBase",
+  "version": "1.0.0",
+  "description": "",
+  "main": "faas_index.js",
+  "scripts": {
+    "build": "tsc",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@types/get-stdin": "^5.0.1",
+    "@types/node": "^10.5.1",
+    "get-stdin": "^5.0.1"
+  },
+  "devDependencies": {
+    "typescript": "^2.9.2"
+  }
+}
