@@ -12,3 +12,7 @@ build_options:
       - musl-dev
       - libffi-dev
       - git
+  - name: mysql
+    packages: 
+      - mysql-client
+      - mysql-dev
