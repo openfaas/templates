@@ -1,5 +1,4 @@
-"use strict"
 
-export function handle (context: string, callback: (err: any, res: any) => any) {
-    callback(undefined, {input: context});
-}
+export const handle: Handler<string, any> = (context, callback) => {
+  callback(undefined, { input: context });
+};

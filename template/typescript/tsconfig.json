@@ -1,12 +1,7 @@
 {
-    "compilerOptions": {
-        "module": "commonjs",
-        "outDir": "./out",
-        "allowJs": true,
-        "target": "es5"
-    },
-    "include": [
-        "./**/*",
-        "./function/**/*"
-    ]
+  "extends": "./function/tsconfig",
+  "compilerOptions": {
+    "outDir": "./out"
+  },
+  "files": ["index.ts"]
 }

@@ -1,18 +1,16 @@
 // Copyright (c) Alex Ellis 2017. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-"use strict"
+import * as getStdin from 'get-stdin';
 
-import getStdin = require('get-stdin');
-
-import handler = require('./function/handler');
+import * as handler from './function/handler';
 
 getStdin().then(val => {
-    handler.handle(val, (err, res) => {
+    handler.handle(val, (err, res: any) => {
         if (err) {
             return console.error(err);
         }
-        if(isArray(res) || isObject(res)) {
+        if(Array.isArray(res) || isObject(res)) {
             console.log(JSON.stringify(res));
         } else {
             process.stdout.write(res);
@@ -22,10 +20,6 @@ getStdin().then(val => {
     console.error(e.stack);
 });
 
-const isArray = (a) => {
-    return (!!a) && (a.constructor === Array);
-};
-
-const isObject = (a) => {
-    return (!!a) && (a.constructor === Object);
+const isObject = (obj: any) => {
+    return obj === Object(obj);
 };

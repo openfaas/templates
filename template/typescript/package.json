@@ -11,11 +11,11 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "@types/get-stdin": "^5.0.1",
-    "@types/node": "^10.5.1",
     "get-stdin": "^5.0.1"
   },
   "devDependencies": {
-    "typescript": "^2.9.2"
+    "typescript": "^2.9.2",
+    "@types/get-stdin": "^5.0.1",
+    "@types/node": "^10.5.1"
   }
 }
