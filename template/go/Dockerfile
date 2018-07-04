@@ -30,7 +30,7 @@ COPY --from=builder /usr/bin/fwatchdog         .
 COPY --from=builder /go/src/handler/function/  .
 COPY --from=builder /go/src/handler/handler    .
 
-RUN chown app /home/app
+RUN chown -R app /home/app
 
 USER app
 
