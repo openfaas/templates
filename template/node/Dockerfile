@@ -15,7 +15,8 @@ WORKDIR /root/
 # Turn down the verbosity to default level.
 ENV NPM_CONFIG_LOGLEVEL warn
 
-RUN mkdir -p /home/app
+# Create whole tree
+RUN mkdir -p /home/app/function/node_modules
 
 # Wrapper/boot-strapper
 WORKDIR /home/app
@@ -40,8 +41,8 @@ COPY function/ ./
 WORKDIR /home/app/
 
 # chmod for tmp is for a buildkit issue (@alexellis)
-RUN chown app:app -R /home/app \
-    && chmod 777 /tmp
+RUN chown app:app -R /home/app
+RUN chmod 777 /tmp
 
 USER app
 
