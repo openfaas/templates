@@ -32,11 +32,11 @@ WORKDIR /home/app/function
 COPY function/*.json ./
 RUN npm i --production || :
 
-# COPY function files and folders
-COPY function .
-
 # Set correct permissions to use non root user
 WORKDIR /home/app/
+
+# Copy in additional function files and folders
+COPY --chown=app:app function function
 
 # chmod for tmp is for a buildkit issue (@alexellis)
 RUN chown app:app -R /home/app \
