@@ -1,7 +1,6 @@
 FROM node:8.9.1-alpine
 
-RUN addgroup -S app \
-  && adduser -S -g app app
+RUN addgroup -S app && adduser -S -g app app
 
 # Alternatively use ADD https:// (which will not be cached by Docker builder)
 RUN apk --no-cache add curl \
@@ -15,8 +14,7 @@ WORKDIR /root/
 # Turn down the verbosity to default level.
 ENV NPM_CONFIG_LOGLEVEL warn
 
-# Create whole tree
-RUN mkdir -p /home/app/function/node_modules
+RUN mkdir -p /home/app
 
 # Wrapper/boot-strapper
 WORKDIR /home/app
@@ -35,14 +33,14 @@ COPY function/*.json ./
 RUN npm i --production || :
 
 # COPY function files and folders
-COPY function/ ./
+COPY function .
 
 # Set correct permissions to use non root user
 WORKDIR /home/app/
 
 # chmod for tmp is for a buildkit issue (@alexellis)
-RUN chown app:app -R /home/app
-RUN chmod 777 /tmp
+RUN chown app:app -R /home/app \
+    && chmod 777 /tmp
 
 USER app
 
@@ -52,4 +50,3 @@ ENV fprocess="node index.js"
 HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["fwatchdog"]
-
