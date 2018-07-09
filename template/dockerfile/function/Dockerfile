@@ -18,7 +18,7 @@ RUN apk --no-cache add curl \
     
 # Add non root user
 
-RUN addgroup -S app && adduser -S -g app app
+RUN addgroup -S app && adduser app -S -G app
 
 RUN chown app /home/app
 
