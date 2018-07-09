@@ -20,7 +20,7 @@ FROM alpine:3.7
 RUN apk --no-cache add ca-certificates
 
 # Add non root user
-RUN addgroup -S app && adduser -S -g app app
+RUN addgroup -S app && adduser app -S -G app
 RUN mkdir -p /home/app
 
 WORKDIR /home/app
