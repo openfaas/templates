@@ -23,7 +23,7 @@ WORKDIR /home/app/function
 RUN bundle install 
 
 RUN addgroup -S app \
-  && adduser -S -g app app
+  && adduser app -S -G app
 
 RUN chown app:app -R /home/app
 
