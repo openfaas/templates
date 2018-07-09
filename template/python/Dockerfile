@@ -9,7 +9,7 @@ RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
     && apk del curl --no-cache
 
 # Add non root user
-RUN addgroup -S app && adduser -S -g app app
+RUN addgroup -S app && adduser app -S -G app
 RUN chown app /home/app
 
 USER app
