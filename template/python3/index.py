@@ -9,11 +9,11 @@ def get_stdin():
     while(True):
         line = sys.stdin.readline()
         buf += line
-        if line=="":
+        if line == "":
             break
     return buf
 
-if(__name__ == "__main__"):
+if __name__ == "__main__":
     st = get_stdin()
     ret = handler.handle(st)
     if ret != None:
