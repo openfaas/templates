@@ -1,23 +1,47 @@
-// Copyright (c) Alex Ellis 2017. All rights reserved.
+// Copyright (c) OpenFaaS Author(s) 2018. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
-import * as getStdin from 'get-stdin';
+import express = require('express');
+import { Request, Response, Application } from 'express';
+import { json, raw, text } from 'body-parser';
 
-import * as handler from './function/handler';
+import * as fn from './function/handler';
+import { FunctionCallBack, FunctionContext, FunctionEvent } from './function/types';
 
-getStdin().then(val => {
-    handler.handle(val, (err, res: any) => {
+const app: Application = express();
+
+app.use(json());
+app.use(raw());
+app.use(text({type: 'text/*'}));
+
+app.disable('x-powered-by');
+
+function middleware (req: Request, res: Response): void {
+    let cb: FunctionCallBack = (err: Error, fnResult: any) => {
         if (err) {
-            return console.error(err);
+            return res.status(500).send(err);
         }
-        if(Array.isArray(res) || isObject(res)) {
-            console.log(JSON.stringify(res));
+
+        if (Array.isArray(fnResult) || isObject(fnResult)) {
+            res.set(fnContext.headers()).status(fnContext.status()).send(JSON.stringify(fnResult));
         } else {
-            process.stdout.write(res);
+            res.set(fnContext.headers()).status(fnContext.status()).send(fnResult);
         }
-    });
-}).catch(e => {
-    console.error(e.stack);
+    };
+
+    let fnEvent = new FunctionEvent(req);
+    let fnContext = new FunctionContext(cb);
+
+    fn.handler(fnEvent, fnContext, cb);
+}
+
+app.post('/', middleware);
+app.get('/', middleware);
+
+const port: number = parseInt(process.env.http_port) || 3000;
+
+app.listen(port, () => {
+    console.log(`OpenFaas Typescript listening on port: ${port}`);
 });
 
 const isObject = (obj: any) => {

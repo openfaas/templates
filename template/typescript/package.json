@@ -11,11 +11,15 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^1.18.3",
+    "express": "^4.16.3",
     "get-stdin": "^5.0.1"
   },
   "devDependencies": {
-    "typescript": "^2.9.2",
+    "@types/body-parser": "^1.17.0",
+    "@types/express": "^4.16.0",
     "@types/get-stdin": "^5.0.1",
-    "@types/node": "^10.5.1"
+    "@types/node": "^10.5.1",
+    "typescript": "^2.9.2"
   }
 }
