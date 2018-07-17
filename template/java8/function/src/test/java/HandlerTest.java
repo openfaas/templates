@@ -1,12 +1,12 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import com.openfaas.function.*;
+import com.openfaas.function.Handler;
 
 public class HandlerTest {
 
     @Test public void handlerIsNotNull() {
-        HandlerTest handler = new HandlerTest();
+        Handler handler = new Handler();
         assertTrue("Expected handler not to be null", handler != null);
     }
 
