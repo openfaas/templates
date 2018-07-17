@@ -1,2 +1,6 @@
 language: go
 fprocess: ./handler
+welcomeMessage: |
+  You have created a new function which uses Golang 1.9.7.
+  To include third-party dependencies, use a vendoring tool like dep:
+  dep documentation: https://github.com/golang/dep#installation
