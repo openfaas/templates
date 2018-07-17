@@ -6,7 +6,6 @@ package com.openfaas.entrypoint;
 import com.sun.net.httpserver.HttpExchange;
 import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpServer;
-
 import java.io.IOException;
 import java.io.OutputStream;
 import java.io.ByteArrayOutputStream;
@@ -73,8 +72,8 @@ public class App {
             //     System.out.println("Req header " + entry.getKey() + " " + entry.getValue());
             // }
 
-            IRequest req = new Request(requestBody, reqHeadersMap);
-
+            IRequest req = new Request(requestBody, reqHeadersMap,t.getRequestURI().getRawQuery());
+            
             IResponse res = this.handler.Handle(req);
 
             String response = res.getBody();

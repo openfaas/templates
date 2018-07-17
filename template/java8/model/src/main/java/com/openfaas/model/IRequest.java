@@ -9,5 +9,7 @@ public interface IRequest {
     String getBody();
     Map<String, String> getHeaders();
     String getHeader(String key);
+    String getQueryRaw();
+    Map<String, String> getQuery();
 }
 
