@@ -33,7 +33,7 @@ COPY function/*.json ./
 RUN npm i --production || :
 
 # Copy in additional function files and folders
-COPY --chown=app:app function/ .
+COPY function/ .
 
 WORKDIR /home/app/
 
