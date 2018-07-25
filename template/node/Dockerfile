@@ -33,7 +33,10 @@ COPY function/*.json ./
 RUN npm i --production || :
 
 # Copy in additional function files and folders
-COPY function/ .
+COPY function .
+
+# chown for buildkit permission issue
+RUN chown app:app -R /home/app/function
 
 WORKDIR /home/app/
 
