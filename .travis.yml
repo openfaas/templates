@@ -1,0 +1,16 @@
+sudo: required
+
+services:
+      - docker
+
+addons:
+  apt:
+    packages:
+      - docker-ce
+
+install:
+
+before_install:
+
+script:
+- ./verify.sh
