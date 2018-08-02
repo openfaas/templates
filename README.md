@@ -12,6 +12,7 @@ The current version of OpenFaaS templates use the original `watchdog` which `for
 
 See [contributing guide](https://github.com/openfaas/template/blob/master/CONTRIBUTING.md).
 
-#### License
+### License
 
 This project is part of the OpenFaaS project licensed under the MIT License.
+
