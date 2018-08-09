@@ -38,4 +38,15 @@ public class ResponseTest {
 
        assertEquals("application/json", r.getContentType());
     }
+
+    @Test public void testResponseStatusCodeDefaultValue() {
+      Response r = new Response();
+      assertEquals(200, r.getStatusCode());
+    }
+
+    @Test public void testResponseStatusCodeSetGetValue() {
+      Response r = new Response();
+      r.setStatusCode(404);
+      assertEquals(404, r.getStatusCode());
+    }
 }

@@ -15,4 +15,7 @@ public interface IResponse {
 
     void setContentType(String contentType);
     String getContentType();
+
+    void setStatusCode(int code);
+    int getStatusCode();
 }
