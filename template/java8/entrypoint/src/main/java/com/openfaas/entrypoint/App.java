@@ -89,7 +89,7 @@ public class App {
                 responseHeaders.set(entry.getKey(), entry.getValue());
             }
 
-            t.sendResponseHeaders(200, bytesOut.length);
+            t.sendResponseHeaders(res.getStatusCode(), bytesOut.length);
 
             OutputStream os = t.getResponseBody();
             os.write(bytesOut);

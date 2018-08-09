@@ -8,6 +8,7 @@ import java.util.Map;
 
 public class Response implements IResponse {
 
+    private int statusCode = 200;
     private String body;
     private String contentType;
     private Map<String, String> headers;
@@ -16,6 +17,14 @@ public class Response implements IResponse {
         this.body = "";
         this.contentType = "";
         this.headers = new HashMap<String, String>();
+    }
+
+    public int getStatusCode() {
+        return statusCode;
+    }
+
+    public void setStatusCode(int statusCode) {
+        this.statusCode = statusCode;
     }
 
     public Map<String, String> getHeaders() {
