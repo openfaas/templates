@@ -23,7 +23,12 @@ namespace root
         {
             string buffer = getStdin();
             FunctionHandler f = new FunctionHandler();
-            f.Handle(buffer);
+
+            string responseValue = f.Handle(buffer);
+
+            if(responseValue != null) {
+                Console.Write(responseValue);
+            }
         }
     }
 }
