@@ -3,3 +3,4 @@ build
 .gitignore
 .project
 .gradle
+.idea
