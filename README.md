@@ -10,7 +10,7 @@ The current version of OpenFaaS templates use the original `watchdog` which `for
 
 ### Templates Developers / Contributors
 
-See [contributing guide](https://github.com/openfaas/template/blob/master/CONTRIBUTING.md).
+See [contributing guide](https://github.com/openfaas/templates/blob/master/CONTRIBUTING.md).
 
 ### License
 
