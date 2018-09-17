@@ -2,7 +2,7 @@ FROM golang:1.9.7-alpine3.7 as builder
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.8.10/fwatchdog > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.4/fwatchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl --no-cache
 
