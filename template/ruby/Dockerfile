@@ -27,6 +27,8 @@ RUN addgroup -S app \
 
 RUN chown app:app -R /home/app
 
+USER app
+
 WORKDIR /home/app
 
 ENV fprocess="ruby index.rb"
