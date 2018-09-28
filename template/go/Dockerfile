@@ -35,6 +35,7 @@ RUN chown -R app /home/app
 USER app
 
 ENV fprocess="./handler"
+EXPOSE 8080
 
 HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1
 

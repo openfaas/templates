@@ -36,6 +36,7 @@ RUN chown -R app:app ./
 USER app
 
 ENV fprocess="python index.py"
+EXPOSE 8080
 
 HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
 

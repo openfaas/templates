@@ -32,6 +32,7 @@ WORKDIR /home/app/
 COPY function           function
 
 ENV fprocess="python3 index.py"
+EXPOSE 8080
 
 HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
 

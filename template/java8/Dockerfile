@@ -42,6 +42,7 @@ ENV mode="http"
 ENV CLASSPATH="/home/app/entrypoint-1.0/lib/*"
 
 ENV fprocess="java com.openfaas.entrypoint.App"
+EXPOSE 8080
 
 HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1
 

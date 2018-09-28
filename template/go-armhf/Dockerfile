@@ -32,5 +32,6 @@ COPY --from=builder /usr/bin/fwatchdog         .
 USER app
 
 ENV fprocess="./handler"
+EXPOSE 8080
 
 CMD ["./fwatchdog"]

@@ -32,6 +32,7 @@ USER app
 WORKDIR /home/app
 
 ENV fprocess="ruby index.rb"
+EXPOSE 8080
 
 HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1
 

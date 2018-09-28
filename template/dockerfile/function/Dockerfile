@@ -31,5 +31,7 @@ ENV fprocess="cat"
 # Set to true to see request in function logs
 ENV write_debug="false"
 
+EXPOSE 8080
+
 HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
 CMD [ "fwatchdog" ]
