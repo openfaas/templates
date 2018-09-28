@@ -23,7 +23,7 @@ RUN addgroup -S app && adduser -S -g app app && \
 
 # Import function
 WORKDIR /home/app
-COPY index.php composer.* ./
+COPY index.php ./
 COPY ./function ./function
 WORKDIR /home/app/function
 
