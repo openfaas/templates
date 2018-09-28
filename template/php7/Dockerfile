@@ -28,12 +28,7 @@ COPY ./function ./function
 WORKDIR /home/app/function
 
 # Install php extensions
-RUN [[ -f php-extension.sh ]] && sh ./php-extension.sh
-
-# Cleanup
-RUN apk del git && \
-    rm -rf /usr/src/php && \
-    { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; } && \
+RUN [[ -f php-extension.sh ]] && sh ./php-extension.sh && \
     chown -R app /home/app
 
 # Entry
@@ -41,6 +36,15 @@ USER app
 
 # Install Composer Dependecies
 RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev
+
+USER root
+
+# Cleanup
+RUN apk del git && \
+    rm -rf /usr/src/php && \
+    { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; }
+
+USER app
 
 WORKDIR /home/app
 ENV fprocess="php index.php"

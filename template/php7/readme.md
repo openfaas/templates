@@ -9,13 +9,13 @@ Templates are built using the latest minor version of the major release.
 ## Usage:
 
 ```shell
-faas-cli new my-function-php7 --lang php7
+faas-cli new my-function-php --lang php7
 ```
 
-You will find in the newly created directories `my-function-in-php5` and `my-function-in-php7`:
+You will find in the newly created directory `my-function-in-php`:
 - `src/Handler.php` : entrypoint
-- `src/php-extension.sh` : is for installing PHP extensions if needed
-- `src/composer.json` : is for dependency management
+- `php-extension.sh` : is for installing PHP extensions if needed
+- `composer.json` : is for dependency management
 
 ## Extra Extensions
 
