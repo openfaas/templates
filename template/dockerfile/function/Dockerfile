@@ -14,7 +14,7 @@ RUN apk --no-cache add curl \
     && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.4/fwatchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && cp /usr/bin/fwatchdog /home/app \
-    && apk del curl --no-cache
+    && apk del curl
     
 # Add non root user
 

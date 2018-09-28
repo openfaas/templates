@@ -8,7 +8,7 @@ RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
     && echo "Pulling watchdog binary from Github." \
     && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.4/fwatchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
-    && apk del curl --no-cache
+    && apk del curl
 
 # Add non root user
 RUN addgroup -S app && adduser app -S -G app
