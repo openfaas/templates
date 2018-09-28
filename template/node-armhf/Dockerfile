@@ -23,6 +23,7 @@ WORKDIR /root/
 ENV cgi_headers="true"
 
 ENV fprocess="node index.js"
+EXPOSE 8080
 
 HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
 
