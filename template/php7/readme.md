@@ -9,29 +9,29 @@ Templates are built using the latest minor version of the major release.
 ## Usage:
 
 ```shell
-faas-cli new my-function-php --lang php7
+faas-cli new my-function --lang php7
 ```
 
-You will find in the newly created directory `my-function-in-php`:
+You will find in the newly created directory `my-function`:
+
 - `src/Handler.php` : entrypoint
 - `php-extension.sh` : is for installing PHP extensions if needed
 - `composer.json` : is for dependency management
 
 ## Extra Extensions
 
-If you need to install Phalcon for example, check out the following gist - you can use
-that file in your function into your `src/php-extension.sh` file;
+If you need to install [Phalcon](https://github.com/phalcon) for example, check out the following sample which you could use in your functions `src/php-extension.sh` file;
 
-https://gist.github.com/andrew-s/07e152b7f981e8453da8d2d991d9aab4
+- [php-extension.sh-example](php-extension.sh-example)
 
 ## Private Composer Auth
 
-In some cases, you may need to use private composer repositories - using the faas-cli you can pass in
-a build argument during build - something like;
+In some cases, you may need to use private composer repositories - using the `faas-cli` you can pass in a build argument during build, for example;
 
 ```
-faas-cli build -f ./functions.yml --build-arg COMPOSER_AUTH='{"bitbucket-oauth": {"bitbucket.org": {"consumer-key": "xxxxxxxx","consumer-secret": "xxxxxxx"}}}'
+faas-cli build -f ./functions.yml \
+  --build-arg COMPOSER_AUTH='{"bitbucket-oauth": {"bitbucket.org": {"consumer-key": "xxxxxxxx","consumer-secret": "xxxxxxx"}}}'
 ```
-See more information at; https://getcomposer.org/doc/05-repositories.md#git-alternatives
+See more information [here](https://getcomposer.org/doc/05-repositories.md#git-alternatives).
 
-That way you can pass in tokens for composer, if necessary, GitHub tokens to get around rate-limit issues.
+That way you can pass in tokens for Composer, if necessary, GitHub tokens to get around rate-limit issues.
