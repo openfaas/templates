@@ -5,7 +5,7 @@ echo "Installing PHP extensions"
 # Add your extensions in here, an example is below
 # docker-php-ext-install mysqli
 #
-# You can use the example over at;
-# https://hub.docker.com/_/php/
+# See the template documentation for instructions on installing extensions;
+# - https://github.com/openfaas/templates/tree/master/template/php7
 #
 # You can also install any apk packages here
