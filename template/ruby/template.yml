@@ -1,8 +1,8 @@
 language: ruby
 fprocess: ruby index.rb
-build_options: 
+build_options:
   - name: dev
-    packages: 
+    packages:
       - make
       - automake
       - gcc
