@@ -1,10 +1,10 @@
 FROM armhf/python:3.6-alpine
 
 ARG ADDITIONAL_PACKAGE
-# Alternatively use ADD https:// (which will not be cached by Docker builder)
+
 RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \ 
     && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.4/fwatchdog-armhf > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.6/fwatchdog-armhf > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl --no-cache
 
@@ -34,6 +34,6 @@ COPY function           function
 ENV fprocess="python3 index.py"
 EXPOSE 8080
 
-HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
+HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["fwatchdog"]
