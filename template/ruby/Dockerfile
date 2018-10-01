@@ -1,11 +1,11 @@
-FROM ruby:2.4-alpine3.6
+FROM ruby:2.5.1-alpine3.7
 
 ARG ADDITIONAL_PACKAGE
 
 # Alternatively use ADD https:// (which will not be cached by Docker builder)
 RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
     && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.4/fwatchdog > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.6/fwatchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl --no-cache
 
