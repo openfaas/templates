@@ -3,7 +3,7 @@ FROM arm64v8/node:8.9.1
 RUN apt-get update -qy \
     && apt-get install -qy curl ca-certificates --no-install-recommends \ 
     && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.4/fwatchdog-arm64 > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.6/fwatchdog-arm64 > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && apt-get -qy remove curl \
     && apt-get clean \
@@ -36,6 +36,6 @@ ENV cgi_headers="true"
 ENV fprocess="node index.js"
 EXPOSE 8080
 
-HEALTHCHECK --interval=1s CMD [ -e /tmp/.lock ] || exit 1
+HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["fwatchdog"]
