@@ -11,16 +11,16 @@ RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
 
 WORKDIR /home/app
 
-COPY Gemfile    		.
-COPY index.rb           .
-COPY function           function
+COPY Gemfile   .
+COPY index.rb  .
+COPY function  function
 
 RUN bundle install \
   && mkdir -p /home/app/function
 
 WORKDIR /home/app/function
 
-RUN bundle install 
+RUN bundle install
 
 RUN addgroup -S app \
   && adduser app -S -G app
