@@ -20,7 +20,11 @@ WORKDIR /home/app
 
 COPY . /home/app/
 
-RUN gradle build
+# The distribution created by `gradle build` is modifying the jars, excluding all resources.
+# For that reason it is removed and created with `gradle distZip`
+RUN gradle build \
+    && rm /home/app/entrypoint/build/distributions/entrypoint* \
+    && gradle distZip
 
 FROM openjdk:8u121-jdk-alpine as ship
 RUN apk --no-cache add curl \

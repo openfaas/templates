@@ -13,6 +13,9 @@ plugins {
     // Apply the application plugin to add support for building an application
     id 'application'
 
+    // Apply the distribution plugin to add resources to entrypoint dist
+    id 'distribution'
+
 }
 
 // Define the main class for the application
@@ -27,6 +30,14 @@ dependencies {
 
     compile project(':model')
     compile project(':function')
+}
+
+sourceSets {
+    main {
+        resources {
+            srcDirs "src/main/resources"
+        }
+    }
 }
 
 jar {
