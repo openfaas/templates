@@ -72,7 +72,7 @@ public class App {
             //     System.out.println("Req header " + entry.getKey() + " " + entry.getValue());
             // }
 
-            IRequest req = new Request(requestBody, reqHeadersMap,t.getRequestURI().getRawQuery());
+            IRequest req = new Request(requestBody, reqHeadersMap,t.getRequestURI().getRawQuery(), t.getRequestURI().getPath());
             
             IResponse res = this.handler.Handle(req);
 
