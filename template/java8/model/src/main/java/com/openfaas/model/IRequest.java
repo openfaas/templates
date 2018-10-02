@@ -11,5 +11,6 @@ public interface IRequest {
     String getHeader(String key);
     String getQueryRaw();
     Map<String, String> getQuery();
+    String getPathRaw();
+    Map<String, String> getPath();
 }
-
