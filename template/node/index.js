@@ -12,7 +12,12 @@ getStdin().then(val => {
         if (err) {
             return console.error(err);
         }
-        if(isArray(res) || isObject(res)) {
+
+        if (!res) {
+            return;
+        }
+
+        if (isArray(res) || isObject(res)) {
             console.log(JSON.stringify(res));
         } else {
             process.stdout.write(res);
