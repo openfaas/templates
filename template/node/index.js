@@ -12,6 +12,9 @@ getStdin().then(val => {
         if (err) {
             return console.error(err);
         }
+        if (!res) {
+            return;
+        }
         if(isArray(res) || isObject(res)) {
             console.log(JSON.stringify(res));
         } else {
