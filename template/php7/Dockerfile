@@ -1,10 +1,10 @@
-# start with the official Composer image and name it
+# Start with the official Composer image and name it
 FROM composer:1.7 AS composer
 
-# continue with the official PHP image
+# Continue with the official PHP image
 FROM php:7.2-alpine
 
-# copy the Composer PHAR from the Composer image into the PHP image
+# Copy the Composer PHAR from the Composer image into the PHP image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
 
 # Composer requirements
@@ -17,26 +17,24 @@ RUN apk add --no-cache git && \
     curl -sSL https://github.com/openfaas/faas/releases/download/0.9.6/fwatchdog > /usr/bin/fwatchdog && \
     chmod +x /usr/bin/fwatchdog
 
-# create non-root user
+# Create non-root user
 RUN addgroup -S app && adduser -S -g app app && \
     mkdir -p /home/app
 
 # Import function
 WORKDIR /home/app
 COPY index.php ./
-COPY ./function ./function
 WORKDIR /home/app/function
 
-# Install php extensions
+# Install PHP extensions
+COPY ./function/php-extension.sh .
 RUN [[ -f php-extension.sh ]] && sh ./php-extension.sh && \
     chown -R app /home/app
 
-# Entry
+# Install Composer dependencies
+COPY ./function/composer* ./
 USER app
-
-# Install Composer Dependecies
 RUN [[ -f composer.lock || -f composer.json ]] && composer install --no-dev
-
 USER root
 
 # Cleanup
@@ -44,9 +42,11 @@ RUN apk del git && \
     rm -rf /usr/src/php && \
     { find /usr/local/lib -type f -print0 | xargs -0r strip --strip-all -p 2>/dev/null || true; }
 
-USER app
+# Copy the function source as very end to optimise building caches
+COPY ./function/ .
+RUN chown -R app /home/app
 
-WORKDIR /home/app
+USER app
 ENV fprocess="php index.php"
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 CMD ["fwatchdog"]
