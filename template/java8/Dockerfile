@@ -25,7 +25,7 @@ RUN gradle build
 FROM openjdk:8u121-jdk-alpine as ship
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.4.1/of-watchdog > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.4.2/of-watchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl
 
