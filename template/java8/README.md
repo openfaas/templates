@@ -22,3 +22,9 @@ Tests are supported with junit via files in `./src/test`
 
 External dependencies can be specified in ./build.gradle in the normal way using jcenter, a local JAR or some other remote repository.
 
+### Proxy settings for Gradle
+
+Specify proxy settings using the `gradle_opts` build argument
+```bash
+$ faas-cli up -b gradle_opts="-Dhttp.proxyHost=my-proxy -Dhttp.proxyPort=3128 -Dhttps.proxyHost=my-proxy -Dhttps.proxyPort=3128"
+```
