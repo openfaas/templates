@@ -25,7 +25,7 @@ This project is part of the OpenFaaS project licensed under the MIT License.
 | go-armhf | Go | 1.10.4 | Alpine Linux 3.8 | Classic | [Go armhf template](https://github.com/openfaas/templates/tree/master/template/go-armhf)
 | go | Go | 1.10.4 | Alpine Linux 3.8 | Classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 |java8 | Java | 8 | OpenJDK Alpine Linux | Classic | [Java template](https://github.com/openfaas/templates/tree/master/template/java8)
-| node-arm64 | NodeJS | 8.9.1 | N/A | Classic | [NodeJS arm64 template](https://github.com/openfaas/templates/tree/master/template/node-arm64)
+| node-arm64 | NodeJS | 8.9.1 | N/A | of-watchdog | [NodeJS arm64 template](https://github.com/openfaas/templates/tree/master/template/node-arm64)
 | node-armhf | NodeJS | N/A | Alpine Linux 3.6 | Classic | [NodeJS armhf template](https://github.com/openfaas/templates/tree/master/template/node-armhf) 
 | node | NodeJS | 8.9.1 | Alpine Linux | Classic | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node)
 | php7 | PHP | 7.2 | Alpine Linux | Classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
@@ -36,3 +36,5 @@ This project is part of the OpenFaaS project licensed under the MIT License.
 | ruby | Ruby | 2.5.1 | Alpine Linux 3.7 | Classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
 
 For more information on the templates check out the [docs](https://docs.openfaas.com/cli/templates/).
+
+See also: [of-watchdog](https://github.com/openfaas-incubator/of-watchdog).
