@@ -14,7 +14,7 @@ ENV COMPOSER_AUTH=${COMPOSER_AUTH}
 # Add watchdog and packages
 RUN apk add --no-cache git && \
     echo "Pulling watchdog binary from Github." && \
-    curl -sSL https://github.com/openfaas/faas/releases/download/0.9.6/fwatchdog > /usr/bin/fwatchdog && \
+    curl -sSL https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog > /usr/bin/fwatchdog && \
     chmod +x /usr/bin/fwatchdog
 
 # create non-root user
