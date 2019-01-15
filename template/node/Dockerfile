@@ -1,4 +1,4 @@
-FROM node:8.9.1-alpine
+FROM node:10.15.0-alpine
 
 RUN addgroup -S app && adduser app -S -G app
 RUN apk --no-cache add curl \
