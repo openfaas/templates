@@ -1,13 +1,10 @@
-FROM arm64v8/node:8.9.1
+FROM arm64v8/node:10.15.0-alpine
 
-RUN apt-get update -qy \
-    && apt-get install -qy curl ca-certificates --no-install-recommends \ 
+RUN apk --no-cache add ca-certificates curl \
     && echo "Pulling watchdog binary from Github." \
     && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog-arm64 > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
-    && apt-get -qy remove curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+    && apk del curl --no-cache
 
 WORKDIR /root/
 
@@ -16,7 +13,7 @@ ENV NPM_CONFIG_LOGLEVEL warn
 
 # Wrapper/boot-strapper
 COPY package.json       .
-RUN npm i
+RUN npm i --production
 
 # Function
 COPY index.js           .
@@ -24,15 +21,13 @@ RUN mkdir -p ./root/function
 
 COPY function/*.json    ./function/
 WORKDIR /root/function
-RUN npm i || :
+RUN npm i --production || :
 WORKDIR /root/
 COPY function           function
-WORKDIR /root/function
 
 WORKDIR /root/
 
 ENV cgi_headers="true"
-
 ENV fprocess="node index.js"
 EXPOSE 8080
 
