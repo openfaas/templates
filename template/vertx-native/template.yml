@@ -1,0 +1,2 @@
+language: vertx-native
+fprocess: vertx-fn
