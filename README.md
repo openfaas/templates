@@ -34,6 +34,7 @@ This project is part of the OpenFaaS project licensed under the MIT License.
 | python3-armhf | Python | 3.6 | Alpine Linux | Classic | [Python 3.6 armhf template](https://github.com/openfaas/templates/tree/master/template/python3-armhf)
 | python3 | Python | 3 | Alpine Linux | Classic | [Python 3 template](https://github.com/openfaas/templates/tree/master/template/python3)
 | ruby | Ruby | 2.5.1 | Alpine Linux 3.7 | Classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
+|vertx-native | Java | 8 | Alpine Linux 3.8 | of-watchdog | [Java template](https://github.com/openfaas/templates/tree/master/template/vertx-native)
 
 For more information on the templates check out the [docs](https://docs.openfaas.com/cli/templates/).
 
