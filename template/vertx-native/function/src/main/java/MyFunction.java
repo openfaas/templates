@@ -24,7 +24,7 @@ public class MyFunction implements Handler<RoutingContext> {
 
   @Override
   public void handle(RoutingContext ctx) {
-		ctx.response().end("Hi!");
+		ctx.response().end("Hello OpenFaaS!");
 	}
 
 }
