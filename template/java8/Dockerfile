@@ -1,4 +1,4 @@
-FROM openjdk:8u121-jdk-alpine as builder
+FROM openjdk:8-jdk-alpine as builder
 
 RUN apk --no-cache add curl \
     && addgroup -S app && adduser -S -g app app \
@@ -22,7 +22,7 @@ COPY . /home/app/
 
 RUN gradle build
 
-FROM openjdk:8u121-jdk-alpine as ship
+FROM openjdk:8-jdk-alpine as ship
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
     && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.4.6/of-watchdog > /usr/bin/fwatchdog \
