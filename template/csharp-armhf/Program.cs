@@ -9,19 +9,9 @@ namespace root
 {
     class Program
     {
-        private static string getStdin() {
-            StringBuilder buffer = new StringBuilder();
-            string s;
-            while ((s = Console.ReadLine()) != null)
-            {
-                buffer.AppendLine(s);
-            }
-            return buffer.ToString();
-        }
-
         static void Main(string[] args)
         {
-            string buffer = getStdin();
+            string buffer = Console.In.ReadToEnd();
             FunctionHandler f = new FunctionHandler();
 
             string responseValue = f.Handle(buffer);
