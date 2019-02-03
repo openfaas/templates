@@ -26,7 +26,7 @@ This project is part of the OpenFaaS project licensed under the MIT License.
 | go | Go | 1.10.4 | Alpine Linux 3.8 | Classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 |java8 | Java | 8 | OpenJDK Alpine Linux | of-watchdog | [Java template](https://github.com/openfaas/templates/tree/master/template/java8)
 | node-arm64 | NodeJS | 8.9.1 | N/A | Classic | [NodeJS arm64 template](https://github.com/openfaas/templates/tree/master/template/node-arm64)
-| node-armhf | NodeJS | N/A | Alpine Linux 3.6 | Classic | [NodeJS armhf template](https://github.com/openfaas/templates/tree/master/template/node-armhf) 
+| node-armhf | NodeJS | N/A | Alpine Linux 3.6 | Classic | [NodeJS armhf template](https://github.com/openfaas/templates/tree/master/template/node-armhf)
 | node | NodeJS | 8.9.1 | Alpine Linux | Classic | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node)
 | php7 | PHP | 7.2 | Alpine Linux | Classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
 | python-armhf | Python | 2.7 | Alpine Linux | Classic | [Python 2.7 armhf template](https://github.com/openfaas/templates/tree/master/template/python-armhf)

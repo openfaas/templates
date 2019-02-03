@@ -8,7 +8,7 @@ RUN apk --no-cache add curl \
     && chmod +x /usr/bin/fwatchdog \
     && cp /usr/bin/fwatchdog /home/app \
     && apk del curl --no-cache
-    
+
 # Add non root user
 RUN addgroup -S app && adduser app -S -G app
 
