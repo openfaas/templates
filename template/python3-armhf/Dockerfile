@@ -2,7 +2,7 @@ FROM armhf/python:3.6-alpine
 
 ARG ADDITIONAL_PACKAGE
 
-RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \ 
+RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
     && echo "Pulling watchdog binary from Github." \
     && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog-armhf > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
