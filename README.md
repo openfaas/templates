@@ -22,6 +22,7 @@ This project is part of the OpenFaaS project licensed under the MIT License.
 |:-----|:---------|:--------|:-----------|:---------|:----
 | csharp | C# | N/A | Alpine Linux 3.8 | Classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
 | dockerfile | Dockerfile | N/A | Alpine Linux 3.8 | Classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
+| dockerfile-arm32v6 | Dockerfile | N/A | Alpine Linux 3.8 | Classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile-arm32v6)
 | go-armhf | Go | 1.10.4 | Alpine Linux 3.8 | Classic | [Go armhf template](https://github.com/openfaas/templates/tree/master/template/go-armhf)
 | go | Go | 1.10.4 | Alpine Linux 3.8 | Classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 |java8 | Java | 8 | OpenJDK Alpine Linux | of-watchdog | [Java template](https://github.com/openfaas/templates/tree/master/template/java8)
