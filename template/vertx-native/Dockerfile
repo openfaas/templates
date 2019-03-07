@@ -1,5 +1,5 @@
 # Get a build environment
-FROM oracle/graalvm-ce:1.0.0-rc11 as build-aot
+FROM oracle/graalvm-ce:1.0.0-rc13 as build-aot
 
 # Set working dir
 RUN mkdir /app
@@ -34,9 +34,9 @@ RUN mkdir -p /home/app
 # Wrapper/boot-strapper
 WORKDIR /home/app
 # Copy the SUNEC lib from graal to the final image
-COPY --from=build-aot /opt/graalvm-ce-1.0.0-rc11/jre/lib/amd64/libsunec.so /usr/lib/libsunec.so
+COPY --from=build-aot /opt/graalvm-ce-1.0.0-rc13/jre/lib/amd64/libsunec.so /usr/lib/libsunec.so
 # Copy generated native executable from build-aot
-COPY --from=build-aot /app/function/target/xyz.jetdrone.openfaas.vertx.entrypoint /usr/bin/vertx-fn
+COPY --from=build-aot /app/function/target/vertx-fn /usr/bin/vertx-fn
 
 USER app
 

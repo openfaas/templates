@@ -11,7 +11,7 @@
   <description>OpenFAAS GraalVM native image Fn template</description>
 
   <properties>
-    <graalvm.version>1.0.0-rc11</graalvm.version>
+    <graalvm.version>1.0.0-rc13</graalvm.version>
     <maven.compiler.target>1.8</maven.compiler.target>
     <maven.compiler.source>1.8</maven.compiler.source>
   </properties>
