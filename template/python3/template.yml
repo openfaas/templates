@@ -1,6 +1,6 @@
 language: python3
 fprocess: python3 index.py
-build_options: 
+build_options:
   - name: dev
     packages: 
       - make

@@ -1,6 +1,10 @@
 FROM golang:1.10.4-alpine3.8 as builder
 
-RUN apk --no-cache add curl \
+# Allows you to add additional packages via build-arg
+ARG ADDITIONAL_PACKAGE
+ARG CGO_ENABLED=0
+
+RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
     && echo "Pulling watchdog binary from Github." \
     && curl -sSL https://github.com/openfaas/faas/releases/download/0.9.14/fwatchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
@@ -12,7 +16,7 @@ COPY . .
 # Run a gofmt and exclude all vendored code.
 RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./function/vendor/*"))" || { echo "Run \"gofmt -s -w\" on your Golang code"; exit 1; }
 
-RUN CGO_ENABLED=0 GOOS=linux \
+RUN CGO_ENABLED=${CGO_ENABLED} GOOS=linux \
     go build --ldflags "-s -w" -a -installsuffix cgo -o handler . && \
     go test $(go list ./... | grep -v /vendor/) -cover
 
