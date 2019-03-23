@@ -7,7 +7,7 @@ WORKDIR /app
 COPY . .
 RUN swiftc function/handler.swift main.swift -o handler
 
-RUN curl -sSL https://github.com/openfaas/faas/releases/download/0.8.0/fwatchdog > ./fwatchdog
+RUN curl -sSL https://github.com/openfaas/faas/releases/download/0.9.4/fwatchdog > ./fwatchdog
 RUN chmod +x ./fwatchdog
 
 ENV fprocess="./handler"
