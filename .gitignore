@@ -4,3 +4,4 @@ build
 .project
 .gradle
 .idea
+template/java8/**/bin/
