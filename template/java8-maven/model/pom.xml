@@ -10,13 +10,6 @@
 
 	<name>model</name>
 
-<!--	<parent>-->
-<!--		<groupId>com.kamesh.faas</groupId>-->
-<!--		<artifactId>java8-maven</artifactId>-->
-<!--		<version>1.0</version>-->
-<!--		<relativePath></relativePath>-->
-<!--	</parent>-->
-
 	<dependencies>
 		<dependency>
 			<groupId>com.google.guava</groupId>
