@@ -24,7 +24,7 @@ RUN unzip ./entrypoint-1.0.jar
 RUN chown -R app /home/app
 USER app
 
-ENV upstream_url="http://127.0.0.1:8081"
+ENV upstream_url="http://127.0.0.1:8082"
 ENV mode="http"
 ENV CLASSPATH="/home/app/entrypoint-1.0/lib/*"
 
