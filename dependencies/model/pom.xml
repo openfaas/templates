@@ -1,0 +1,184 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>com.openfaas.template.java</groupId>
+	<artifactId>model</artifactId>
+	<version>1.0.0</version>
+	<packaging>jar</packaging>
+
+	<name>${project.groupId}:${project.artifactId}</name>
+	<description>A data model dependency for OpenFaaS function using java8 template.</description>
+	<url>https://github.com/openfaas/templates/dependencies</url>
+	<organization>
+		<name>OpenFaaS</name>
+		<url>https://www.openfaas.com</url>
+	</organization>
+	<licenses>
+		<license>
+			<name>MIT License</name>
+			<url>http://www.opensource.org/licenses/mit-license.php</url>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<id>alexellis</id>
+			<name>Alex Ellis</name>
+			<email>alexellis2@gmail.com</email>
+		</developer>
+		<developer>
+			<id>kameshc</id>
+			<name>Kamesh Chauhan</name>
+			<email>kamesh.chauhan@gmail.com</email>
+		</developer>
+		<developer>
+			<id>ivanayov</id>
+			<name>Ivana Yovcheva (VMware)</name>
+			<email>iyovcheva@vmware.com</email>
+		</developer>
+		<developer>
+			<id>mattnelson</id>
+			<name>Matt Nelson</name>
+			<email>matt.a.nelson@gmail.com</email>
+		</developer>
+		<developer>
+			<id>richierich1610</id>
+			<name>Richhpal Gora</name>
+			<email>richhpalgora1610@gmail.com</email>
+		</developer>
+	</developers>
+	<contributors>
+		<contributor>
+			<name>OpenFaaS contributors</name>
+			<organization>OpenFaaS</organization>
+			<email></email>
+			<url>https://github.com/openfaas/templates/graphs/contributors</url>
+			<roles>
+				<role>developers</role>
+			</roles>
+		</contributor>
+	</contributors>
+	<scm>
+		<connection>scm:git:git://github.com/openfaas/templates/tree/master/template</connection>
+		<developerConnection>scm:git:git@github.com:openfaas/templates.git</developerConnection>
+		<url>http://github.com/openfaas/templates/tree/master</url>
+		<tag>1.0</tag>
+	</scm>
+	<issueManagement>
+		<system>github</system>
+		<url>https://github.com/openfaas/templates/issues</url>
+	</issueManagement>
+	<distributionManagement>
+		<downloadUrl>https://github.com/openfaas/templates/wiki/Download-and-Install</downloadUrl>
+		<snapshotRepository>
+			<id>ossrh</id>
+			<name>Nexus Snapshot Repository</name>
+			<url>https://oss.sonatype.org/content/repositories/snapshots/</url>
+		</snapshotRepository>
+		<repository>
+			<id>ossrh</id>
+			<name>Nexus Release Repository</name>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2/</url>
+		</repository>
+		<site>
+			<id>com.openfaas.template</id>
+			<url>gitsite:git@github.com/openfaas/templates.git</url>
+		</site>
+	</distributionManagement>
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<jdkVersion>1.8</jdkVersion>
+		<arguments />
+		<maven.compiler.source>1.8</maven.compiler.source>
+		<maven.compiler.target>1.8</maven.compiler.target>
+		<gpg.keyname>10551C440B863FCE84CF35C0FA0DEDF45D1B627D</gpg.keyname>
+	</properties>
+	<dependencies>
+		<dependency>
+			<groupId>com.google.guava</groupId>
+			<artifactId>guava</artifactId>
+			<version>27.1-jre</version>
+		</dependency>
+		<dependency>
+			<groupId>junit</groupId>
+			<artifactId>junit</artifactId>
+			<version>4.12</version>
+			<scope>test</scope>
+		</dependency>
+		<dependency>
+			<groupId>org.apache.commons</groupId>
+			<artifactId>commons-math3</artifactId>
+			<version>3.6.1</version>
+		</dependency>
+	</dependencies>
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-jar-plugin</artifactId>
+				<version>3.1.1</version>
+				<configuration>
+					<archive>
+						<manifestEntries>
+							<mode>development</mode>
+						</manifestEntries>
+					</archive>
+				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.10.4</version>
+				<executions>
+					<execution>
+						<id>attach-javadocs</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-gpg-plugin</artifactId>
+				<version>1.5</version>
+				<executions>
+					<execution>
+						<id>sign-artifacts</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>sign</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+			<plugin>
+				<groupId>org.sonatype.plugins</groupId>
+				<artifactId>nexus-staging-maven-plugin</artifactId>
+				<version>1.6.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<serverId>ossrh</serverId>
+					<nexusUrl>https://oss.sonatype.org/</nexusUrl>
+					<autoReleaseAfterClose>true</autoReleaseAfterClose>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+</project>
