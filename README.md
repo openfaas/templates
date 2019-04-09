@@ -2,13 +2,21 @@
 
 Official OpenFaaS templates.
 
+[![Build Status](https://travis-ci.org/openfaas/templates.svg?branch=master)](https://travis-ci.org/openfaas/templates)
+
 To find out more about the OpenFaaS templates see the [faas-cli](https://github.com/openfaas/faas-cli).
 
 > Note: The templates are completely customizable - so if you want to alter them please do fork them and use `faas template pull` to make use of your updated versions.
 
 The current version of OpenFaaS templates use the original `watchdog` which `forks` processes - a bit like CGI. The newer watchdog [of-watchdog](https://github.com/openfaas-incubator/of-watchdog) is more similar to fastCGI/HTTP and should be used for any benchmarking or performance testing along with one of the newer templates. Contact the project for more information.
 
-### Templates Developers / Contributors
+### Submit your own template to the template store
+
+This repository is for templates supported by the project maintainers, if you'd like to submit your own template to the OpenFaaS Template Store then checkout the store:
+
+* [OpenFaaS Store](https://github.com/openfaas/store/)
+
+### Contribute to this repository
 
 See [contributing guide](https://github.com/openfaas/templates/blob/master/CONTRIBUTING.md).
 
