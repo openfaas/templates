@@ -19,4 +19,8 @@ subprojects {
     // jar {
     //     manifest.attributes provider: 'gradle'
     // }
+
+    // Make sure code java is compiled at 1.8
+    sourceCompatibility = 1.8
+    targetCompatibility = 1.8
 }

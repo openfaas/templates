@@ -30,3 +30,7 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+// Make sure code java is compiled at 1.8
+sourceCompatibility = 1.8
+targetCompatibility = 1.8
