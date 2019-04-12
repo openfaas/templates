@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.openfaas.template.java</groupId>
+    <artifactId>java8-maven</artifactId>
+    <version>1.0.0</version>
+    <name>${project.groupId}:${project.artifactId}</name>
+    <description>An OpenFaaS function using java8 Maven template.</description>
+    <url>https://github.com/openfaas/templates/template/java8-maven</url>
+    <organization>
+        <name>OpenFaaS</name>
+        <url>https://www.openfaas.com</url>
+    </organization>
+    <licenses>
+        <license>
+            <name>MIT License</name>
+            <url>http://www.opensource.org/licenses/mit-license.php</url>
+        </license>
+    </licenses>
+
+    <developers>
+        <developer>
+            <id>kameshc</id>
+            <name>Kamesh Chauhan</name>
+            <email>kamesh.chauhan@gmail.com</email>
+        </developer>
+        <developer>
+            <id>alexellis</id>
+            <name>Alex Ellis</name>
+            <email>alexellis2@gmail.com</email>
+        </developer>
+    </developers>
+
+    <contributors>
+        <contributor>
+            <name>OpenFaaS contributors</name>
+            <organization>OpenFaaS</organization>
+            <email></email>
+            <url>https://github.com/openfaas/templates/graphs/contributors</url>
+            <roles>
+                <role>developers</role>
+            </roles>
+        </contributor>
+    </contributors>
+
+    <scm>
+        <connection>scm:git:git://github.com/kameshchauhan/templates/</connection>
+        <developerConnection>scm:git:git@github.com:kameshchauhan/templates.git</developerConnection>
+        <url>http://github.com/kameshchauhan/templates/tree/master</url>
+        <tag>1.0</tag>
+    </scm>
+
+    <issueManagement>
+        <system>github</system>
+        <url>https://github.com/openfaas/templates/issues</url>
+    </issueManagement>
+
+    <packaging>pom</packaging>
+    <modules>
+        <module>function</module>
+    </modules>
+</project>
