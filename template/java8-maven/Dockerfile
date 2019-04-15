@@ -1,16 +1,16 @@
 FROM maven:3.6.0-jdk-8-alpine as builder
 
 RUN mkdir -p /home/app/libs
+RUN mkdir -p /root/.m2/repository/com/openfaas/template/java
 
 ENV MAVEN_OPTS=""
-RUN mkdir -p /root/.m2/repository/com/openfaas/template/java
 
 WORKDIR /home/app
 
 COPY . /home/app/
 
+# to be removed once dependencies are on maven central
 RUN cp -v -R  /home/app/function/lib/com/openfaas/* /root/.m2/repository/com/openfaas
-
 
 WORKDIR /home/app
 
@@ -25,7 +25,8 @@ RUN apk --no-cache add curl \
 
 RUN addgroup -S app && adduser -S -g app app
 WORKDIR /home/app
-COPY --from=builder /home/app/function/target/function-1.0.0-jar-with-dependencies.jar ./function-1.0.0.jar
+ARG artifactId=function
+COPY --from=builder /home/app/function/target/$artifactId-1.0.0-jar-with-dependencies.jar ./function-1.0.0.jar
 RUN unzip ./function-1.0.0.jar
 
 RUN chown -R app /home/app
