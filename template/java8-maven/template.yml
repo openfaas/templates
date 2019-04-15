@@ -1,3 +1,4 @@
 language: java8-maven
 welcome_message: |
-  You have created a new function which uses Java8 with Maven as builder.
+  You have created a new function which uses Java8 with Maven as builder. Add the new dependencies in a standard POM
+  from Maven Central or Private Repository or from local file-system.
