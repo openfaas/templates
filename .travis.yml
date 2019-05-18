@@ -1,16 +1,20 @@
-sudo: required
+language: java
+sudo: false
 
-services:
-      - docker
+cache:
+  directories:
+    - $HOME/.m2
 
-addons:
-  apt:
-    packages:
-      - docker-ce
+jdk:
+  - oraclejdk11
+  - openjdk9
+  - openjdk8
 
-install:
+git:
+  quiet: true
 
-before_install:
-
-script:
-- ./verify.sh
+stages:
+  - compile
+  - test
+  - name: deploy
+    if: branch = master
