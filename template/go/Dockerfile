@@ -18,7 +18,7 @@ RUN CGO_ENABLED=${CGO_ENABLED} GOOS=linux \
     go build --ldflags "-s -w" -a -installsuffix cgo -o handler . && \
     go test $(go list ./... | grep -v /vendor/) -cover
 
-FROM alpine:3.8
+FROM alpine:3.9
 RUN apk --no-cache add \
     ca-certificates
 
@@ -29,7 +29,6 @@ RUN mkdir -p /home/app
 WORKDIR /home/app
 
 COPY --from=builder /usr/bin/fwatchdog         .
-
 COPY --from=builder /go/src/handler/function/  .
 COPY --from=builder /go/src/handler/handler    .
 
