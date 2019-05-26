@@ -1,4 +1,4 @@
-FROM openfaas/classic-watchdog:0.13.1-x86_64 as watchdog
+FROM openfaas/classic-watchdog:0.13.1-armhf as watchdog
 
 FROM alpine:3.9
 
@@ -22,6 +22,6 @@ ENV write_debug="false"
 
 EXPOSE 8080
 
-HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
+HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["fwatchdog"]
