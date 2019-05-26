@@ -1,14 +1,14 @@
+FROM openfaas/classic-watchdog:0.13.1-x86_64 as watchdog
+
 FROM python:3-alpine
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
 
-# Alternatively use ADD https:// (which will not be cached by Docker builder)
-RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
-    && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.13.0/fwatchdog > /usr/bin/fwatchdog \
-    && chmod +x /usr/bin/fwatchdog \
-    && apk del curl --no-cache
+COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
+RUN chmod +x /usr/bin/fwatchdog
+RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE}
+
 
 # Add non root user
 RUN addgroup -S app && adduser app -S -G app
@@ -19,7 +19,7 @@ COPY index.py           .
 COPY requirements.txt   .
 
 RUN chown -R app /home/app && \
-  mkdir -p /home/app/py && chown -R app /home/app
+  mkdir -p /home/app/python && chown -R app /home/app
 USER app
 ENV PATH=$PATH:/home/app/.local/bin:/home/app/python/bin/
 ENV PYTHONPATH=$PYTHONPATH:/home/app/python
