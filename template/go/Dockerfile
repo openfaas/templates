@@ -1,14 +1,12 @@
+FROM openfaas/classic-watchdog:0.13.1-x86_64 as watchdog
 FROM golang:1.10.4-alpine3.8 as builder
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
 ARG CGO_ENABLED=0
 
-RUN apk --no-cache add curl ${ADDITIONAL_PACKAGE} \
-    && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.13.0/fwatchdog > /usr/bin/fwatchdog \
-    && chmod +x /usr/bin/fwatchdog \
-    && apk del curl --no-cache
+COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
+RUN chmod +x /usr/bin/fwatchdog
 
 WORKDIR /go/src/handler
 COPY . .
@@ -21,7 +19,8 @@ RUN CGO_ENABLED=${CGO_ENABLED} GOOS=linux \
     go test $(go list ./... | grep -v /vendor/) -cover
 
 FROM alpine:3.8
-RUN apk --no-cache add ca-certificates
+RUN apk --no-cache add \
+    ca-certificates
 
 # Add non root user
 RUN addgroup -S app && adduser -S -g app app
