@@ -40,6 +40,6 @@ USER app
 ENV fprocess="./handler"
 EXPOSE 8080
 
-HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
+HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["./fwatchdog"]
