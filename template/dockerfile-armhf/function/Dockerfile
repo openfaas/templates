@@ -1,4 +1,4 @@
-FROM openfaas/classic-watchdog:0.13.1-armhf as watchdog
+FROM openfaas/classic-watchdog:0.13.4 as watchdog
 
 FROM alpine:3.9
 
