@@ -28,13 +28,14 @@ This project is part of the OpenFaaS project licensed under the MIT License.
 
 | Name | Language | Version | Linux base | Watchdog | Link
 |:-----|:---------|:--------|:-----------|:---------|:----
-| csharp | C# | N/A | Alpine Linux 3.8 | Classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
-| dockerfile | Dockerfile | N/A | Alpine Linux 3.8 | Classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
-| go-armhf | Go | 1.10.4 | Alpine Linux 3.8 | Classic | [Go armhf template](https://github.com/openfaas/templates/tree/master/template/go-armhf)
-| go | Go | 1.10.4 | Alpine Linux 3.8 | Classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
+| csharp | C# | N/A | Debian GNU/Linux 9 | Classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
+| dockerfile | Dockerfile | N/A | Alpine Linux | Classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
+| dockerfile-armhf | Dockerfile for ARMHF | N/A | Alpine Linux 3.9 | Classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
+| go-armhf | Go | 1.10.8 | Alpine Linux | Classic | [Go armhf template](https://github.com/openfaas/templates/tree/master/template/go-armhf)
+| go | Go | 1.10.8 | Alpine Linux | Classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 |java8 | Java | 8 | OpenJDK Alpine Linux | of-watchdog | [Java template](https://github.com/openfaas/templates/tree/master/template/java8)
 | node-arm64 | NodeJS | 8.9.1 | N/A | Classic | [NodeJS arm64 template](https://github.com/openfaas/templates/tree/master/template/node-arm64)
-| node-armhf | NodeJS | N/A | Alpine Linux 3.6 | Classic | [NodeJS armhf template](https://github.com/openfaas/templates/tree/master/template/node-armhf)
+| node-armhf | NodeJS | N/A | Alpine Linux | Classic | [NodeJS armhf template](https://github.com/openfaas/templates/tree/master/template/node-armhf)
 | node | NodeJS | 8.9.1 | Alpine Linux | Classic | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node)
 | php7 | PHP | 7.2 | Alpine Linux | Classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
 | python-armhf | Python | 2.7 | Alpine Linux | Classic | [Python 2.7 armhf template](https://github.com/openfaas/templates/tree/master/template/python-armhf)
