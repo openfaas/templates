@@ -28,3 +28,6 @@ repositories {
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
 }
+
+sourceCompatibility = JavaVersion.VERSION_1_8
+targetCompatibility = JavaVersion.VERSION_1_8
