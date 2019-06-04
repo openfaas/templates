@@ -1,5 +1,3 @@
-FROM openfaas/classic-watchdog:0.13.4 as watchdog
-
 # start with the official Composer image and name it
 FROM composer:1.7 AS composer
 
@@ -13,10 +11,11 @@ COPY --from=composer /usr/bin/composer /usr/bin/composer
 ARG COMPOSER_AUTH='{}'
 ENV COMPOSER_AUTH=${COMPOSER_AUTH}
 
-COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
-RUN chmod +x /usr/bin/fwatchdog
-
-RUN apk add --no-cache git
+# Add watchdog and packages
+RUN apk add --no-cache git && \
+    echo "Pulling watchdog binary from Github." && \
+    curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.4.6/of-watchdog > /usr/bin/fwatchdog && \
+    chmod +x /usr/bin/fwatchdog
 
 # create non-root user
 RUN addgroup -S app && adduser -S -g app app && \
@@ -49,5 +48,7 @@ USER app
 
 WORKDIR /home/app
 ENV fprocess="php index.php"
+EXPOSE 8080
+
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 CMD ["fwatchdog"]

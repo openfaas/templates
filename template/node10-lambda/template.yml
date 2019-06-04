@@ -1,0 +1,2 @@
+language: node10-lambda
+fprocess: entrypoint.sh

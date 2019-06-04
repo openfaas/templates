@@ -6,7 +6,7 @@ namespace Function
     public class FunctionHandler
     {
         public string Handle(string input) {
-            return $"Hi there - your input was: {input}\n";
+            return string.Format("Hi there - your input was: {0}\n", input);
         }
     }
 }

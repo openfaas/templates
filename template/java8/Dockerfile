@@ -1,4 +1,4 @@
-FROM openjdk:8u131-jdk-alpine as builder
+FROM openjdk:8u121-jdk-alpine as builder
 
 RUN apk --no-cache add curl \
     && addgroup -S app && adduser -S -g app app \
@@ -22,13 +22,11 @@ COPY . /home/app/
 
 RUN gradle build
 
-FROM openjdk:8u131-jdk-alpine as ship
-
-ARG WATCHDOG_VERSION=0.5.1
+FROM openjdk:8u121-jdk-alpine as ship
 
 RUN apk --no-cache add curl \
     && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/$WATCHDOG_VERSION/of-watchdog > /usr/bin/fwatchdog \
+    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/0.4.6/of-watchdog > /usr/bin/fwatchdog \
     && chmod +x /usr/bin/fwatchdog \
     && apk del curl
 
@@ -40,11 +38,11 @@ RUN unzip ./entrypoint-1.0.zip
 RUN chown -R app /home/app
 USER app
 
-ENV upstream_url="http://127.0.0.1:8082"
+ENV upstream_url="http://127.0.0.1:8081"
 ENV mode="http"
 ENV CLASSPATH="/home/app/entrypoint-1.0/lib/*"
 
-ENV fprocess="java -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap com.openfaas.entrypoint.App"
+ENV fprocess="java com.openfaas.entrypoint.App"
 EXPOSE 8080
 
 HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1

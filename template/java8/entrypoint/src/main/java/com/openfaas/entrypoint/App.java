@@ -21,7 +21,7 @@ import com.openfaas.model.*;
 public class App {
 
     public static void main(String[] args) throws Exception {
-        int port = 8082;
+        int port = 8081;
 
         IHandler handler = new com.openfaas.function.Handler();
 

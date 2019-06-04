@@ -1,6 +1,0 @@
-language: node
-fprocess: node index.js
-welcome_message: |
-  You have created a new function which uses Node.js 8.9.1.
-  npm i --save can be used to add third-party packages like request or cheerio
-  npm documentation: https://docs.npmjs.com/

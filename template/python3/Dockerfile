@@ -1,53 +1,49 @@
-FROM openfaas/classic-watchdog:0.13.4 as watchdog
-
-FROM python:3-alpine
+FROM python:3.7-alpine
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
 
-COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
-RUN chmod +x /usr/bin/fwatchdog
-RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE}
+# add non-root user
+RUN addgroup -S app && adduser -S -g app app
 
+# Alternatively use ADD https:// (which will not be cached by Docker builder)
+RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE} \
+    && echo "Pulling watchdog binary from Github." \
+    && apk del curl --no-cache
 
-# Add non root user
-RUN addgroup -S app && adduser app -S -G app
+# precompile python
+RUN python -m compileall /usr/local # precompile
 
-WORKDIR /home/app/
+USER app
+ENV PATH=$PATH:/home/app/.local/bin
+
+WORKDIR /home/app
 
 COPY index.py           .
 COPY requirements.txt   .
 
-RUN chown -R app /home/app && \
-  mkdir -p /home/app/python && chown -R app /home/app
-USER app
-ENV PATH=$PATH:/home/app/.local/bin:/home/app/python/bin/
-ENV PYTHONPATH=$PYTHONPATH:/home/app/python
+# install base requirements
+RUN pip install --user -r requirements.txt
 
-RUN pip install -r requirements.txt --target=/home/app/python
-
-RUN mkdir -p function
-RUN touch ./function/__init__.py
-
-WORKDIR /home/app/function/
+# install function requirements
+WORKDIR /home/app/function
 COPY function/requirements.txt	.
+RUN pip install --user -r requirements.txt
 
-RUN pip install -r requirements.txt --target=/home/app/python
-
-WORKDIR /home/app/
+# copy function
+WORKDIR /home/app
+COPY function   function
 
 USER root
+RUN touch function/__init__.py \
+    && chown -R app:app .
 
-COPY function           function
-
-RUN chown -R app:app ./ && \
-  chmod -R 777 /home/app/python
-
+# precompile python
 USER app
+RUN python -m compileall .
 
-ENV fprocess="python3 index.py"
 EXPOSE 8080
 
-HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
+HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
 
-CMD ["fwatchdog"]
+CMD ["python", "index.py"]
