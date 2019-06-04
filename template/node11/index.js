@@ -61,7 +61,7 @@ const handle_metrics = (req, res) => {
     res.end(prometheus.register.metrics())
 }
 
-app.get('/_/metrics', handle_metrics)
+app.get('/*/_/metrics', handle_metrics)
 app.all('/*', handle_function)
 
 const server = http.createServer(app)

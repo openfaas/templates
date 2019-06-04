@@ -35,7 +35,7 @@ COPY function/ ./
 # Set correct permissions to use non root user
 WORKDIR /home/app/
 
-# workaround for faas-netes
+# faas-netes workaround
 RUN touch /tmp/.lock
 
 # chmod for tmp is for a buildkit issue (@alexellis)

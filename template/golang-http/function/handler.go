@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"net/http"
 
-	"github.com/openfaas-incubator/go-function-sdk"
+	handler "github.com/openfaas-incubator/go-function-sdk"
 )
 
 // Handle a function invocation
