@@ -6,11 +6,7 @@ In order to begin experimenting with EdgeFunctions on the Verizon Media Platform
 ## Table of Contents
 
 - [Background](#background)
-- [Support](#support)
-- [Requirements](#requirements)
-- [Usage](#usage)
-- [Security](#security)
-- [API](#api)
+- [Install](#install)
 - [Contribute](#contribute)
 - [License](#license)
 
@@ -28,7 +24,7 @@ git clone https://github.com/EdgeFunctions/faas-templates.git
 
 ## Contribute
 
-Please refer to [the contributing.md file](Contributing.md) for information about how to get involved. We welcome issues, questions, and pull requests. Pull Requests are welcome.
+We welcome issues, questions, and pull requests. Pull Requests are welcome.
 
 ## Maintainers
 This project is past of a pre-alpha developer preview. It might not be supported in the future, depending on the direction of the product we are building. Contact eb@vdms.io with any questions.

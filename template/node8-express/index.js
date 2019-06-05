@@ -1,3 +1,4 @@
+// Some portions of this code are Copyright 2019 Oath Inc. Licensed under the terms of the project license.
 // Copyright (c) Alex Ellis 2017. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 

@@ -1,3 +1,5 @@
+# Some portions of this code are Copyright 2019 Oath Inc. Licensed under the terms of the project license.
+
 FROM python:3.7-alpine
 
 # Allows you to add additional packages via build-arg

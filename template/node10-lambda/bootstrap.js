@@ -1,3 +1,6 @@
+// Copyright (c) Oath, Inc 2019. All rights reserved.
+// Licensed under the MIT license. See LICENSE file in the project root for full license information.
+
 const http = require('http')
 const { promisify } = require('util')
 
