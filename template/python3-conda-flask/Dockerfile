@@ -14,7 +14,7 @@ RUN apk --no-cache add curl ca-certificates musl-dev gcc make ${ADDITIONAL_PACKA
     && apk del curl --no-cache
 
 # precompile python
-RUN python -m compileall /usr/local # precompile
+#RUN python -m compileall /usr/local # precompile
 
 USER app
 ENV PATH=$PATH:/home/app/.local/bin
@@ -48,7 +48,7 @@ WORKDIR /home/app
 
 # precompile python
 USER app
-RUN python -m compileall .
+#RUN python -m compileall .
 
 ENV fprocess="python index.py" \
     cgi_headers="true" \

@@ -14,7 +14,7 @@ RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE} \
     && apk del curl --no-cache
 
 # precompile python
-RUN python -m compileall /usr/local # precompile
+#RUN python -m compileall /usr/local # precompile
 
 USER app
 ENV PATH=$PATH:/home/app/.local/bin
@@ -42,7 +42,7 @@ RUN touch function/__init__.py \
 
 # precompile python
 USER app
-RUN python -m compileall .
+#RUN python -m compileall .
 
 EXPOSE 8080
 
