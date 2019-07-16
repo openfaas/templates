@@ -1,11 +1,12 @@
-FROM node:8.9.1-alpine
+FROM openfaas/of-watchdog:0.5.3 as watchdog
 
-RUN addgroup -S app && adduser app -S -G app
-RUN apk --no-cache add curl \
-    && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.13.0/fwatchdog > /usr/bin/fwatchdog \
-    && chmod +x /usr/bin/fwatchdog \
-    && apk del curl --no-cache
+FROM node:10.12.0-alpine as ship
+
+COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
+RUN chmod +x /usr/bin/fwatchdog
+
+RUN apk --no-cache add curl ca-certificates \
+    && addgroup -S app && adduser -S -g app app
 
 WORKDIR /root/
 
@@ -19,33 +20,38 @@ WORKDIR /home/app
 COPY package.json ./
 
 # This ordering means the npm installation is cached for the outer function handler.
-RUN npm i --production
+RUN npm i
 
 # Copy outer function handler
 COPY index.js ./
 
 # COPY function node packages and install, adding this as a separate
-# entry allows caching of npm install runtime dependencies
+# entry allows caching of npm install
 WORKDIR /home/app/function
 COPY function/*.json ./
-RUN npm i --production || :
+RUN npm i || :
 
-# Copy in additional function files and folders
-COPY --chown=app:app function/ .
+# COPY function files and folders
+COPY function/ ./
 
+# Set correct permissions to use non root user
 WORKDIR /home/app/
 
 # chmod for tmp is for a buildkit issue (@alexellis)
-RUN chmod +rx -R ./function \
-    && chown app:app -R /home/app \
+RUN chown app:app -R /home/app \
     && chmod 777 /tmp
 
 USER app
 
 ENV cgi_headers="true"
 ENV fprocess="node index.js"
-EXPOSE 8080
+ENV mode="http"
+ENV upstream_url="http://127.0.0.1:3000"
 
+ENV exec_timeout="10s"
+ENV write_timeout="15s"
+ENV read_timeout="15s"
+EXPOSE 8080
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["fwatchdog"]
