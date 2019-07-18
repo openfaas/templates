@@ -23,8 +23,13 @@ $data = $request->getRequestData('array');
 route($request);
 
 function route($request) {
+    //Response::init();
     $response = (new App\Handler())->handle($request);
-    echo Response::createResponse($response->StatusCode, $response->Body);
+    $body = array();
+    $body['body'] = $response->Body;
+    $headers = array();
+    $headers['headers'] = json_encode($response->Headers);
+    echo Response::createResponse($response->StatusCode, json_encode(array_merge($body, $headers)));
     exit();
 }
 

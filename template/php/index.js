@@ -13,7 +13,6 @@ app.disable('x-powered-by');
 
 var middleware = async (req, res) => {
     try {
-        console.log(req.headers)
         let options = {
             url: 'http://localhost:9000',
             method: 'POST',
@@ -21,11 +20,24 @@ var middleware = async (req, res) => {
             headers: req.headers
         }
         let response = await axios(options);
-        res.set(response.headers);
-        res.status(response.status).send(response.data);
+        let {data} = response;
+        let { body } = data;
+        let headers = JSON.parse(data.headers);
+        res.set(headers);
+        res.status(response.status).send(body);
     } catch (error) {
-        console.log(error);
-        res.status(500).send(error);
+        if( error.response ) {
+            let { data } = error.response;
+            let { body } = data;
+            let headers = JSON.parse(data.headers);
+            res.set(headers);
+            res.status(error.response.status).send(body);
+        } else if( error.request ) {
+            console.log(error.request);
+            res.status(500).send(error.message);
+        } else {
+            res.status(500).send(error.message);
+        }
     }
 };
 
