@@ -2,9 +2,9 @@ package function
 
 import (
 	"fmt"
+	"github.com/openfaas-incubator/go-function-sdk"
 	"net/http"
 	"net/textproto"
-	"github.com/openfaas-incubator/go-function-sdk"
 )
 
 /**
@@ -12,9 +12,9 @@ import (
  *	Header:      r.Header,
  *	Method:      r.Method,
  *	QueryString: r.URL.RawQuery,
- * This template is based on openfaas-incubator template. 
- *	For further information look https://github.com/openfaas-incubator/golang-http-template 
-*/
+ * This template is based on openfaas-incubator template.
+ *	For further information look https://github.com/openfaas-incubator/golang-http-template
+ */
 
 // Handle a function invocation
 func Handle(req handler.Request) (handler.Response, error) {
@@ -24,7 +24,7 @@ func Handle(req handler.Request) (handler.Response, error) {
 	header := make(map[string][]string)
 	textproto.MIMEHeader(header).Add("Authorization", "Bearer ...")
 	return handler.Response{
-		Header:		header,
+		Header:     header,
 		Body:       []byte(message),
 		StatusCode: http.StatusOK,
 	}, err
