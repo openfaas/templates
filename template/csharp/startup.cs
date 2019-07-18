@@ -34,7 +34,7 @@ namespace csharp_web
                 var functionHandler = new FunctionHandler();
                 try
                 {
-                    var response = functionHandler.Handle(context);
+                    var response = functionHandler.Handle(context.Request);
                     context.Response.StatusCode = response.statusCode;
                     foreach(KeyValuePair<string, string> entry in response.headers)
                     {
