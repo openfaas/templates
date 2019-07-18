@@ -21,7 +21,7 @@ module.exports = (event, context) => {
         .succeed(result);
 
     /**
-     * If you wanna return an error
+     * If you wanna return an error,
      * context
      *  .headers({})
      *  .status(<StatusCode>)
