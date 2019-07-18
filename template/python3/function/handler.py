@@ -5,7 +5,7 @@ import json
 def handle(req):
     """handle a request to the function
     Args:
-        req (str): request body
+        req (Flask.request): request body. See: https://flask.palletsprojects.com/en/1.1.x/api/#flask.request
     """
 
     data = {
