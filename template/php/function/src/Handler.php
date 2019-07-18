@@ -17,6 +17,7 @@ class Handler
         //$response->StatusCode = 503;
         //$response->Body = "Hello, world!";
         $response = new Resp();
+        $response->StatusCode = 404;
         $response->Body = "Hello, world!!";
         return $response;
     }

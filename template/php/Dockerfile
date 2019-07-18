@@ -77,10 +77,9 @@ WORKDIR /home/app/
 RUN chown app:app -R /home/app \
     && chmod 777 /tmp
 
+RUN chmod +x ./script.sh
 
 USER app
-
-WORKDIR /home/app
 
 ENV cgi_headers="true"
 ENV fprocess="node index.js"
@@ -93,4 +92,4 @@ ENV read_timeout="15s"
 EXPOSE 8080
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 
-CMD ["/bin/sh"]
+CMD ["./script.sh"]
