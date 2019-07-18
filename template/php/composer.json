@@ -1,0 +1,16 @@
+{
+    "name": "php-template",
+    "description": "Email Microservice",
+    "type": "project",
+    "authors": [
+        {
+            "name": "Julian Pardo",
+            "email": "julian@poetri.co"
+        }
+    ],
+    "minimum-stability" : "dev",
+    "prefer-stable": true,
+    "require": {
+        "prodigyview/prodigyview": "^0.9.8"
+    }
+}

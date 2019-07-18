@@ -1,17 +1,14 @@
-FROM openfaas/classic-watchdog:0.13.4 as watchdog
+FROM microsoft/aspnetcore-build:2.0 as builder
 
-FROM microsoft/dotnet:2.1-sdk as builder
-
-# Supress collection of data.
 ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
 
 # Optimize for Docker builder caching by adding projects first.
 
-RUN mkdir -p /home/app/src/function
-WORKDIR /home/app/src/function
-COPY ./function/Function.csproj  .
+RUN mkdir -p /root/src/function
+WORKDIR /root/src/function
+COPY ./function/FunctionHandler.csproj  .
 
-WORKDIR /home/app/src/
+WORKDIR /root/src/
 COPY ./root.csproj  .
 RUN dotnet restore ./root.csproj
 
@@ -19,24 +16,24 @@ COPY .  .
 
 RUN dotnet publish -c release -o published
 
-FROM microsoft/dotnet:2.1-runtime
+FROM microsoft/aspnetcore:2.0
 
-COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
-RUN chmod +x /usr/bin/fwatchdog
+RUN apt-get update -qy \
+    && apt-get install -qy curl ca-certificates --no-install-recommends \ 
+    && echo "Pulling watchdog binary from Github." \
+    && curl -sSLf https://github.com/openfaas-incubator/of-watchdog/releases/download/0.2.3/of-watchdog > /usr/bin/fwatchdog \
+    && chmod +x /usr/bin/fwatchdog \
+    && apt-get -qy remove curl \
+    && apt-get clean \
+    && rm -rf /var/lib/apt/lists/*
 
-# Create a non-root user
-RUN addgroup --system app \
-    && adduser --system --ingroup app app
-
-WORKDIR /home/app/
-COPY --from=builder /home/app/src/published .
-RUN chown app:app -R /home/app
-
-USER app
+WORKDIR /root/
+COPY --from=builder /root/src/published .
 
 ENV fprocess="dotnet ./root.dll"
+ENV cgi_headers="true"
+ENV mode="http"
+ENV upstream_url="http://127.0.0.1"
+
 EXPOSE 8080
-
-HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
-
 CMD ["fwatchdog"]

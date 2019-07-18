@@ -4,9 +4,9 @@
 "use strict"
 
 const express = require('express')
-const app = express()
+const app = express();
 const handler = require('./function/handler');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 // app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
