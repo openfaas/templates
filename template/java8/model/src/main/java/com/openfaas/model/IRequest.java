@@ -3,6 +3,7 @@
 
 package com.openfaas.model;
 
+import java.io.InputStream;
 import java.util.Map;
 
 public interface IRequest {
@@ -13,4 +14,5 @@ public interface IRequest {
     Map<String, String> getQuery();
     String getPathRaw();
     Map<String, String> getPath();
+    InputStream getInputStream();
 }

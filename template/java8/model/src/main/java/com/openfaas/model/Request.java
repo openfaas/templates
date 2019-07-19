@@ -3,10 +3,11 @@
 
 package com.openfaas.model;
 
+import java.io.*;
+import java.nio.charset.StandardCharsets;
 import java.util.Map;
 import java.util.HashMap;
 import java.net.URLDecoder;
-import java.io.UnsupportedEncodingException;
 
 
 public class Request implements IRequest {
@@ -17,23 +18,45 @@ public class Request implements IRequest {
     private String queryRaw;
     private String pathRaw;
     private Map<String, String> path;
+    private InputStream inputStream;
 
-    public Request(String body, Map<String, String> headers) {
-        this.body = body;
-        this.headers = headers;
+	public Request(String body, Map<String, String> headers) {
+		this(body, headers, "", "");
+	}
+
+    public Request(String body, Map<String, String> headers, String queryRaw, String path) {
+    	this(headers, queryRaw, path, new ByteArrayInputStream(body != null ? body.getBytes(StandardCharsets.UTF_8) : new byte[0]));
+
     }
-    
-    public Request(String body, Map<String, String> headers,String queryRaw, String path) {
-        this.body = body;
+
+    public Request(Map<String, String> headers, String queryRaw, String path, InputStream inputStream) {
         this.headers = headers;
         this.queryRaw = queryRaw;
-        this.queryParameters = this.parseQueryParameters();
+	    this.inputStream = inputStream;
+	    this.queryParameters = this.parseQueryParameters();
         this.pathRaw = path;
         this.path = this.parsePathParameters();
     }
 
     public String getBody() {
-        return this.body;
+	    if (this.body != null) {
+	    	return this.body;
+	    }
+	    try {
+		    ByteArrayOutputStream result = new ByteArrayOutputStream();
+		    byte[] buffer = new byte[1024];
+		    int length;
+		    while ((length = inputStream.read(buffer)) != -1) {
+			    result.write(buffer, 0, length);
+		    }
+		    this.body = result.toString(StandardCharsets.UTF_8.name());
+		    return this.body;
+	    } catch (IOException e) {
+		    // ByteArrayOutputStream.write does not actually throw any IOException,
+		    // but OutputStream.write is declared to throw one.
+		    // To not break getBody(), throw the exception wrapped in a RuntimeException, but it should never be thrown
+		    throw new RuntimeException(e);
+	    }
     }
 
     public Map<String, String> getHeaders() {
@@ -118,4 +141,8 @@ public class Request implements IRequest {
 		return reqParametersMap;
 	}
 
+	@Override
+	public InputStream getInputStream() {
+		return inputStream;
+	}
 }
