@@ -5,3 +5,4 @@ build
 .gradle
 .idea
 template/java8/**/bin/
+template

@@ -1,13 +1,9 @@
+FROM openfaas/classic-watchdog:0.15.4 as watchdog
+
 FROM arm64v8/node:8.9.1
 
-RUN apt-get update -qy \
-    && apt-get install -qy curl ca-certificates --no-install-recommends \
-    && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas/faas/releases/download/0.13.0/fwatchdog-arm64 > /usr/bin/fwatchdog \
-    && chmod +x /usr/bin/fwatchdog \
-    && apt-get -qy remove curl \
-    && apt-get clean \
-    && rm -rf /var/lib/apt/lists/*
+COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
+RUN chmod +x /usr/bin/fwatchdog
 
 WORKDIR /root/
 

@@ -1,4 +1,4 @@
-FROM openfaas/classic-watchdog:0.13.4 as watchdog
+FROM openfaas/classic-watchdog:0.15.4 as watchdog
 
 FROM golang:1.10.8-alpine3.9 as builder
 

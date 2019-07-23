@@ -1,3 +1,5 @@
+FROM openfaas/of-watchdog:0.5.3 as watchdog
+
 FROM openjdk:8u131-jdk-alpine as builder
 
 RUN apk --no-cache add curl \
@@ -24,13 +26,8 @@ RUN gradle build
 
 FROM openjdk:8u131-jdk-alpine as ship
 
-ARG WATCHDOG_VERSION=0.5.1
-
-RUN apk --no-cache add curl \
-    && echo "Pulling watchdog binary from Github." \
-    && curl -sSL https://github.com/openfaas-incubator/of-watchdog/releases/download/$WATCHDOG_VERSION/of-watchdog > /usr/bin/fwatchdog \
-    && chmod +x /usr/bin/fwatchdog \
-    && apk del curl
+COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
+RUN chmod +x /usr/bin/fwatchdog
 
 RUN addgroup -S app && adduser -S -g app app
 WORKDIR /home/app
