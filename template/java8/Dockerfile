@@ -1,4 +1,4 @@
-FROM openjdk:8u131-jdk-alpine as builder
+FROM openjdk:8-jdk-alpine as builder
 
 RUN apk --no-cache add curl \
     && addgroup -S app && adduser -S -g app app \
@@ -22,7 +22,7 @@ COPY . /home/app/
 
 RUN gradle build
 
-FROM openjdk:8u131-jdk-alpine as ship
+FROM openjdk:8-jdk-alpine as ship
 
 ARG WATCHDOG_VERSION=0.5.1
 
