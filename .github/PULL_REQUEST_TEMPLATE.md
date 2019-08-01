@@ -23,6 +23,10 @@ Fixes #
 - [ ] New feature (non-breaking change which adds functionality)
 - [ ] Breaking change (fix or feature that would cause existing functionality to change)
 
+## Impact to existing users
+
+<!-- If none, state why and how you can be sure of that. -->
+
 ## Checklist:
 <!--- Go over all the following points, and put an `x` in all the boxes that apply. -->
 <!--- If you're unsure about any of these, don't hesitate to ask. We're here to help! -->
