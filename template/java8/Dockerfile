@@ -26,8 +26,6 @@ FROM openfaas/of-watchdog:0.5.4 as watchdog
 
 FROM openjdk:8u212-jdk-alpine as ship
 
-ARG WATCHDOG_VERSION=0.5.1
-
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 
