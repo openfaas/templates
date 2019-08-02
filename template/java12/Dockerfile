@@ -24,6 +24,7 @@ RUN gradle build
 FROM openfaas/of-watchdog:0.5.3 as watchdog
 
 FROM openjdk:12-oraclelinux7 as ship
+
 RUN yum install -y -q unzip
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
@@ -46,6 +47,6 @@ ENV CLASSPATH="/home/app/entrypoint-1.0/lib/*"
 ENV fprocess="java -XX:+UseContainerSupport com.openfaas.entrypoint.App"
 EXPOSE 8080
 
-HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1
+HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["fwatchdog"]
