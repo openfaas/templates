@@ -1,4 +1,4 @@
-FROM openfaas/classic-watchdog:0.13.4 as watchdog
+FROM openfaas/classic-watchdog:0.15.4 as watchdog
 
 FROM microsoft/dotnet:2.1-sdk as builder
 

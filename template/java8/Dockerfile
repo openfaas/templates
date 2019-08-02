@@ -22,7 +22,7 @@ COPY . /home/app/
 
 RUN gradle build
 
-FROM openfaas/of-watchdog:0.5.3 as watchdog
+FROM openfaas/of-watchdog:0.5.4 as watchdog
 
 FROM openjdk:8u212-jdk-alpine as ship
 
