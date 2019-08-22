@@ -1,6 +1,6 @@
 FROM openfaas/classic-watchdog:0.15.4 as watchdog
 
-FROM golang:1.10.8-alpine3.9 as builder
+FROM golang:1.11-alpine3.10 as builder
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
@@ -19,7 +19,7 @@ RUN CGO_ENABLED=${CGO_ENABLED} GOOS=linux \
     go build --ldflags "-s -w" -a -installsuffix cgo -o handler . && \
     go test $(go list ./... | grep -v /vendor/) -cover
 
-FROM alpine:3.9
+FROM alpine:3.10
 RUN apk --no-cache add \
     ca-certificates
 
