@@ -18,7 +18,7 @@ RUN chown -R app /home/app
 USER app
 ENV upstream_url="http://127.0.0.1:8082"
 ENV mode="http"
-ENV fprocess="java -jar function.jar com.openfaas.function.Handler -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap "
+ENV fprocess="java -jar function.jar handle com.openfaas.function.Handler -XX:+UnlockExperimentalVMOptions -XX:+UseCGroupMemoryLimitForHeap "
 EXPOSE 8080
 
 HEALTHCHECK --interval=2s CMD [ -e /tmp/.lock ] || exit 1

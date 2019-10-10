@@ -118,7 +118,7 @@
 					<!-- MainClass in mainfest make a executable jar -->
 					<archive>
 						<manifest>
-							<mainClass>com.openfaas.template.entrypoint.App</mainClass>
+							<mainClass>com.github.kameshchauhan.openfaas.entrypoint.App</mainClass>
 						</manifest>
 					</archive>
 				</configuration>
