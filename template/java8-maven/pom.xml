@@ -4,9 +4,9 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.github.kameshchauhan.openfaas.template</groupId>
+    <groupId>com.openfaas.template</groupId>
     <artifactId>java8-maven</artifactId>
-    <version>1.0.0</version>
+    <version>0.1.0-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <name>${project.groupId}:${project.artifactId}</name>
@@ -29,6 +29,11 @@
             <name>Kamesh Chauhan</name>
             <email>kamesh.chauhan@gmail.com</email>
         </developer>
+        <developer>
+            <id>alexellis</id>
+            <name>Alex Ellis</name>
+            <email>alexellis2@gmail.com</email>
+        </developer>
     </developers>
 
     <contributors>
@@ -44,10 +49,10 @@
     </contributors>
 
     <scm>
-        <connection>scm:git:git://github.com/kameshchauhan/templates/</connection>
-        <developerConnection>scm:git:git@github.com:kameshchauhan/templates.git</developerConnection>
-        <url>http://github.com/kameshchauhan/templates/tree/master</url>
-        <tag>1.0.0</tag>
+        <connection>scm:git:git://github.com/openfaas/templates/</connection>
+        <developerConnection>scm:git:git@github.com:openfaas/templates.git</developerConnection>
+        <url>http://github.com/openfaas/templates/tree/master</url>
+        <tag>0.1.0</tag>
     </scm>
 
     <issueManagement>
