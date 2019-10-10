@@ -12,3 +12,6 @@ java8-maven-ci/
 template/java8-maven/function/target/
 
 template/java8-maven/function/function.iml
+
+template/java8/**/bin/
+template/java12/**/bin/

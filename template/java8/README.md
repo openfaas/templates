@@ -2,7 +2,7 @@
 
 The Java8 template uses gradle as a build system.
 
-Gradle version: 4.8.1
+Gradle version: 5.5.1
 
 ### Structure
 
