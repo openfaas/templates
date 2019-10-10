@@ -1,7 +1,7 @@
 import org.junit.Test;
 import static org.junit.Assert.*;
 
-import com.openfaas.function.Handler;
+import com.github.kameshchauhan.openfaas.function.Handler;
 
 public class HandlerTest {
 

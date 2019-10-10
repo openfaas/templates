@@ -4,3 +4,7 @@ build
 .project
 .gradle
 .idea
+
+template/java8-maven/java8-maven.iml
+
+java8-maven-ci/
