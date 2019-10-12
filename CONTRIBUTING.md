@@ -18,6 +18,10 @@ $ faas template pull https://github.com/owner/repo
 
 Multiple templates can be stored within a single Git repository. View [the CLI reference guide](https://github.com/openfaas/faas-cli) for how to build a template.
 
+## Modifying templates
+
+ ```./verify.sh``` can be utilized to verify your changes to templates in this repo.
+
 ## Guidelines apply from main OpenFaaS repo
 
 See guide for [FaaS](https://github.com/openfaas/faas/blob/master/CONTRIBUTING.md) here.
