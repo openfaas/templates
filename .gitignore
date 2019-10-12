@@ -12,3 +12,5 @@ dependencies/model/target/
 template/java8/**/bin/
 template/java12/**/bin/
 
+
+*.iml
