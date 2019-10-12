@@ -4,3 +4,7 @@ build
 .project
 .gradle
 .idea
+
+dependencies/entrypoint/target/
+
+dependencies/model/target/
