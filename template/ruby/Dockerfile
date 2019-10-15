@@ -1,4 +1,4 @@
-FROM openfaas/classic-watchdog:0.18.0 as watchdog
+FROM openfaas/classic-watchdog:0.18.1 as watchdog
 
 FROM ruby:2.5.1-alpine3.7
 
