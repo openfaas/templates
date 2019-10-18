@@ -1,0 +1,5 @@
+language: netcore22
+fprocess: dotnet ./root.dll
+welcome_message: |
+  You have created a new function which uses dotnet core 2.2.
+  See https://github.com/openfaas/templates/blob/master/template/netcore22.
