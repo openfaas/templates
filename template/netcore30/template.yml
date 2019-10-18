@@ -1,0 +1,5 @@
+language: netcore30
+fprocess: dotnet ./root.dll
+welcome_message: |
+  You have created a new function which uses dotnet core 3.0.
+  See https://github.com/openfaas/templates/blob/master/template/netcore30.
