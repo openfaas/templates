@@ -9,6 +9,8 @@ RUN apk add --no-cache nodejs nodejs-npm ca-certificates
 
 WORKDIR /root/
 
+ARG NPM_TOKEN
+COPY function/.npmrc ./
 COPY package.json   .
 
 RUN npm i

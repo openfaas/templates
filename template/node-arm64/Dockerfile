@@ -11,6 +11,8 @@ WORKDIR /root/
 ENV NPM_CONFIG_LOGLEVEL warn
 
 # Wrapper/boot-strapper
+ARG NPM_TOKEN
+COPY function/.npmrc ./
 COPY package.json       .
 RUN npm i
 
