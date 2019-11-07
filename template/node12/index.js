@@ -67,7 +67,8 @@ var middleware = async (req, res) => {
     let cb = (err, functionResult) => {
         if (err) {
             console.error(err);
-            return res.status(500).send(err);
+
+            return res.status(500).send(err.toString ? err.toString() : err);
         }
 
         if(isArray(functionResult) || isObject(functionResult)) {
@@ -80,14 +81,15 @@ var middleware = async (req, res) => {
     let fnEvent = new FunctionEvent(req);
     let fnContext = new FunctionContext(cb);
 
-
-    handler(fnEvent, fnContext, cb)
+    Promise.resolve(handler(fnEvent, fnContext, cb))
     .then(res => {
         if(!fnContext.cbCalled) {
             fnContext.succeed(res);
         }
     })
-    .catch(next);
+    .catch(e => {
+        cb(e);
+    });
 };
 
 app.post('/*', middleware);
