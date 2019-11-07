@@ -1,9 +1,12 @@
 "use strict"
 
 module.exports = async (event, context) => {
+    let err;
     const result =             {
-        status: "Input received: " + JSON.stringify(event.body)
+        status: "Received input: " + JSON.stringify(event.body)
     };
 
-    return result;
+    context
+        .status(200)
+        .succeed(result);
 }

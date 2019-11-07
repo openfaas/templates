@@ -1,6 +1,6 @@
 FROM openfaas/classic-watchdog:0.18.0 as watchdog
 
-FROM alpine:3.9
+FROM alpine:3.10
 
 RUN mkdir -p /home/app
 
