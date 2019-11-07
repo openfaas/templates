@@ -6,7 +6,7 @@ module.exports = async (event, context) => {
         status: "Received input: " + JSON.stringify(event.body)
     };
 
-    context
+    return context
         .status(200)
         .succeed(result);
 }
