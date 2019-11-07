@@ -29,6 +29,7 @@ class FunctionContext {
         this.value = 200;
         this.cb = cb;
         this.headerValues = {};
+        this.cbCalled = 0;
     }
 
     status(value) {
@@ -51,11 +52,13 @@ class FunctionContext {
 
     succeed(value) {
         let err;
+        this.cbCalled++;
         this.cb(err, value);
     }
 
     fail(value) {
         let message;
+        this.cbCalled++;
         this.cb(value, message);
     }
 }
@@ -77,7 +80,13 @@ var middleware = async (req, res) => {
     let fnEvent = new FunctionEvent(req);
     let fnContext = new FunctionContext(cb);
 
-    Promise.resolve(handler(fnEvent, fnContext, cb))
+
+    handler(fnEvent, fnContext, cb)
+    .then(res => {
+        if(!fnContext.cbCalled) {
+            fnContext.succeed(res);
+        }
+    })
     .catch(next);
 };
 
