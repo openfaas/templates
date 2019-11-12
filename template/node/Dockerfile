@@ -1,6 +1,6 @@
 FROM openfaas/classic-watchdog:0.18.1 as watchdog
 
-FROM node:8.9.1-alpine
+FROM node:12.13.0-alpine as ship
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog

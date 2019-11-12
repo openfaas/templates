@@ -6,3 +6,5 @@ build
 .idea
 template/java8/**/bin/
 template/java12/**/bin/
+
+template
