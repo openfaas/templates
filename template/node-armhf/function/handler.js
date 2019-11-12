@@ -1,5 +1,5 @@
 "use strict"
 
-module.exports = (context, callback) => {
-    callback(undefined, {status: "done"});
+module.exports = async (context, callback) => {
+    return {status: "done"}
 }
