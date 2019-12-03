@@ -17,9 +17,11 @@ build_options:
       - mysql-client
       - mysql-dev
 welcome_message: |
-  You have created a new function which uses Golang 1.11
+  You have created a new function which uses Golang 1.11 and the Classic
+  OpenFaaS template.
+
   To include third-party dependencies, use a vendoring tool like dep:
   dep documentation: https://github.com/golang/dep#installation
 
-  You may also like the golang-middleware and golang-http templates
-  available via "faas-cli template store"
+  For high-throughput applications, we recommend using the golang-http
+  or golang-middleware templates instead available via the store.
