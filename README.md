@@ -31,7 +31,6 @@ This project is part of the OpenFaaS project licensed under the MIT License.
 | node | NodeJS | 12.13.0 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node12)
 | csharp | C# | N/A | Debian GNU/Linux 9 | classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
 | dockerfile | Dockerfile | N/A | Alpine Linux | classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
-| dockerfile-armhf | Dockerfile for ARMHF | N/A | Alpine Linux 3.10 | classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
 | go-armhf | Go | 1.11 | Alpine Linux | classic | [Go armhf template](https://github.com/openfaas/templates/tree/master/template/go-armhf)
 | go | Go | 1.11 | Alpine Linux | classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 |java8 | Java | 8 | OpenJDK Alpine Linux | of-watchdog | [Java template](https://github.com/openfaas/templates/tree/master/template/java8)
