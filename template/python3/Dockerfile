@@ -9,6 +9,8 @@ COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 RUN apk --no-cache add ca-certificates ${ADDITIONAL_PACKAGE}
 
+# add GCC (required for Pandas, Numpy, cython modules, etc)
+RUN apk add gcc musl-dev
 
 # Add non root user
 RUN addgroup -S app && adduser app -S -G app
