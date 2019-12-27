@@ -1,10 +1,11 @@
 FROM openfaas/classic-watchdog:0.18.1 as watchdog
-
-FROM golang:1.11-alpine3.10 as builder
+FROM golang:1.12-alpine3.11 as builder
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
 ARG CGO_ENABLED=0
+ARG GO111MODULE="off"
+ARG GOPROXY=""
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
