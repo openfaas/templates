@@ -21,7 +21,7 @@ COPY . /home/app/
 
 RUN gradle build
 
-FROM openfaas/of-watchdog:0.7.2 as watchdog
+FROM openfaas/of-watchdog:0.7.3 as watchdog
 
 FROM openjdk:12-oraclelinux7 as ship
 
