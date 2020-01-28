@@ -1,6 +1,6 @@
-## Template: java12
+## Template: java8
 
-The Java12 template uses gradle as a build system.
+The Java8 template uses gradle as a build system.
 
 Gradle version: 5.5.1
 
@@ -21,3 +21,4 @@ Tests are supported with junit via files in `./src/test`
 ### External dependencies
 
 External dependencies can be specified in ./build.gradle in the normal way using jcenter, a local JAR or some other remote repository.
+

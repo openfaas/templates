@@ -1,15 +1,21 @@
-FROM openjdk:12-oraclelinux7 as builder
+FROM openjdk:11-jdk-slim as builder
 
-RUN yum install -y -q unzip
+ENV GRADLE_VER=6.1.1
+RUN apt-get update -qqy \
+  && apt-get install -qqy \
+   --no-install-recommends \
+   curl \
+   ca-certificates \
+   unzip
 
 RUN mkdir -p /opt/ && cd /opt/ \
     && echo "Downloading gradle.." \
-    && curl -sSfL https://services.gradle.org/distributions/gradle-5.5.1-bin.zip -o gradle-bin.zip \
-    && unzip gradle-bin.zip -d /opt/ \
-    && rm gradle-bin.zip
+    && curl -sSfL "https://services.gradle.org/distributions/gradle-${GRADLE_VER}-bin.zip" -o gradle-$GRADLE_VER-bin.zip \
+    && unzip gradle-$GRADLE_VER-bin.zip -d /opt/ \
+    && rm gradle-$GRADLE_VER-bin.zip
 
 # Export some environment variables
-ENV GRADLE_HOME=/opt/gradle-5.5.1/
+ENV GRADLE_HOME=/opt/gradle-$GRADLE_VER/
 ENV PATH=$PATH:$GRADLE_HOME/bin
 
 RUN mkdir -p /home/app/libs
@@ -20,24 +26,27 @@ WORKDIR /home/app
 COPY . /home/app/
 
 RUN gradle build
+RUN find . 
 
-FROM openfaas/of-watchdog:0.7.3 as watchdog
-
-FROM openjdk:12-oraclelinux7 as ship
-
-RUN yum install -y -q unzip
+FROM openfaas/of-watchdog:0.7.6 as watchdog
+FROM openjdk:11-jre-slim as ship
+RUN apt-get update -qqy \
+  && apt-get install -qqy \
+   --no-install-recommends \
+   unzip
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
-
-RUN groupadd --system app \
-    && adduser app --system -g app
 
 WORKDIR /home/app
 COPY --from=builder /home/app/entrypoint/build/distributions/entrypoint-1.0.zip ./entrypoint-1.0.zip
 RUN unzip ./entrypoint-1.0.zip
 
-RUN chown -R app /home/app
+RUN addgroup --system app \
+    && adduser --system --ingroup app app
+
+WORKDIR /home/app/
+
 USER app
 
 ENV upstream_url="http://127.0.0.1:8082"
