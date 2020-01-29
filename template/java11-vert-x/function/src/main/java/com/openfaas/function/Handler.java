@@ -1,11 +1,9 @@
 package com.openfaas.function;
 
-import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.core.json.JsonObject;
 
-public class Handler implements BodyHandler {
+public class Handler implements io.vertx.core.Handler<RoutingContext> {
 
   @Override
   public void handle(RoutingContext routingContext) {
@@ -16,25 +14,5 @@ public class Handler implements BodyHandler {
           .put("status", "ok")
           .encodePrettily()
       );
-  }
-
-  @Override
-  public BodyHandler setBodyLimit(long bodyLimit) {
-    return null;
-  }
-
-  @Override
-  public BodyHandler setUploadsDirectory(String uploadsDirectory) {
-    return null;
-  }
-
-  @Override
-  public BodyHandler setMergeFormAttributes(boolean mergeFormAttributes) {
-    return null;
-  }
-
-  @Override
-  public BodyHandler setDeleteUploadedFilesOnEnd(boolean deleteUploadedFilesOnEnd) {
-    return null;
   }
 }

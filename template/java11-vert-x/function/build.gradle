@@ -13,7 +13,7 @@ plugins {
 
 dependencies {
     // Vert.x project
-    compile 'io.vertx:vertx-web:3.5.4'
+    compile 'io.vertx:vertx-web:3.8.5'
 
     // Use JUnit test framework
     testImplementation 'junit:junit:4.12'    
