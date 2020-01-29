@@ -18,6 +18,7 @@ This repository contains the Classic OpenFaaS templates, but many more are avail
 | python | Python | 2.7 | Alpine Linux | classic | [Python 2.7 template](https://github.com/openfaas/templates/tree/master/template/python)
 | go | Go | 1.11 | Alpine Linux | classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 | csharp | C# | N/A | Debian GNU/Linux 9 | classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
+| java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
 | java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
 | java8 | Java | 8 | OpenJDK Alpine Linux | of-watchdog | [Java EOL template](https://github.com/openfaas/templates/tree/master/template/java8)
 | ruby | Ruby | 2.5.1 | Alpine Linux 3.7 | classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
