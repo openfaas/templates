@@ -7,6 +7,9 @@ import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.handler.StaticHandler;
 import io.vertx.ext.web.handler.BodyHandler;
+
+import com.openfaas.function.Handler;
+
 import java.util.Optional;
 
 public class App {
@@ -18,13 +21,15 @@ public class App {
 
     if (Boolean.parseBoolean(Optional.ofNullable(System.getenv("FRONTAPP")).orElse("false"))) {
       // serve static assets, see /resources/webroot directory
-      router.route("/*").handler(StaticHandler.create());
+      router.route().handler(StaticHandler.create());
     } else {
-      BodyHandler handler = new com.openfaas.function.Handler();
-      router.route().handler(handler);
+      // enable body parsing (i.e.: POST, multipart, etc...)
+      router.route().handler(BodyHandler.create());
+      // allow usage of any verb for the function
+      router.route().handler(new Handler());
     }
 
-    server.requestHandler(router::accept).listen(httpPort, result -> {
+    server.requestHandler(router).listen(httpPort, result -> {
       if(result.succeeded()) {
         System.out.println("Listening on port " + httpPort);
       } else {
