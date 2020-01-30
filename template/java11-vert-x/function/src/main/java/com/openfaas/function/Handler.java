@@ -1,6 +1,5 @@
 package com.openfaas.function;
 
-import io.vertx.core.http.HttpServerResponse;
 import io.vertx.ext.web.RoutingContext;
 import io.vertx.core.json.JsonObject;
 
