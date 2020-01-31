@@ -1,32 +1,41 @@
 FROM openfaas/classic-watchdog:0.18.1 as watchdog
-FROM golang:1.12-alpine3.11 as builder
+FROM golang:1.13-alpine3.11 as builder
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
 ARG CGO_ENABLED=0
 ARG GO111MODULE="off"
 ARG GOPROXY=""
+ARG GOFLAGS=""
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 
+ENV CGO_ENABLED=0
+
 WORKDIR /go/src/handler
 COPY . .
+
+# Add user overrides to the root go.mod, which is the only place "replace" can be used
+RUN cat function/GO_REPLACE.txt >> ./go.mod || exit 0
 
 # Run a gofmt and exclude all vendored code.
 RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./function/vendor/*"))" || { echo "Run \"gofmt -s -w\" on your Golang code"; exit 1; }
 
+WORKDIR /go/src/handler/function
+
+RUN go test ./... -cover
+
+WORKDIR /go/src/handler
+
 RUN CGO_ENABLED=${CGO_ENABLED} GOOS=linux \
-    go build --ldflags "-s -w" -a -installsuffix cgo -o handler . && \
-    go test $(go list ./... | grep -v /vendor/) -cover
+    go build --ldflags "-s -w" -a -installsuffix cgo -o handler .
 
 FROM alpine:3.11
-RUN apk --no-cache add \
-    ca-certificates
-
-# Add non root user
-RUN addgroup -S app && adduser -S -g app app
-RUN mkdir -p /home/app
+RUN apk --no-cache add ca-certificates \
+    && addgroup -S app && adduser -S -g app app \
+    && mkdir -p /home/app \
+    && chown app /home/app
 
 WORKDIR /home/app
 
