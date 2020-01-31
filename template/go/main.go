@@ -6,10 +6,11 @@ package main
 
 import (
 	"fmt"
-	"handler/function"
 	"io/ioutil"
 	"log"
 	"os"
+
+	"handler/function"
 )
 
 func main() {
