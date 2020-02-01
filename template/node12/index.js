@@ -8,10 +8,15 @@ const app = express()
 const handler = require('./function/handler');
 const bodyParser = require('body-parser')
 
-// app.use(bodyParser.urlencoded({ extended: false }));
-app.use(bodyParser.json());
-app.use(bodyParser.raw());
-app.use(bodyParser.text({ type : "text/*" }));
+if (process.env.RAW_BODY === 'true') {
+    app.use(bodyParser.raw({ type: '*/*' }))
+} else {
+    var jsonLimit = process.env.MAX_JSON_SIZE || '100kb' //body-parser default
+    app.use(bodyParser.json({ limit: jsonLimit}));
+    app.use(bodyParser.raw()); // "Content-Type: application/octet-stream"
+    app.use(bodyParser.text({ type : "text/*" }));
+}
+
 app.disable('x-powered-by');
 
 class FunctionEvent {
