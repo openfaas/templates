@@ -1,2 +1,7 @@
 language: node-armhf
 fprocess: node index.js
+welcome_message: |
+  You have created a new function which uses the latest Node.js.
+  npm i --save can be used to add third-party packages like request or cheerio
+  You may add a private registry to the .npmrc file and use the NPM_TOKEN build-arg
+  npm documentation: https://docs.npmjs.com/

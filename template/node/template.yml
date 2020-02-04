@@ -5,6 +5,7 @@ welcome_message: |
   Classic Watchdog.
 
   npm i --save can be used to add third-party packages like request or cheerio
+  You may add a private registry to the .npmrc file and use the NPM_TOKEN build-arg
   npm documentation: https://docs.npmjs.com/
 
   For high-throughput services, we recommend you use the node12 template which

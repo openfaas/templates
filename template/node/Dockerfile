@@ -16,6 +16,8 @@ RUN mkdir -p /home/app
 
 # Wrapper/boot-strapper
 WORKDIR /home/app
+ARG NPM_TOKEN
+COPY function/.npmrc ./
 COPY package.json ./
 
 # This ordering means the npm installation is cached for the outer function handler.
