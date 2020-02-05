@@ -1,5 +1,4 @@
 FROM openfaas/of-watchdog:0.7.2 as watchdog
-
 FROM node:12.13.0-alpine as ship
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
@@ -27,12 +26,18 @@ COPY index.js ./
 
 # COPY function node packages and install, adding this as a separate
 # entry allows caching of npm install
+
 WORKDIR /home/app/function
+
 COPY function/*.json ./
+
 RUN npm i || :
 
 # COPY function files and folders
 COPY function/ ./
+
+# Run any tests that may be available
+RUN npm test
 
 # Set correct permissions to use non root user
 WORKDIR /home/app/
