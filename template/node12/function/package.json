@@ -1,12 +1,12 @@
 {
-  "name": "function",
+  "name": "openfaas-function",
   "version": "1.0.0",
-  "description": "",
+  "description": "OpenFaaS Function",
   "main": "handler.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 0"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC"
+  "author": "OpenFaaS Ltd",
+  "license": "MIT"
 }
