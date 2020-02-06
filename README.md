@@ -15,6 +15,7 @@ This repository contains the Classic OpenFaaS templates, but many more are avail
 | node12 | NodeJS | 12.13.0 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node12)
 | node | NodeJS | 12.13.0 | Alpine Linux | classic | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node)
 | python3 | Python | 3 | Alpine Linux | classic | [Python 3 template](https://github.com/openfaas/templates/tree/master/template/python3)
+| python3-debian | Python | 3 | Debian Linux | classic | [Python 3 Debian template](https://github.com/openfaas/templates/tree/master/template/python3-debian)
 | python | Python | 2.7 | Alpine Linux | classic | [Python 2.7 template](https://github.com/openfaas/templates/tree/master/template/python)
 | go | Go | 1.11 | Alpine Linux | classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 | csharp | C# | N/A | Debian GNU/Linux 9 | classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
