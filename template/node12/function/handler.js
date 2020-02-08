@@ -9,3 +9,4 @@ module.exports = async (event, context) => {
     .status(200)
     .succeed(result)
 }
+
