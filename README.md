@@ -17,12 +17,12 @@ This repository contains the Classic OpenFaaS templates, but many more are avail
 | python3 | Python | 3 | Alpine Linux | classic | [Python 3 template](https://github.com/openfaas/templates/tree/master/template/python3)
 | python3-debian | Python | 3 | Debian Linux | classic | [Python 3 Debian template](https://github.com/openfaas/templates/tree/master/template/python3-debian)
 | python | Python | 2.7 | Alpine Linux | classic | [Python 2.7 template](https://github.com/openfaas/templates/tree/master/template/python)
-| go | Go | 1.11 | Alpine Linux | classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
+| go | Go | 1.13 | Alpine Linux | classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 | csharp | C# | N/A | Debian GNU/Linux 9 | classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
 | java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
 | java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
 | java8 | Java | 8 | OpenJDK Alpine Linux | of-watchdog | [Java EOL template](https://github.com/openfaas/templates/tree/master/template/java8)
-| ruby | Ruby | 2.5.1 | Alpine Linux 3.7 | classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
+| ruby | Ruby | 2.7 | Alpine Linux 3.11 | classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
 | php7 | PHP | 7.2 | Alpine Linux | classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
 | dockerfile | Dockerfile | N/A | Alpine Linux | classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
 
@@ -47,9 +47,9 @@ See [contributing guide](https://github.com/openfaas/templates/blob/master/CONTR
 | Name | Language | Version | Linux base | Watchdog | Link
 |:-----|:---------|:--------|:-----------|:---------|:----
 | node-armhf | NodeJS | N/A | Alpine Linux | classic | [NodeJS armhf template](https://github.com/openfaas/templates/tree/master/template/node-armhf)
-| go-armhf | Go | 1.11 | Alpine Linux | classic | [Go armhf template](https://github.com/openfaas/templates/tree/master/template/go-armhf)
+| go-armhf | Go | 1.13 | Alpine Linux | classic | [Go armhf template](https://github.com/openfaas/templates/tree/master/template/go-armhf)
 | python-armhf | Python | 2.7 | Alpine Linux | classic | [Python 2.7 armhf template](https://github.com/openfaas/templates/tree/master/template/python-armhf)
-| python3-armhf | Python | 3.6 | Alpine Linux | classic | [Python 3.6 armhf template](https://github.com/openfaas/templates/tree/master/template/python3-armhf)
+| python3-armhf | Python | 3 | Alpine Linux | classic | [Python 3.6 armhf template](https://github.com/openfaas/templates/tree/master/template/python3-armhf)
 | node-arm64 | NodeJS | 12.13.0 | N/A | classic | [NodeJS arm64 template](https://github.com/openfaas/templates/tree/master/template/node-arm64)
 
 Additional templates for ARMHF/ARM64 may be available within the store. Some regular templates are also usable on ARM devices.
