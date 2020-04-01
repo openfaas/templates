@@ -6,17 +6,26 @@
  */
 
 allprojects {
+    group = 'com.openfaas.function'
+    version = '1.0'
+
     repositories {
-        jcenter() 
+        mavenCentral()
+        jcenter()
     }
 }
 
 subprojects {
-    // apply plugin: 'java'
+    apply plugin: 'java'
 
-    version = '1.0'
+    sourceCompatibility = 11
+    targetCompatibility = 11
 
-    // jar {
-    //     manifest.attributes provider: 'gradle'
-    // }
+    tasks.withType(JavaCompile) {
+        options.encoding = 'UTF-8'
+    }
+
+    jar {
+        manifest.attributes 'provider': 'gradle'
+    }
 }

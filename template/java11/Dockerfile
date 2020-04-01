@@ -1,9 +1,8 @@
-FROM openjdk:11-jdk-slim as builder
+FROM adoptopenjdk/openjdk11:alpine-slim as builder
 
-ENV GRADLE_VER=6.1.1
-RUN apt-get update -qqy \
-  && apt-get install -qqy \
-   --no-install-recommends \
+ENV GRADLE_VER=6.3
+RUN apk update -q \
+  && apk add --no-cache -q \
    curl \
    ca-certificates \
    unzip
@@ -11,7 +10,7 @@ RUN apt-get update -qqy \
 RUN mkdir -p /opt/ && cd /opt/ \
     && echo "Downloading gradle.." \
     && curl -sSfL "https://services.gradle.org/distributions/gradle-${GRADLE_VER}-bin.zip" -o gradle-$GRADLE_VER-bin.zip \
-    && unzip gradle-$GRADLE_VER-bin.zip -d /opt/ \
+    && unzip -q gradle-$GRADLE_VER-bin.zip -d /opt/ \
     && rm gradle-$GRADLE_VER-bin.zip
 
 # Export some environment variables
@@ -20,19 +19,18 @@ ENV PATH=$PATH:$GRADLE_HOME/bin
 
 RUN mkdir -p /home/app/libs
 
-ENV GRADLE_OPTS="-Dorg.gradle.daemon=false"
+ENV GRADLE_OPTS="-Dorg.gradle.daemon=false -Dorg.gradle.parallel -Dorg.gradle.configureondemand"
 WORKDIR /home/app
 
 COPY . /home/app/
 
 RUN gradle build
-RUN find . 
+RUN find .
 
 FROM openfaas/of-watchdog:0.7.6 as watchdog
-FROM openjdk:11-jre-slim as ship
-RUN apt-get update -qqy \
-  && apt-get install -qqy \
-   --no-install-recommends \
+FROM adoptopenjdk/openjdk11:alpine-jre as ship
+RUN apk update -q \
+  && apk add --no-cache -q \
    unzip
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
@@ -47,13 +45,20 @@ RUN addgroup --system app \
 
 WORKDIR /home/app/
 
+RUN apk del -q unzip
+
 USER app
 
 ENV upstream_url="http://127.0.0.1:8082"
 ENV mode="http"
 ENV CLASSPATH="/home/app/entrypoint-1.0/lib/*"
 
-ENV fprocess="java -XX:+UseContainerSupport com.openfaas.entrypoint.App"
+#RUN java -Xshare:dump \
+#             -XX:SharedClassListFile=classes.lst \
+#             -XX:SharedArchiveFile=app-cds.jsa \
+#             --class-path app.jar
+
+ENV fprocess="java -noverify -XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -XX:+UseSerialGC -XX:+UnlockExperimentalVMOptions -XX:-UsePerfData -XX:+UseContainerSupport -XX:SharedArchiveFile=app-cds.jsa -jar app.jar"
 EXPOSE 8080
 
 HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
