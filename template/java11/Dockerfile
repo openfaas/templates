@@ -53,7 +53,7 @@ ENV upstream_url="http://127.0.0.1:8082"
 ENV mode="http"
 ENV CLASSPATH="/home/app/entrypoint-1.0/lib/*"
 
-ENV fprocess="java -noverify -XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -XX:+UseSerialGC -XX:+UnlockExperimentalVMOptions -XX:-UsePerfData -XX:+UseContainerSupport -XX:SharedArchiveFile=app-cds.jsa com.openfaas.entrypoint.App"
+ENV fprocess="java -noverify -XX:TieredStopAtLevel=1 -XX:CICompilerCount=1 -XX:+UseSerialGC -XX:+UnlockExperimentalVMOptions -XX:-UsePerfData -XX:+UseContainerSupport com.openfaas.entrypoint.App"
 EXPOSE 8080
 
 HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
