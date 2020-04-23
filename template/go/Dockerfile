@@ -1,6 +1,9 @@
 FROM openfaas/classic-watchdog:0.18.1 as watchdog
 FROM golang:1.13-alpine3.11 as builder
 
+# Required to enable Go modules
+RUN apk add --no-cache git
+
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
 ARG CGO_ENABLED=0
@@ -24,7 +27,7 @@ RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*" -n
 
 WORKDIR /go/src/handler/function
 
-RUN go test ./... -cover
+RUN CGO_ENABLED=${CGO_ENABLED} go test ./... -cover
 
 WORKDIR /go/src/handler
 
