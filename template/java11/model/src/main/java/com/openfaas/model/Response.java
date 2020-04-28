@@ -3,18 +3,19 @@
 
 package com.openfaas.model;
 
+import java.io.UnsupportedEncodingException;
 import java.util.HashMap;
 import java.util.Map;
 
 public class Response implements IResponse {
 
     private int statusCode = 200;
-    private String body;
+    private byte[] body;
     private String contentType;
     private Map<String, String> headers;
 
     public Response() {
-        this.body = "";
+        this.body = null;
         this.contentType = "";
         this.headers = new HashMap<String, String>();
     }
@@ -58,10 +59,26 @@ public class Response implements IResponse {
     }
 
     public void setBody(String body) {
+        try {
+            this.body = body.getBytes("UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            this.body = null;
+        }
+    }
+
+    public void setBodyBytes(byte[] body) {
         this.body = body;
     }
 
     public String getBody() {
+        try {
+            return new String(this.body, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new String(this.body);
+        }
+    }
+
+    public byte[] getBodyBytes() {
         return this.body;
     }
 }

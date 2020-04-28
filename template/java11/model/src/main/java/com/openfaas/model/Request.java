@@ -12,18 +12,18 @@ import java.io.UnsupportedEncodingException;
 public class Request implements IRequest {
 
     private Map<String, String> headers;
-    private String body;
+    private byte[] body;
     private Map<String, String> queryParameters;
     private String queryRaw;
     private String pathRaw;
     private Map<String, String> path;
 
-    public Request(String body, Map<String, String> headers) {
+    public Request(byte[] body, Map<String, String> headers) {
         this.body = body;
         this.headers = headers;
     }
-    
-    public Request(String body, Map<String, String> headers,String queryRaw, String path) {
+
+    public Request(byte[] body, Map<String, String> headers,String queryRaw, String path) {
         this.body = body;
         this.headers = headers;
         this.queryRaw = queryRaw;
@@ -33,6 +33,14 @@ public class Request implements IRequest {
     }
 
     public String getBody() {
+        try {
+            return new String(this.body, "UTF-8");
+        } catch (UnsupportedEncodingException e) {
+            return new String(this.body);
+        }
+    }
+
+    public byte[] getBodyBytes() {
         return this.body;
     }
 
@@ -47,7 +55,7 @@ public class Request implements IRequest {
 
         return this.headers.get(key);
     }
-    
+
     @Override
 	public String getQueryRaw() {
 		return queryRaw;
@@ -90,7 +98,7 @@ public class Request implements IRequest {
 
         return res;
     }
-    
+
 	private Map<String, String> parseQueryParameters() {
 		Map<String, String> reqParametersMap = new HashMap<String, String>();
 		if (queryRaw != null) {

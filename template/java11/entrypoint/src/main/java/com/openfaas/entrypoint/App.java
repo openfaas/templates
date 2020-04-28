@@ -42,7 +42,7 @@ public class App {
 
         @Override
         public void handle(HttpExchange t) throws IOException {
-            String requestBody = "";
+            byte[] requestBody = null;
             String method = t.getRequestMethod();
 
             if (method.equalsIgnoreCase("POST")) {
@@ -54,9 +54,9 @@ public class App {
                     result.write(buffer, 0, length);
                 }
                 // StandardCharsets.UTF_8.name() > JDK 7
-                requestBody = result.toString("UTF-8");
+                requestBody = result.toByteArray();
 	        }
-            
+
             // System.out.println(requestBody);
             Headers reqHeaders = t.getRequestHeaders();
             Map<String, String> reqHeadersMap = new HashMap<String, String>();
@@ -73,11 +73,10 @@ public class App {
             // }
 
             IRequest req = new Request(requestBody, reqHeadersMap,t.getRequestURI().getRawQuery(), t.getRequestURI().getPath());
-            
+
             IResponse res = this.handler.Handle(req);
 
-            String response = res.getBody();
-            byte[] bytesOut = response.getBytes("UTF-8");
+            byte[] bytesOut = res.getBodyBytes();
 
             Headers responseHeaders = t.getResponseHeaders();
             String contentType = res.getContentType();

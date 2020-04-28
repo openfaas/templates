@@ -7,6 +7,7 @@ import java.util.Map;
 
 public interface IRequest {
     String getBody();
+    byte[] getBodyBytes();
     Map<String, String> getHeaders();
     String getHeader(String key);
     String getQueryRaw();
