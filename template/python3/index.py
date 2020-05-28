@@ -3,19 +3,30 @@
 # Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 import sys
+import os
+import json
+from cgi import parse_header
 from function import handler
 
-def get_stdin():
-    buf = ""
-    while(True):
-        line = sys.stdin.readline()
-        buf += line
-        if line == "":
-            break
-    return buf
-
 if __name__ == "__main__":
-    st = get_stdin()
+    st = sys.stdin.buffer.read()
+    # decode text to string
+    content_type, type_options = parse_header(os.getenv('Http_Content_Type', ''))
+    if not content_type or content_type.startswith('text/') or content_type == 'application/x-www-form-urlencoded':
+        encoding = type_options.get('charset', 'utf-8')
+        try:
+            st = st.decode(encoding)
+        except UnicodeDecodeError:
+            # if explicitly defined encoding can't decode bytes, fail
+            if 'charset' in type_options:
+                raise
+            # otherwise utf-8 was incorrect guess, then keep as bytes
+        # unknown encoding (LookupError) will fail and propagate
+    # decode JSON and JSON-LD to dictionary
+    elif content_type.endswith('json'):
+        st = json.load(st)
+    # otherwise keep bytes
+
     ret = handler.handle(st)
     if ret != None:
         print(ret)
