@@ -28,5 +28,12 @@ if __name__ == "__main__":
     # otherwise keep bytes
 
     ret = handler.handle(st)
-    if ret != None:
-        print(ret)
+
+    # encode response to JSON if necessary
+    if ret is not None:
+        if isinstance(ret, bytes):
+            sys.stdout.buffer.write(ret)
+        elif isinstance(ret, str):
+            sys.stdout.write(ret)
+        else:
+            json.dump(ret, sys.stdout)
