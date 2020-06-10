@@ -1,8 +1,8 @@
-## Template: java8
+## Template: java11
 
-The Java8 template uses gradle as a build system.
+The Java11 template uses gradle as a build system.
 
-Gradle version: 5.5.1
+Gradle version: 6.3
 
 ### Structure
 
