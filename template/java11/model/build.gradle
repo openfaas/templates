@@ -6,9 +6,30 @@
  * user guide available at https://docs.gradle.org/4.8.1/userguide/java_library_plugin.html
  */
 
+buildscript {
+    group = 'com.openfaas'
+    version = '0.1.0'
+}
+
 plugins {
     // Apply the java-library plugin to add support for Java Library
     id 'java-library'
+    id 'maven'
+    id 'signing'
+}
+
+signing {
+    sign configurations.archives
+}
+
+task javadocJar(type: Jar) {
+    classifier = 'javadoc'
+    from javadoc
+}
+
+task sourcesJar(type: Jar) {
+    classifier = 'sources'
+    from sourceSets.main.allSource
 }
 
 dependencies {
@@ -27,4 +48,53 @@ repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+}
+
+artifacts {
+    archives javadocJar, sourcesJar
+}
+
+uploadArchives {
+  repositories {
+    mavenDeployer {
+      beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
+
+      repository(url: "https://oss.sonatype.org/service/local/staging/deploy/maven2/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      snapshotRepository(url: "https://oss.sonatype.org/content/repositories/snapshots/") {
+        authentication(userName: ossrhUsername, password: ossrhPassword)
+      }
+
+      pom.project {
+        name 'OpenFaaS model'
+        packaging 'jar'
+        // optionally artifactId can be defined here 
+        description 'OpenFaaS Model for function invocations.'
+        url 'http://www.openfaas.com/'
+
+        scm {
+          connection 'scm:git:https://github.com/openfaas/templates'
+          developerConnection 'scm:git:https://github.com/openfaas/templates'
+          url 'https://github.com/openfaas/templates'
+        }
+
+        licenses {
+          license {
+            name 'MIT'
+            url 'https://opensource.org/licenses/MIT'
+          }
+        }
+
+        developers {
+          developer {
+            id 'openfaas'
+            name 'OpenFaaS Ltd'
+            email 'alex@openfaas.com'
+          }
+        }
+      }
+    }
+  }
 }
