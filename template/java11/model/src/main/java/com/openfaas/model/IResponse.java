@@ -9,6 +9,9 @@ public interface IResponse {
     String getBody();
     void setBody(String body);
 
+    byte[] getBodyBytes();
+    void setBodyBytes(byte[] body);
+
     String getHeader(String key);
     void setHeader(String key, String value);
     Map<String, String> getHeaders();
