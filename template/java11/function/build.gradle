@@ -15,7 +15,7 @@ dependencies {
     testImplementation 'junit:junit:4.12'
 
     compile 'com.openfaas:model:0.1.1'
-    compile 'com.openfaas:entrypoint:1.0.0'
+    compile 'com.openfaas:entrypoint:0.1.0'
 }
 
 // In this section you declare where to find the dependencies of your project
