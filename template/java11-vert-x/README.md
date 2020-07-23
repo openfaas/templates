@@ -1,4 +1,4 @@
-## Template: java8-vert-x
+## Template: java11-vert-x
 
 The Java8-Vert.x template uses gradle as a build system.
 
