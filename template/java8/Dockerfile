@@ -20,7 +20,11 @@ WORKDIR /home/app
 
 COPY . /home/app/
 
-RUN gradle build
+# The distribution created by `gradle build` is modifying the jars, excluding all resources.
+# For that reason it is removed and created with `gradle distZip`
+RUN gradle build \
+    && rm /home/app/entrypoint/build/distributions/entrypoint* \
+    && gradle distZip
 
 FROM openfaas/of-watchdog:0.7.6 as watchdog
 
