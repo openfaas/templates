@@ -7,7 +7,9 @@ import java.util.Map;
 
 public interface IResponse {
     String getBody();
+    byte[] getBodyData();
     void setBody(String body);
+    void setBodyData(byte[] body);
 
     String getHeader(String key);
     void setHeader(String key, String value);

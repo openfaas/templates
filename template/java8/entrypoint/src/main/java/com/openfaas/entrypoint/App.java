@@ -45,17 +45,7 @@ public class App {
             String requestBody = "";
             String method = t.getRequestMethod();
 
-            if (method.equalsIgnoreCase("POST")) {
-                InputStream inputStream = t.getRequestBody();
-                ByteArrayOutputStream result = new ByteArrayOutputStream();
-                byte[] buffer = new byte[1024];
-                int length;
-                while ((length = inputStream.read(buffer)) != -1) {
-                    result.write(buffer, 0, length);
-                }
-                // StandardCharsets.UTF_8.name() > JDK 7
-                requestBody = result.toString("UTF-8");
-	        }
+
             
             // System.out.println(requestBody);
             Headers reqHeaders = t.getRequestHeaders();
@@ -72,12 +62,11 @@ public class App {
             //     System.out.println("Req header " + entry.getKey() + " " + entry.getValue());
             // }
 
-            IRequest req = new Request(requestBody, reqHeadersMap,t.getRequestURI().getRawQuery(), t.getRequestURI().getPath());
+            IRequest req = new Request(reqHeadersMap,t.getRequestURI().getRawQuery(), t.getRequestURI().getPath(), t.getRequestBody());
             
             IResponse res = this.handler.Handle(req);
 
-            String response = res.getBody();
-            byte[] bytesOut = response.getBytes("UTF-8");
+            byte[] bytesOut = res.getBodyData();
 
             Headers responseHeaders = t.getResponseHeaders();
             String contentType = res.getContentType();
@@ -93,7 +82,7 @@ public class App {
 
             OutputStream os = t.getResponseBody();
             os.write(bytesOut);
-            os.close();
+            t.close();
 
             System.out.println("Request / " + Integer.toString(bytesOut.length) +" bytes written.");
         }

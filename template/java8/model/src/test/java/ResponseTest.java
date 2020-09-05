@@ -8,6 +8,8 @@ import com.openfaas.model.IHandler;
 
 import com.openfaas.model.Response;
 
+import java.util.Arrays;
+
 public class ResponseTest {
     @Test public void testResponseHeaderSetGetValue() {
        Response r = new Response();
@@ -48,5 +50,19 @@ public class ResponseTest {
       Response r = new Response();
       r.setStatusCode(404);
       assertEquals(404, r.getStatusCode());
+    }
+
+    @Test public void testResponseSetBodyWithString() {
+        Response r = new Response();
+        r.setBody("Øl får meg glad");
+        assertEquals(r.getBody(), "Øl får meg glad");
+    }
+
+    @Test public void testResponseSetBodyWithBytes() {
+        Response r = new Response();
+        r.setBodyData("Øl får meg glad".getBytes());
+        assertEquals(r.getBody(), "Øl får meg glad");
+
+        assertTrue(Arrays.equals(r.getBodyData(), "Øl får meg glad".getBytes()));
     }
 }
