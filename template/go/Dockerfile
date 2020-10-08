@@ -1,5 +1,5 @@
-FROM openfaas/classic-watchdog:0.18.1 as watchdog
-FROM golang:1.13-alpine3.11 as builder
+FROM openfaas/classic-watchdog:0.18.18 as watchdog
+FROM golang:1.13-alpine3.12 as builder
 
 # Required to enable Go modules
 RUN apk add --no-cache git
@@ -34,7 +34,7 @@ WORKDIR /go/src/handler
 RUN CGO_ENABLED=${CGO_ENABLED} GOOS=linux \
     go build --ldflags "-s -w" -a -installsuffix cgo -o handler .
 
-FROM alpine:3.11
+FROM alpine:3.12
 RUN apk --no-cache add ca-certificates \
     && addgroup -S app && adduser -S -g app app \
     && mkdir -p /home/app \
