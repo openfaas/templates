@@ -103,6 +103,7 @@ app.get('/*', middleware);
 app.patch('/*', middleware);
 app.put('/*', middleware);
 app.delete('/*', middleware);
+app.options('/*', middleware);
 
 const port = process.env.http_port || 3000;
 
