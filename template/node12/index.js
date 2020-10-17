@@ -12,10 +12,11 @@ const bodyParser = require('body-parser')
 if (process.env.RAW_BODY === 'true') {
     app.use(bodyParser.raw({ type: '*/*' }))
 } else {
-    var jsonLimit = process.env.MAX_JSON_SIZE || '100kb' //body-parser default
+    var jsonLimit = process.env.MAX_JSON_SIZE || '100kb' // body-parser default
     app.use(bodyParser.json({ limit: jsonLimit}));
-    app.use(bodyParser.raw()); // "Content-Type: application/octet-stream"
+    app.use(bodyParser.raw()); // Content-Type: application/octet-stream
     app.use(bodyParser.text({ type : "text/*" }));
+    app.use(bodyParser.urlencoded({ extended: false })); // Content-Type: application/x-www-form-urlencoded
 }
 
 app.disable('x-powered-by');
