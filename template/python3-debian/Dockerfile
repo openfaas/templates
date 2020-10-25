@@ -1,5 +1,5 @@
-FROM openfaas/classic-watchdog:0.18.18 as watchdog
-FROM python:3
+FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/classic-watchdog:0.18.18 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} python:3
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
