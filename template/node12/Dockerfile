@@ -1,5 +1,5 @@
-FROM openfaas/of-watchdog:0.7.2 as watchdog
-FROM node:12.13.0-alpine as ship
+FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/of-watchdog:0.7.2 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} node:12.13.0-alpine as ship
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog

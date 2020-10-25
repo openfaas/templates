@@ -1,6 +1,6 @@
-FROM openfaas/classic-watchdog:0.18.18 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/classic-watchdog:0.18.18 as watchdog
 
-FROM ruby:2.7-alpine3.11
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ruby:alpine
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog

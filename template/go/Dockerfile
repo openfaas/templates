@@ -1,8 +1,13 @@
-FROM openfaas/classic-watchdog:0.18.18 as watchdog
-FROM golang:1.13-alpine3.12 as builder
+FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/classic-watchdog:0.18.18 as watchdog
+FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.13-alpine3.12 as builder
 
 # Required to enable Go modules
 RUN apk add --no-cache git
+
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+ARG TARGETOS
+ARG TARGETARCH
 
 # Allows you to add additional packages via build-arg
 ARG ADDITIONAL_PACKAGE
@@ -27,14 +32,14 @@ RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*" -n
 
 WORKDIR /go/src/handler/function
 
-RUN CGO_ENABLED=${CGO_ENABLED} go test ./... -cover
+RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} go test ./... -cover
 
 WORKDIR /go/src/handler
 
-RUN CGO_ENABLED=${CGO_ENABLED} GOOS=linux \
+RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} \
     go build --ldflags "-s -w" -a -installsuffix cgo -o handler .
 
-FROM alpine:3.12
+FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.12
 RUN apk --no-cache add ca-certificates \
     && addgroup -S app && adduser -S -g app app \
     && mkdir -p /home/app \

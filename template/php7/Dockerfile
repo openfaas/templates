@@ -1,10 +1,10 @@
-FROM openfaas/classic-watchdog:0.18.18 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/classic-watchdog:0.18.18 as watchdog
 
 # start with the official Composer image and name it
-FROM composer:1.7 AS composer
+FROM --platform=${TARGETPLATFORM:-linux/amd64} composer:1.7 AS composer
 
 # continue with the official PHP image
-FROM php:7.2-alpine
+FROM --platform=${TARGETPLATFORM:-linux/amd64} php:7.2-alpine
 
 # copy the Composer PHAR from the Composer image into the PHP image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
