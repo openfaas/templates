@@ -1,0 +1,3 @@
+
+all:
+	sh verify.sh
