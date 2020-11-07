@@ -1,3 +1,3 @@
 
 all:
-	sh verify.sh
+	bash verify.sh
