@@ -3,7 +3,7 @@ set -e
 
 CLI="faas-cli"
 
-build_template() 
+build_template()
 {
     template=$1
 
