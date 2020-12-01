@@ -1,7 +1,8 @@
 {
-    "name": "function-php7.2",
+    "name": "openfaas/function-php7.2",
     "description": "Template for function in PHP 7.2",
     "type": "project",
+    "license": "proprietary",
     "config": {
         "classmap-authoritative": true
     },
