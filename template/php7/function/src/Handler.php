@@ -12,7 +12,8 @@ class Handler
      * @param $data
      * @return
      */
-    public function handle($data) {
+    public function handle($data)
+    {
         return $data;
     }
 }
