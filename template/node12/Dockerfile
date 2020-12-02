@@ -1,3 +1,6 @@
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
+
 FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/of-watchdog:0.7.2 as watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} node:12-alpine as ship
 

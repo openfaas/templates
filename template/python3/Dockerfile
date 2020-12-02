@@ -1,5 +1,7 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.1.4 as watchdog
+ARG TARGETPLATFORM
+ARG BUILDPLATFORM
 
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.1.4 as watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} python:3-alpine
 
 # Allows you to add additional packages via build-arg
