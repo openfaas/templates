@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/classic-watchdog:0.18.18 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.1.2 as watchdog
 
 # start with the official Composer image and name it
 FROM --platform=${TARGETPLATFORM:-linux/amd64} composer:1.7 AS composer

@@ -1,4 +1,4 @@
-FROM openfaas/classic-watchdog:0.18.18 as watchdog
+FROM ghcr.io/openfaas/classic-watchdog:0.1.2 as watchdog
 
 FROM alpine:3.12
 
