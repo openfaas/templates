@@ -1,4 +1,4 @@
-FROM ghcr.io/openfaas/classic-watchdog:0.1.2 as watchdog
+FROM ghcr.io/openfaas/classic-watchdog:0.1.4 as watchdog
 
 FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as builder
 
