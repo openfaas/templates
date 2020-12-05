@@ -1,4 +1,4 @@
-# PHP7 Template
+# PHP 7.2 Template
 
 Templates are built using the latest minor version of the major release.
 
