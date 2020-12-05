@@ -4,4 +4,4 @@ welcome_message: |
   You have created a new function which uses PHP 8.0.
   Dependencies and extensions can be added using the composer.json
   and php-extension.sh files.
-  See https://github.com/openfaas/templates/blob/master/template/php7.
+  See https://github.com/openfaas/templates/blob/master/template/php8.0

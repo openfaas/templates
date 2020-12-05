@@ -1,4 +1,4 @@
-# PHP7 Template
+# PHP 7.4 Template
 
 Templates are built using the latest minor version of the major release.
 
@@ -9,7 +9,7 @@ Templates are built using the latest minor version of the major release.
 ## Usage:
 
 ```shell
-faas-cli new my-function --lang php7
+faas-cli new my-function --lang php7.4
 ```
 
 You will find in the newly created directory `my-function`:
