@@ -4,10 +4,10 @@ ARG BUILDPLATFORM
 FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.1.4 as watchdog
 
 # start with the official Composer image and name it
-FROM --platform=${TARGETPLATFORM:-linux/amd64} composer:1.7 AS composer
+FROM --platform=${TARGETPLATFORM:-linux/amd64} composer:2 AS composer
 
 # continue with the official PHP image
-FROM --platform=${TARGETPLATFORM:-linux/amd64} php:7.2-alpine
+FROM --platform=${TARGETPLATFORM:-linux/amd64} php:7.4-alpine
 
 # copy the Composer PHAR from the Composer image into the PHP image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
