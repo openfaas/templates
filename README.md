@@ -1,6 +1,6 @@
 # OpenFaaS Classic templates
 
-[![Build Status](https://github.com/openfaas/templates/workflows/build/badge.svg?branch=master)](https://github.com/openfaas/templates/actions)
+[![Build Status](https://github.com/openfaas/templates/workflows/ci-only/badge.svg?branch=master)](https://github.com/openfaas/templates/actions)
 
 To find out more about the OpenFaaS templates see the [faas-cli](https://github.com/openfaas/faas-cli).
 
