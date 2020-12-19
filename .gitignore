@@ -6,3 +6,4 @@ build
 .idea
 **/bin/**
 .settings
+target
