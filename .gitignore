@@ -6,3 +6,6 @@ build
 .idea
 **/bin/**
 .settings
+
+template
+/**/node_modules
