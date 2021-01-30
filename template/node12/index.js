@@ -9,12 +9,14 @@ const app = express()
 const handler = require('./function/handler');
 const bodyParser = require('body-parser')
 
+var rawLimit = process.env.MAX_RAW_SIZE || '100kb' //body-parser default
+
 if (process.env.RAW_BODY === 'true') {
-    app.use(bodyParser.raw({ type: '*/*' }))
+    app.use(bodyParser.raw({ type: '*/*' , limit: rawLimit }))
 } else {
     var jsonLimit = process.env.MAX_JSON_SIZE || '100kb' //body-parser default
     app.use(bodyParser.json({ limit: jsonLimit}));
-    app.use(bodyParser.raw()); // "Content-Type: application/octet-stream"
+    app.use(bodyParser.raw({ limit: rawLimit})); // "Content-Type: application/octet-stream"
     app.use(bodyParser.text({ type : "text/*" }));
 }
 
