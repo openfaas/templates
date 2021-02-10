@@ -1,5 +1,5 @@
-// Copyright (c) Alex Ellis 2017. All rights reserved.
-// Copyright (c) OpenFaaS Author(s) 2020. All rights reserved.
+// Copyright (c) Alex Ellis 2021. All rights reserved.
+// Copyright (c) OpenFaaS Author(s) 2021. All rights reserved.
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 
 "use strict"
@@ -9,16 +9,17 @@ const app = express()
 const handler = require('./function/handler');
 const bodyParser = require('body-parser')
 
+app.disable('x-powered-by');
+
 if (process.env.RAW_BODY === 'true') {
-    app.use(bodyParser.raw({ type: '*/*' }))
+    var rawLimit = process.env.MAX_RAW_SIZE || '100kb' // body-parser default
+    app.use(bodyParser.raw({ type: '*/*' , limit: rawLimit }))
 } else {
     var jsonLimit = process.env.MAX_JSON_SIZE || '100kb' //body-parser default
     app.use(bodyParser.json({ limit: jsonLimit}));
     app.use(bodyParser.raw()); // "Content-Type: application/octet-stream"
     app.use(bodyParser.text({ type : "text/*" }));
 }
-
-app.disable('x-powered-by');
 
 class FunctionEvent {
     constructor(req) {
@@ -74,13 +75,17 @@ var middleware = async (req, res) => {
         if (err) {
             console.error(err);
 
-            return res.status(500).send(err.toString ? err.toString() : err);
+            return res.status(500)
+                .send(err.toString ? err.toString() : err);
         }
 
         if(isArray(functionResult) || isObject(functionResult)) {
-            res.set(fnContext.headers()).status(fnContext.status()).send(JSON.stringify(functionResult));
+            res.set(fnContext.headers())
+                .status(fnContext.status()).send(JSON.stringify(functionResult));
         } else {
-            res.set(fnContext.headers()).status(fnContext.status()).send(functionResult);
+            res.set(fnContext.headers())
+                .status(fnContext.status())
+                .send(functionResult);
         }
     };
 
