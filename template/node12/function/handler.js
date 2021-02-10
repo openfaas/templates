@@ -2,11 +2,11 @@
 
 module.exports = async (event, context) => {
   const result = {
-    'status': 'Received input: ' + JSON.stringify(event.body)
+    'body': JSON.stringify(event.body),
+    'content-type': event.headers["content-type"]
   }
 
   return context
     .status(200)
     .succeed(result)
 }
-

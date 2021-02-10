@@ -9,17 +9,38 @@ const app = express()
 const handler = require('./function/handler');
 const bodyParser = require('body-parser')
 
+const defaultMaxSize = '100kb' // body-parser default
+
 app.disable('x-powered-by');
 
+const rawLimit = process.env.MAX_RAW_SIZE || defaultMaxSize
+const jsonLimit = process.env.MAX_JSON_SIZE || defaultMaxSize
+
+app.use(function addDefaultContentType(req, res, next) {
+    // When no content-type is given, the body element is set to 
+    // nil, and has been a source of contention for new users.
+
+    if(!req.headers['content-type']) {
+        req.headers['content-type'] = "text/plain"
+    }
+    next()
+})
+
 if (process.env.RAW_BODY === 'true') {
-    var rawLimit = process.env.MAX_RAW_SIZE || '100kb' // body-parser default
     app.use(bodyParser.raw({ type: '*/*' , limit: rawLimit }))
 } else {
-    var jsonLimit = process.env.MAX_JSON_SIZE || '100kb' //body-parser default
-    app.use(bodyParser.json({ limit: jsonLimit}));
-    app.use(bodyParser.raw()); // "Content-Type: application/octet-stream"
     app.use(bodyParser.text({ type : "text/*" }));
+    app.use(bodyParser.json({ limit: jsonLimit}));
+    app.use(bodyParser.urlencoded({ extended: true }));
 }
+
+const isArray = (a) => {
+    return (!!a) && (a.constructor === Array);
+};
+
+const isObject = (a) => {
+    return (!!a) && (a.constructor === Object);
+};
 
 class FunctionEvent {
     constructor(req) {
@@ -70,8 +91,8 @@ class FunctionContext {
     }
 }
 
-var middleware = async (req, res) => {
-    let cb = (err, functionResult) => {
+const middleware = async (req, res) => {
+    const cb = (err, functionResult) => {
         if (err) {
             console.error(err);
 
@@ -89,8 +110,8 @@ var middleware = async (req, res) => {
         }
     };
 
-    let fnEvent = new FunctionEvent(req);
-    let fnContext = new FunctionContext(cb);
+    const fnEvent = new FunctionEvent(req);
+    const fnContext = new FunctionContext(cb);
 
     Promise.resolve(handler(fnEvent, fnContext, cb))
     .then(res => {
@@ -113,13 +134,7 @@ app.options('/*', middleware);
 const port = process.env.http_port || 3000;
 
 app.listen(port, () => {
-    console.log(`OpenFaaS Node.js listening on port: ${port}`)
+    console.log(`node12 listening on port: ${port}`)
 });
 
-let isArray = (a) => {
-    return (!!a) && (a.constructor === Array);
-};
 
-let isObject = (a) => {
-    return (!!a) && (a.constructor === Object);
-};
