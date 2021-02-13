@@ -23,6 +23,11 @@ COPY package.json ./
 
 # This ordering means the npm installation is cached for the outer function handler.
 RUN npm i
+# chmod for tmp is for a buildkit issue (@alexellis)
+RUN chown app:app -R /home/app \
+    && chmod 777 /tmp
+
+USER app
 
 # Copy outer function handler
 COPY index.js ./
@@ -31,7 +36,6 @@ COPY index.js ./
 # entry allows caching of npm install
 
 WORKDIR /home/app/function
-
 COPY function/*.json ./
 
 RUN npm i || :
@@ -44,12 +48,6 @@ RUN npm test
 
 # Set correct permissions to use non root user
 WORKDIR /home/app/
-
-# chmod for tmp is for a buildkit issue (@alexellis)
-RUN chown app:app -R /home/app \
-    && chmod 777 /tmp
-
-USER app
 
 ENV cgi_headers="true"
 ENV fprocess="node index.js"
