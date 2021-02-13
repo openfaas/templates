@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} openfaas/of-watchdog:0.7.2 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.8.3 as watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} node:12-alpine as ship
 
 ARG TARGETPLATFORM
@@ -59,6 +59,7 @@ ENV upstream_url="http://127.0.0.1:3000"
 ENV exec_timeout="10s"
 ENV write_timeout="15s"
 ENV read_timeout="15s"
+ENV prefix_logs="false"
 
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 
