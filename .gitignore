@@ -6,6 +6,5 @@ build
 .idea
 **/bin/**
 .settings
-
-template
+/**/package-lock.json
 /**/node_modules
