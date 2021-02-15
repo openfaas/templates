@@ -10,12 +10,14 @@ RUN chmod +x /usr/bin/fwatchdog
 RUN apk --no-cache add curl ca-certificates \
     && addgroup -S app && adduser -S -g app app
 
-WORKDIR /root/
-
 # Turn down the verbosity to default level.
 ENV NPM_CONFIG_LOGLEVEL warn
 
-RUN mkdir -p /home/app
+RUN chmod 777 /tmp
+
+USER app
+
+RUN mkdir -p /home/app/function
 
 # Wrapper/boot-strapper
 WORKDIR /home/app
@@ -23,11 +25,6 @@ COPY package.json ./
 
 # This ordering means the npm installation is cached for the outer function handler.
 RUN npm i
-# chmod for tmp is for a buildkit issue (@alexellis)
-RUN chown app:app -R /home/app \
-    && chmod 777 /tmp
-
-USER app
 
 # Copy outer function handler
 COPY index.js ./
@@ -38,7 +35,7 @@ COPY index.js ./
 WORKDIR /home/app/function
 COPY function/*.json ./
 
-RUN npm i || :
+RUN npm i
 
 # COPY function files and folders
 COPY function/ ./
@@ -57,9 +54,9 @@ ENV upstream_url="http://127.0.0.1:3000"
 ENV exec_timeout="10s"
 ENV write_timeout="15s"
 ENV read_timeout="15s"
+
 ENV prefix_logs="false"
 
 HEALTHCHECK --interval=3s CMD [ -e /tmp/.lock ] || exit 1
 
 CMD ["fwatchdog"]
-
