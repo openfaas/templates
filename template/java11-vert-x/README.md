@@ -1,6 +1,6 @@
 ## Template: java11-vert-x
 
-The Java8-Vert.x template uses gradle as a build system.
+The Java11-Vert.x template uses gradle as a build system.
 
 Gradle version: 4.8.1
 
@@ -49,7 +49,7 @@ provider:
   gateway: http://openfaas.test:8080
 functions:
   hello-vert-x:
-    lang: java8-vert-x
+    lang: java11-vert-x
     environment:
       FRONTAPP: true
     handler: ./function
