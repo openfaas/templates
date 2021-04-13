@@ -85,9 +85,9 @@ class FunctionContext {
     }
 
     fail(value) {
-        let message;
+        let err;
         this.cbCalled++;
-        this.cb(value, message);
+        this.cb(err, value);
     }
 }
 
