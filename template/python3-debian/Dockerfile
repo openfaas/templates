@@ -27,7 +27,7 @@ USER app
 ENV PATH=$PATH:/home/app/.local/bin:/home/app/python/bin/
 ENV PYTHONPATH=$PYTHONPATH:/home/app/python
 
-RUN pip install -r requirements.txt --target=/home/app/python
+RUN pip install --no-cache-dir -r requirements.txt --target=/home/app/python
 
 RUN mkdir -p function
 RUN touch ./function/__init__.py
@@ -35,7 +35,7 @@ RUN touch ./function/__init__.py
 WORKDIR /home/app/function/
 COPY function/requirements.txt	.
 
-RUN pip install -r requirements.txt --target=/home/app/python
+RUN pip install --no-cache-dir -r requirements.txt --target=/home/app/python
 
 WORKDIR /home/app/
 
