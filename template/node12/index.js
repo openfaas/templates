@@ -54,18 +54,18 @@ class FunctionEvent {
 
 class FunctionContext {
     constructor(cb) {
-        this.value = 200;
+        this.statusCode = 200;
         this.cb = cb;
         this.headerValues = {};
         this.cbCalled = 0;
     }
 
-    status(value) {
-        if(!value) {
-            return this.value;
+    status(statusCode) {
+        if(!statusCode) {
+            return this.statusCode;
         }
 
-        this.value = value;
+        this.statusCode = statusCode;
         return this;
     }
 
@@ -86,6 +86,10 @@ class FunctionContext {
 
     fail(value) {
         let message;
+        if(this.status() == "200") {
+            this.status(500)
+        }
+
         this.cbCalled++;
         this.cb(value, message);
     }
@@ -96,7 +100,7 @@ const middleware = async (req, res) => {
         if (err) {
             console.error(err);
 
-            return res.status(500)
+            return res.status(fnContext.status())
                 .send(err.toString ? err.toString() : err);
         }
 
