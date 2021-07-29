@@ -2,6 +2,8 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 package com.openfaas.entrypoint;
 
+import com.openfaas.function.FaaSFunction;
+import io.vertx.core.Handler;
 import io.vertx.core.http.HttpServer;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
@@ -10,26 +12,38 @@ import io.vertx.ext.web.handler.StaticHandler;
 import java.util.Optional;
 
 public class App {
-  public static void main(String[] args) throws Exception {
+  public static void main(String[] args) {
     Vertx vertx = Vertx.vertx();
-    Integer httpPort = Integer.parseInt(Optional.ofNullable(System.getenv("PORT")).orElse("8082"));
-    HttpServer server = vertx.createHttpServer();
     Router router = Router.router(vertx);
-
-    if (Boolean.parseBoolean(Optional.ofNullable(System.getenv("FRONTAPP")).orElse("false"))) {
-      // serve static assets, see /resources/webroot directory
-      router.route("/*").handler(StaticHandler.create());
-    } else {
-      io.vertx.core.Handler<RoutingContext> handler = new com.openfaas.function.Handler();
-      router.route().handler(handler);
+    try {
+      final FaaSFunction fn = new FaaSFunction();
+      fn.setUp(router)
+              .onFailure(App::fail)
+              .onSuccess(ready -> {
+                Object ref = fn;
+                if (ref instanceof Handler) {
+                  router.route()
+                          .handler((Handler<RoutingContext>) ref);
+                }
+                listen(vertx, router);
+              });
+    } catch (RuntimeException e) {
+      fail(e);
     }
+  }
 
-    server.requestHandler(router::accept).listen(httpPort, result -> {
-      if(result.succeeded()) {
-        System.out.println("Listening on port " + httpPort);
-      } else {
-        System.out.println("Unable to start server: " + result.cause().getMessage());
-      }
-    });
+  private static void listen(Vertx vertx, Router router) {
+    int httpPort = Integer.parseInt(Optional.ofNullable(System.getenv("PORT")).orElse("8082"));
+    HttpServer server = vertx.createHttpServer();
+
+    server.requestHandler(router)
+            .listen(httpPort)
+            .onFailure(App::fail)
+            .onSuccess(res -> System.out.println("Listening on port " + httpPort));
+  }
+
+  private static void fail(Throwable err) {
+    err.printStackTrace();
+    System.exit(1);
   }
 }
