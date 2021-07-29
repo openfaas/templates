@@ -13,11 +13,12 @@ import java.util.Optional;
 
 public class App {
   public static void main(String[] args) {
-    Vertx vertx = Vertx.vertx();
-    Router router = Router.router(vertx);
+    final Vertx vertx = Vertx.vertx();
+    final Router router = Router.router(vertx);
+
     try {
       final FaaSFunction fn = new FaaSFunction();
-      fn.setUp(router)
+      fn.setUp(vertx, router)
               .onFailure(App::fail)
               .onSuccess(ready -> {
                 Object ref = fn;
