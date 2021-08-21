@@ -9,10 +9,10 @@ namespace App;
 class Handler
 {
     /**
-     * @param $data
-     * @return
+     * @param string $data
+     * @return string
      */
-    public function handle($data)
+    public function handle(string $data): string
     {
         return $data;
     }

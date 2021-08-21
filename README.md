@@ -23,7 +23,7 @@ This repository contains the Classic OpenFaaS templates, but many more are avail
 | java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11-vert-x)
 | java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
 | ruby | Ruby | 2.7 | Alpine Linux 3.11 | classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
-| php7 | PHP | 7.2 | Alpine Linux | classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
+| php7 | PHP | 7.4 | Alpine Linux | classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
 | csharp | C# | N/A | Debian GNU/Linux 9 | classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
 
 For more information on the templates check out the [docs](https://docs.openfaas.com/cli/templates/).
