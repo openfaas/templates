@@ -1,5 +1,5 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.1.5 as watchdog
-FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.15-alpine3.13 as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.16-alpine3.13 as builder
 
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
@@ -39,7 +39,7 @@ WORKDIR /go/src/handler
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} \
     go build --ldflags "-s -w" -a -installsuffix cgo -o handler .
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.12
+FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.13
 RUN apk --no-cache add ca-certificates \
     && addgroup -S app && adduser -S -g app app \
     && mkdir -p /home/app \
