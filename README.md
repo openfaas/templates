@@ -6,7 +6,7 @@ This repository is based on the openfaas' templates [repository](https://github.
 
 | Name | Language | Version | Link
 |:-----|:---------|:--------|:----
-| node | NodeJS | 14 | [NodeJS template](TODO)
+| node | NodeJS | 12 | [NodeJS template](https://github.com/lenra-io/templates/tree/master/template/node12)
 
 ## Dependencies
 
@@ -18,7 +18,7 @@ You do not need to install anything if you want to use our pre-built docker imag
 
 In case you still need to use your own images, you first need to clone the repository then follow the [Usage](#usage) part of this README.
 
-    git clone TODO
+    git clone git@github.com:lenra-io/templates.git
 
 ## Usage
 
