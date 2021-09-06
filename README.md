@@ -39,7 +39,7 @@ If you have questions, concerns, bug reports, etc, please file an issue in this 
 
 ## Getting involved
 
-See [contributing guide](CONTRIBUTING.md).
+TODO
 
 
 
