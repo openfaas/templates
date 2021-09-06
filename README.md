@@ -6,7 +6,7 @@ This repository is based on the openfaas' templates [repository](https://github.
 
 | Name | Language | Version | Link
 |:-----|:---------|:--------|:----
-| node | NodeJS | 12 | [NodeJS template](https://github.com/lenra-io/templates/tree/master/template/node12)
+| node12 | NodeJS | 12 | [NodeJS template](https://github.com/lenra-io/templates/tree/master/template/node12)
 
 ## Dependencies
 
