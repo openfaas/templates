@@ -17,7 +17,7 @@ build_options:
       - mysql-client
       - mysql-dev
 welcome_message: |
-  You have created a new function which uses Golang 1.13 and the Classic
+  You have created a new function which uses Go 1.15 and the Classic
   OpenFaaS template.
 
   To include third-party dependencies, use Go modules and use
