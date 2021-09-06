@@ -1,46 +1,46 @@
-# OpenFaaS Classic templates
+# Lenra OpenFaaS Templates
 
-[![Build Status](https://travis-ci.org/openfaas/templates.svg?branch=master)](https://travis-ci.org/openfaas/templates)
+This repository is based on the openfaas' templates [repository](https://github.com/openfaas/templates).
 
-To find out more about the OpenFaaS templates see the [faas-cli](https://github.com/openfaas/faas-cli).
-
-> Note: The templates are completely customizable - so if you want to alter them please do fork them and use `faas template pull` to make use of your updated versions.
-
-### Classic Templates
-
-This repository contains the Classic OpenFaaS templates, but many more are available in the Template Store. Read above for more information.
-
-| Name | Language | Version | Linux base | Watchdog | Link
+**Description**:  This project aims to provide some OpenFaaS templates to work with Lenra applications. An application can be launched using any of the following templates with the condition that the application should have been developed using the same programming language as the template.
+| Name | Language | Version | Link
 |:-----|:---------|:--------|:-----------|:---------|:----
-| dockerfile | Dockerfile | N/A | Alpine Linux | classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
-| go | Go | 1.13 | Alpine Linux | classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
-| node12 | NodeJS | 12.13.0 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node12)
-| node | NodeJS | 12.13.0 | Alpine Linux | classic | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node)
-| python3 | Python | 3 | Alpine Linux | classic | [Python 3 template](https://github.com/openfaas/templates/tree/master/template/python3)
-| python3-debian | Python | 3 | Debian Linux | classic | [Python 3 Debian template](https://github.com/openfaas/templates/tree/master/template/python3-debian)
-| python | Python | 2.7 | Alpine Linux | classic | [Python 2.7 template](https://github.com/openfaas/templates/tree/master/template/python)
-| java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
-| java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
-| ruby | Ruby | 2.7 | Alpine Linux 3.11 | classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
-| php7 | PHP | 7.2 | Alpine Linux | classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
-| csharp | C# | N/A | Debian GNU/Linux 9 | classic | [C# template](https://github.com/openfaas/templates/tree/master/template/csharp)
+| node | NodeJS | 14 | [NodeJS template](TODO)
 
-For more information on the templates check out the [docs](https://docs.openfaas.com/cli/templates/).
+## Dependencies
 
-### Classic vs of-watchdog templates
+Docker is required to use the templates. Follow this [link](https://docs.docker.com/get-docker/) for official installation instructions. 
 
-The current version of OpenFaaS templates use the original `watchdog` which `forks` processes - a bit like CGI. The newer watchdog [of-watchdog](https://github.com/openfaas-incubator/of-watchdog) is more similar to fastCGI/HTTP and should be used for any benchmarking or performance testing along with one of the newer templates. Contact the project for more information.
+## Installation
 
-### Submit your own template to the template store
+You do not need to install anything if you want to use our pre-built docker images on our registry.
 
-This repository is for templates supported by the project maintainers, if you'd like to submit your own template to the OpenFaaS Template Store then checkout the store:
+In case you still need to use your own images, you first need to clone the repository then follow the [Usage](#usage) part of this README.
 
-* [OpenFaaS Store](https://github.com/openfaas/store/)
+    git clone TODO
 
-### Contribute to this repository
+## Usage
 
-See [contributing guide](https://github.com/openfaas/templates/blob/master/CONTRIBUTING.md).
+Lenra provides each template on its Github registry so that you do not have to locally build the docker image of the template that you need.
 
-### License
+In case you still need to build your local image, you should first build the template's image then build the root image. Here is an example with the node template: 
 
-This project is part of the OpenFaaS project licensed under the MIT License.
+    templates/template/node: docker build -t node-template .
+    templates/: docker build -t devtools-node -f Dockerfile.devtool --build-arg TEMPLATE_IMAGE=node-template .
+
+Then you can run the devtools-node image by going to your Lenra application folder and using this command:
+
+    app/: docker run -v $PWD:/home/app/application devtools-node
+
+## Getting help
+
+If you have questions, concerns, bug reports, etc, please file an issue in this repository's Issue Tracker.
+
+## Getting involved
+
+See [contributing guide](CONTRIBUTING.md).
+
+
+
+## License
+This project is licensed under the MIT License.
