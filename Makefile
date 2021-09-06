@@ -1,3 +1,0 @@
-
-all:
-	bash verify.sh

@@ -1,0 +1,17 @@
+ARG TEMPLATE_IMAGE
+
+FROM devtools as devtools
+
+FROM ${TEMPLATE_IMAGE}
+
+COPY --from=devtools /lenra/devtools /lenra/devtools
+
+USER root
+# Install elixir dependencies
+RUN apk add --no-cache ncurses-libs libstdc++
+
+USER app
+
+VOLUME [ "/home/app/application" ]
+ENTRYPOINT [ "/lenra/devtools/entrypoint.sh" ]
+CMD ["fwatchdog"]

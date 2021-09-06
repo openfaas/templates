@@ -4,9 +4,12 @@
 
 "use strict"
 
+const fs = require('fs');
 const express = require('express')
 const app = express()
-const handler = require('./function/handler');
+const listenersHandler = require('../application/listeners/index');
+const uiHandler = require('../application/ui/index');
+const performance = require('perf_hooks').performance;
 const bodyParser = require('body-parser')
 
 const defaultMaxSize = '100kb' // body-parser default
@@ -20,125 +23,69 @@ app.use(function addDefaultContentType(req, res, next) {
     // When no content-type is given, the body element is set to 
     // nil, and has been a source of contention for new users.
 
-    if(!req.headers['content-type']) {
+    if (!req.headers['content-type']) {
         req.headers['content-type'] = "text/plain"
     }
     next()
 })
 
 if (process.env.RAW_BODY === 'true') {
-    app.use(bodyParser.raw({ type: '*/*' , limit: rawLimit }))
+    app.use(bodyParser.raw({ type: '*/*', limit: rawLimit }))
 } else {
-    app.use(bodyParser.text({ type : "text/*" }));
-    app.use(bodyParser.json({ limit: jsonLimit}));
+    app.use(bodyParser.text({ type: "text/*" }));
+    app.use(bodyParser.json({ limit: jsonLimit }));
     app.use(bodyParser.urlencoded({ extended: true }));
 }
 
-const isArray = (a) => {
-    return (!!a) && (a.constructor === Array);
-};
-
-const isObject = (a) => {
-    return (!!a) && (a.constructor === Object);
-};
-
-class FunctionEvent {
-    constructor(req) {
-        this.body = req.body;
-        this.headers = req.headers;
-        this.method = req.method;
-        this.query = req.query;
-        this.path = req.path;
-    }
-}
-
-class FunctionContext {
-    constructor(cb) {
-        this.statusCode = 200;
-        this.cb = cb;
-        this.headerValues = {};
-        this.cbCalled = 0;
-    }
-
-    status(statusCode) {
-        if(!statusCode) {
-            return this.statusCode;
-        }
-
-        this.statusCode = statusCode;
-        return this;
-    }
-
-    headers(value) {
-        if(!value) {
-            return this.headerValues;
-        }
-
-        this.headerValues = value;
-        return this;    
-    }
-
-    succeed(value) {
-        let err;
-        this.cbCalled++;
-        this.cb(err, value);
-    }
-
-    fail(value) {
-        let message;
-        if(this.status() == "200") {
-            this.status(500)
-        }
-
-        this.cbCalled++;
-        this.cb(value, message);
-    }
-}
-
 const middleware = async (req, res) => {
-    const cb = (err, functionResult) => {
-        if (err) {
-            console.error(err);
-
-            return res.status(fnContext.status())
-                .send(err.toString ? err.toString() : err);
-        }
-
-        if(isArray(functionResult) || isObject(functionResult)) {
-            res.set(fnContext.headers())
-                .status(fnContext.status()).send(JSON.stringify(functionResult));
-        } else {
-            res.set(fnContext.headers())
-                .status(fnContext.status())
-                .send(functionResult);
-        }
-    };
-
-    const fnEvent = new FunctionEvent(req);
-    const fnContext = new FunctionContext(cb);
-
-    Promise.resolve(handler(fnEvent, fnContext, cb))
-    .then(res => {
-        if(!fnContext.cbCalled) {
-            fnContext.succeed(res);
-        }
-    })
-    .catch(e => {
-        cb(e);
-    });
+    // Checking whether middleware received a Resource or Action request
+    if (req.body.resource) {
+        handleAppResource(req, res);
+    } else {
+        handleAppAction(req, res);
+    }
 };
+
+function handleAppResource(req, res) {
+    const resources_path = "../application/resources/";
+
+    // Checking file extensions according to which ones Flutter can handle
+    if(req.body.resource.match(/.*(\.jpeg|\.jpg|\.png|\.gif|\.webp|\.bmp|\.wbmp)$/)){
+        res.sendFile(req.body.resource, {root: resources_path});
+    } else {
+        res.sendStatus(404);
+    }
+}
+
+function handleAppAction(req, res) {
+    let uiStartTime;
+    let uiStopTime;
+    let listenersStopTime;
+    let newData = {};
+    let { action, data, props, event } = req.body;
+    let listenersStartTime = process.hrtime.bigint();
+    let possibleFutureRes = listenersHandler(action, data, props, event);
+
+    Promise.resolve(possibleFutureRes)
+        .then(res => {
+            listenersStopTime = process.hrtime.bigint();
+            newData = res;
+            uiStartTime = process.hrtime.bigint();
+            return uiHandler(newData);
+        })
+        .then(newUi => {
+            uiStopTime = process.hrtime.bigint();
+            res.status(200).json({ data: newData, ui: newUi, stats: { listeners: Number(listenersStopTime - listenersStartTime), ui: Number(uiStopTime - uiStartTime) } });
+        })
+        .catch(err => {
+            res.status(500).send(err.toString ? err.toString() : err);
+        });
+}
 
 app.post('/*', middleware);
-app.get('/*', middleware);
-app.patch('/*', middleware);
-app.put('/*', middleware);
-app.delete('/*', middleware);
-app.options('/*', middleware);
 
 const port = process.env.http_port || 3000;
 
 app.listen(port, () => {
     console.log(`node12 listening on port: ${port}`)
 });
-
-
