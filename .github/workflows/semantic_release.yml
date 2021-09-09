@@ -1,0 +1,44 @@
+name: Release
+on:
+  push:
+    branches:
+      - main
+      - beta
+      - "*.x"
+env:
+  flutter_version: "2.2.3"
+jobs:
+  release:
+    name: Release
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: "12"
+      - name: Build node12 template image
+        uses: docker/build-push-action@v2
+        with:
+          context: template/node12
+          push: false
+          tags: lenra/node12-template:latest
+      - name: Build node12 devtools image
+        uses: docker/build-push-action@v2
+        with:
+          context: .
+          file: Dockerfile.devtools
+          push: false
+          tags: lenra/node12-devtools:latest
+          build-args: |
+            TEMPLATE_IMAGE=lenra/node12-template
+      - name: Setup node deps
+        run: npm i conventional-changelog-conventionalcommits @semantic-release/exec @semantic-release/git @semantic-release-plus/docker -D
+      - name: Release
+        env:
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release

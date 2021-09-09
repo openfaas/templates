@@ -1,0 +1,22 @@
+---
+branches:
+  - "+([0-9])?(.{+([0-9]),x}).x"
+  - main
+  - name: beta
+    prerelease: true
+plugins:
+  - - "@semantic-release/commit-analyzer"
+    - preset: conventionalcommits
+  - - "@semantic-release/release-notes-generator"
+    - preset: conventionalcommits
+  - "@semantic-release/github"
+  - - "@semantic-release-plus/docker"
+    - name: "lenra/node12-template"
+      publishLatestTag: true
+      publishMajorTag: true
+      publishMinorTag: true
+  - - "@semantic-release-plus/docker"
+    - name: "lenra/node12-devtools"
+      publishLatestTag: true
+      publishMajorTag: true
+      publishMinorTag: true
