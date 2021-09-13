@@ -2,11 +2,11 @@
 
 This repository is based on the openfaas' templates [repository](https://github.com/openfaas/templates).
 
-**Description**:  This project aims to provide some OpenFaaS templates to work with Lenra applications. An application can be launched using any of the following templates with the condition that the application should have been developed using the same programming language as the template.
+**Description**:  This project aims to provide some OpenFaaS templates to work with Lenra applications. An application can be launched using any of the following templates with the condition that the application has been developed using the same programming language as the template.
 
-| Name | Language | Version | Link
-|:-----|:---------|:--------|:----
-| node12 | NodeJS | 12 | [NodeJS template](https://github.com/lenra-io/templates/tree/master/template/node12)
+| Name   | Language | Version | Link                                                                                 |
+| :----- | :------- | :------ | :----------------------------------------------------------------------------------- |
+| node12 | NodeJS   | 12      | [NodeJS template](https://github.com/lenra-io/templates/tree/master/template/node12) |
 
 ## Dependencies
 
@@ -22,16 +22,38 @@ In case you still need to use your own images, you first need to clone the repos
 
 ## Usage
 
-Lenra provides each template on its Github registry so that you do not have to locally build the docker image of the template that you need.
+### Docker Hub
 
-In case you still need to build your local image, you should first build the template's image then build the root image. Here is an example with the node template: 
+Lenra provides each template on its Github registry so that you do not have to locally build the docker image of the template that you need. Below is an example using the node12 template and our Docker images.
 
-    templates/template/node: docker build -t node-template .
-    templates/: docker build -t devtools-node -f Dockerfile.devtool --build-arg TEMPLATE_IMAGE=node-template .
+```bash
+# Go to your app folder and execute this command
+# The host port can be changed to your convenience
+docker run -it -p 4000:4000 -v $PWD:/home/app/application lenra/node12-devtools
+```
 
-Then you can run the devtools-node image by going to your Lenra application folder and using this command:
+### Build Local Images
 
-    app/: docker run -v $PWD:/home/app/application devtools-node
+In case you still need to build your local image, you should first build the template's image then build the root image. Here is an example with the node12 template: 
+
+```bash
+# Go to the node12 template folder
+cd templates/template/node12
+# Build the template's docker image
+docker build -t lenra/node12-template .
+# Go back to the root of the repository
+cd ../..
+# Build the devtools' template docker image
+docker build -t lenra/node12-devtools -f Dockerfile.devtools --build-arg TEMPLATE_IMAGE=lenra/node12-template .
+```
+
+Then you can run your app locally (your app must use node12) using the following commands:
+
+```bash
+# Go to your app folder and execute this command
+# The host port can be changed to your convenience
+docker run -it -p 4000:4000 -v $PWD:/home/app/application lenra/node12-devtools 
+```
 
 ## Getting help
 
