@@ -24,16 +24,16 @@ jobs:
         with:
           context: template/node12
           push: false
-          tags: lenra/node12-template:latest
+          tags: lenra/template-node12:latest
       - name: Build node12 devtools image
         uses: docker/build-push-action@v2
         with:
           context: .
           file: Dockerfile.devtools
           push: false
-          tags: lenra/node12-devtools:latest
+          tags: lenra/devtools-node12:latest
           build-args: |
-            TEMPLATE_IMAGE=lenra/node12-template
+            TEMPLATE_IMAGE=lenra/template-node12
       - name: Setup node deps
         run: npm i conventional-changelog-conventionalcommits @semantic-release/exec @semantic-release/git @semantic-release-plus/docker -D
       - name: Release

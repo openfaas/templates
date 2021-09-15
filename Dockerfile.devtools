@@ -1,6 +1,6 @@
 ARG TEMPLATE_IMAGE
 
-FROM lenra/dev-tools as devtools
+FROM lenra/devtools as devtools
 
 FROM ${TEMPLATE_IMAGE}
 

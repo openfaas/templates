@@ -11,12 +11,12 @@ plugins:
     - preset: conventionalcommits
   - "@semantic-release/github"
   - - "@semantic-release-plus/docker"
-    - name: "lenra/node12-template"
+    - name: "lenra/template-node12"
       publishLatestTag: true
       publishMajorTag: true
       publishMinorTag: true
   - - "@semantic-release-plus/docker"
-    - name: "lenra/node12-devtools"
+    - name: "lenra/devtools-node12"
       publishLatestTag: true
       publishMajorTag: true
       publishMinorTag: true

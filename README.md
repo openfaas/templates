@@ -29,7 +29,7 @@ Lenra provides each template on its Github registry so that you do not have to l
 ```bash
 # Go to your app folder and execute this command
 # The host port can be changed to your convenience
-docker run -it -p 4000:4000 -v $PWD:/home/app/application lenra/node12-devtools
+docker run -it -p 4000:4000 -v $PWD:/home/app/application lenra/devtools-node12
 ```
 
 ### Build Local Images
@@ -40,11 +40,11 @@ In case you still need to build your local image, you should first build the tem
 # Go to the node12 template folder
 cd templates/template/node12
 # Build the template's docker image
-docker build -t lenra/node12-template .
+docker build -t lenra/template-node12 .
 # Go back to the root of the repository
 cd ../..
 # Build the devtools' template docker image
-docker build -t lenra/node12-devtools -f Dockerfile.devtools --build-arg TEMPLATE_IMAGE=lenra/node12-template .
+docker build -t lenra/devtools-node12 -f Dockerfile.devtools --build-arg TEMPLATE_IMAGE=lenra/template-node12 .
 ```
 
 Then you can run your app locally (your app must use node12) using the following commands:
@@ -52,7 +52,7 @@ Then you can run your app locally (your app must use node12) using the following
 ```bash
 # Go to your app folder and execute this command
 # The host port can be changed to your convenience
-docker run -it -p 4000:4000 -v $PWD:/home/app/application lenra/node12-devtools 
+docker run -it -p 4000:4000 -v $PWD:/home/app/application lenra/devtools-node12 
 ```
 
 ## Getting help
