@@ -49,6 +49,7 @@ WORKDIR /home/app/server
 
 ENV cgi_headers="true"
 ENV fprocess="node index.js"
+ENV fprocess_debug="npm start"
 ENV mode="http"
 ENV upstream_url="http://127.0.0.1:3000"
 

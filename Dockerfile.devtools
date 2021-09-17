@@ -4,6 +4,8 @@ FROM lenra/devtools as devtools
 
 FROM ${TEMPLATE_IMAGE}
 
+ENV fprocess=$fprocess_debug
+
 COPY --from=devtools /lenra/devtools /lenra/devtools
 
 USER root
