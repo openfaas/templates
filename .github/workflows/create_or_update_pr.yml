@@ -31,6 +31,6 @@ jobs:
           token: ${{ secrets.GITHUB_TOKEN }}
           script: |
             sed -i "s/FROM lenra\/devtools:\${DEVTOOLS_IMAGE:-latest} as devtools/FROM lenra\/devtools:\${DEVTOOLS_IMAGE:-${{ github.event.inputs.version }}} as devtools/g" Dockerfile.devtools
-            git add pubspec.yaml
+            git add Dockerfile.devtools
             git commit -m "deps-bot: Upgrade ${{ github.event.inputs.origin }} to ${{ github.event.inputs.version }}
             ${{ github.event.inputs.release_notes }}"
