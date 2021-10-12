@@ -1,6 +1,9 @@
 ARG TEMPLATE_IMAGE
 
-FROM lenra/devtools as devtools
+ARG DEVTOOLS_IMAGE
+ENV DEVTOOLS_IMAGE=${DEVTOOLS_IMAGE:-lenra/devtools}
+
+FROM ${DEVTOOLS_IMAGE} as devtools
 
 FROM ${TEMPLATE_IMAGE}
 

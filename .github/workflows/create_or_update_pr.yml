@@ -1,0 +1,36 @@
+name: Create or Update PR
+
+on:
+  workflow_dispatch:
+    inputs:
+      version:
+        description: 'Lenra Component Version'
+        required: true
+      release_notes:
+        description: 'Lenra Component Release notes'
+        required: false
+      origin:
+        description: 'Label of the dependency to change version.'
+        required: true
+
+jobs:
+  create_or_update_pr:
+    name: Create or Update PR
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+      - name: Setup yq
+        id: setup-yq
+        uses: shiipou/setup-yq-action@v2.0.1
+      - name: create_pr
+        uses: shiipou/workflows/create_or_update_pr@main
+        with:
+          name: 'Update dependecies'
+          token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            sed -i "s/ENV DEVTOOLS_IMAGE=\${DEVTOOLS_IMAGE:-lenra\/devtools.*}/ENV DEVTOOLS_IMAGE=\${DEVTOOLS_IMAGE:-lenra\/devtools:v${{ github.event.inputs.version }}}/g" Dockerfile.devtools
+            git add pubspec.yaml
+            git commit -m "deps-bot: Upgrade ${{ github.event.inputs.origin }} to ${{ github.event.inputs.version }}
+            ${{ github.event.inputs.release_notes }}"
