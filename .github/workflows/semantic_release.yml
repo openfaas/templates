@@ -35,7 +35,7 @@ jobs:
           build-args: |
             TEMPLATE_IMAGE=lenra/template-node12
       - name: Setup node deps
-        run: npm i conventional-changelog-conventionalcommits @semantic-release/exec @semantic-release/git @semantic-release-plus/docker -D
+        run: npm i conventional-changelog-conventionalcommits@4 @semantic-release/exec @semantic-release/git @semantic-release-plus/docker@2 -D
       - name: Release
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
