@@ -30,7 +30,7 @@ jobs:
           name: 'Update dependecies'
           token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            sed -i "s/ENV DEVTOOLS_IMAGE=\${DEVTOOLS_IMAGE:-lenra\/devtools.*}/ENV DEVTOOLS_IMAGE=\${DEVTOOLS_IMAGE:-lenra\/devtools:v${{ github.event.inputs.version }}}/g" Dockerfile.devtools
+            sed -i "s/FROM lenra\/devtools:\${DEVTOOLS_IMAGE:-latest} as devtools/FROM lenra\/devtools:\${DEVTOOLS_IMAGE:-${{ github.event.inputs.version }}} as devtools/g" Dockerfile.devtools
             git add pubspec.yaml
             git commit -m "deps-bot: Upgrade ${{ github.event.inputs.origin }} to ${{ github.event.inputs.version }}
             ${{ github.event.inputs.release_notes }}"

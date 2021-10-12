@@ -1,9 +1,8 @@
 ARG TEMPLATE_IMAGE
 
 ARG DEVTOOLS_IMAGE
-ENV DEVTOOLS_IMAGE=${DEVTOOLS_IMAGE:-lenra/devtools}
 
-FROM ${DEVTOOLS_IMAGE} as devtools
+FROM lenra/devtools:${DEVTOOLS_IMAGE:-latest} as devtools
 
 FROM ${TEMPLATE_IMAGE}
 
