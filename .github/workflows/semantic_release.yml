@@ -40,6 +40,7 @@ jobs:
           --tag lenra/devtools \
           --build-arg CI=true \
           --build-arg TEMPLATE_IMAGE=lenra/template-node12 \
+          --file=Dockerfile.devtools \
           .
       - name: Setup node deps
         run: npm i conventional-changelog-conventionalcommits@4 @semantic-release/exec @semantic-release/git @semantic-release-plus/docker@2 -D
