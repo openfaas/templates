@@ -52,7 +52,7 @@ Then you can run your app locally (your app must use node12) using the following
 ```bash
 # Go to your app folder and execute this command
 # The host port can be changed to your convenience
-docker run -it -p 4000:4000 -v $PWD:/home/app/application lenra/devtools-node12 
+docker run -it --rm -p 4000:4000 -v ${PWD}:/home/app/application lenra/devtools-node12 
 ```
 
 ## Getting help
