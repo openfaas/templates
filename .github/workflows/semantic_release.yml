@@ -25,20 +25,33 @@ jobs:
           context: template/node12
           push: false
           tags: lenra/template-node12:latest
-      - name: Build node12 devtools image
-        uses: docker/build-push-action@v2
-        with:
-          context: .
-          file: Dockerfile.devtools
-          push: false
-          tags: lenra/devtools-node12:latest
-          build-args: |
-            TEMPLATE_IMAGE=lenra/template-node12
       - name: Setup node deps
-        run: npm i conventional-changelog-conventionalcommits@4 @semantic-release/exec @semantic-release/git @semantic-release-plus/docker@2 -D
+        run: npm i conventional-changelog-conventionalcommits@4 @semantic-release/exec @semantic-release/git -D
       - name: Release
+        env:
+          GTHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: npx semantic-release
+      - name: Build docker
         env:
           DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
           DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+        run:
+          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
+          
+          VERSION="${{ steps.release.outputs.tag }}"
+          
+          docker buildx build \
+          --output type=image,push=false \
+          --platform ${{ steps.buildx.outputs.platforms }} \
+          --tag lenra/template-node12:${VERSION} \
+          --build-args CI=true \
+          template/node12
+          
+          docker buildx build \
+          --output type=image,push=true \
+          --platform ${{ steps.buildx.outputs.platforms }} \
+          --tag lenra/devtools:${VERSION} \
+          --build-args CI=true \
+          --build-args TEMPLATE_IMAGE=lenra/template-node12:${VERSION} \
+          .
+
