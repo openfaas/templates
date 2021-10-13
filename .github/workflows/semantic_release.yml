@@ -20,38 +20,28 @@ jobs:
         with:
           node-version: "14"
       - name: Build node12 template image
-        uses: docker/build-push-action@v2
-        with:
-          context: template/node12
-          push: false
-          tags: lenra/template-node12:latest
-      - name: Setup node deps
-        run: npm i conventional-changelog-conventionalcommits@4 @semantic-release/exec @semantic-release/git -D
-      - name: Release
-        env:
-          GTHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
-      - name: Build docker
-        env:
-          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
-          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
-        run:
-          echo "${DOCKER_PASSWORD}" | docker login -u "${DOCKER_USERNAME}" --password-stdin
-          
-          VERSION="${{ steps.release.outputs.tag }}"
-          
+        run: |
           docker buildx build \
           --output type=image,push=false \
           --platform ${{ steps.buildx.outputs.platforms }} \
-          --tag lenra/template-node12:${VERSION} \
+          --tag lenra/template-node12 \
           --build-args CI=true \
           template/node12
-          
+      - name: Build devtools-node12
+        run: | 
           docker buildx build \
-          --output type=image,push=true \
-          --platform ${{ steps.buildx.outputs.platforms }} \
-          --tag lenra/devtools:${VERSION} \
+          --output type=image,push=false \
+          --platform ${{ steps.buildx.ouputs.platforms }} \
+          --tag lenra/devtools \
           --build-args CI=true \
-          --build-args TEMPLATE_IMAGE=lenra/template-node12:${VERSION} \
+          --build-args TEMPLATE_IMAGE=lenra/template-node12 \
           .
+      - name: Setup node deps
+        run: npm i conventional-changelog-conventionalcommits@4 @semantic-release/exec @semantic-release/git @semantic-release-plus/docker@2 -D
+      - name: Release
+        env:
+          GTHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          DOCKER_USERNAME: ${{ secrets.DOCKER_USERNAME }}
+          DOCKER_PASSWORD: ${{ secrets.DOCKER_PASSWORD }}
+        run: npx semantic-release
 
