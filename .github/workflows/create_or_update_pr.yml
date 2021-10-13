@@ -30,7 +30,7 @@ jobs:
           name: 'Update dependecies'
           token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            sed -i "s/FROM lenra\/devtools:\${DEVTOOLS_IMAGE:-latest} as devtools/FROM lenra\/devtools:\${DEVTOOLS_IMAGE:-${{ github.event.inputs.version }}} as devtools/g" Dockerfile.devtools
+            sed -i -E 's/FROM lenra[/]devtools:[$][{]DEVTOOLS_IMAGE:-.*[}] as devtools/FROM lenra\/devtools:${DEVTOOLS_IMAGE:-1.0.0-beta.17} as devtools/g' Dockerfile.devtools
             git add Dockerfile.devtools
             
             RELEASE_NOTES="${{ github.event.inputs.release_notes }}"
