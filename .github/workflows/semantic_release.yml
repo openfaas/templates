@@ -32,7 +32,7 @@ jobs:
           --output type=image,push=false \
           --platform ${{ steps.buildx.outputs.platforms }} \
           --tag lenra/template-node12 \
-          --build-args CI=true \
+          --build-arg CI=true \
           template/node12
       - name: Build devtools-node12
         run: | 
@@ -40,8 +40,8 @@ jobs:
           --output type=image,push=false \
           --platform ${{ steps.buildx.ouputs.platforms }} \
           --tag lenra/devtools \
-          --build-args CI=true \
-          --build-args TEMPLATE_IMAGE=lenra/template-node12 \
+          --build-arg CI=true \
+          --build-arg TEMPLATE_IMAGE=lenra/template-node12 \
           .
       - name: Setup node deps
         run: npm i conventional-changelog-conventionalcommits@4 @semantic-release/exec @semantic-release/git @semantic-release-plus/docker@2 -D
