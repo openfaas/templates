@@ -24,13 +24,18 @@ jobs:
       - name: Setup yq
         id: setup-yq
         uses: shiipou/setup-yq-action@v2.0.1
+      - name: Prepare version
+        id: prepare-version
+        run: |
+          VERSION="${{ github.event.inputs.version }}"
+          echo "::set-output name=version::${VERSION/v}"
       - name: create_pr
         uses: shiipou/workflows/create_or_update_pr@main
         with:
           name: 'Update dependecies'
           token: ${{ secrets.GITHUB_TOKEN }}
           script: |
-            echo "$(sed -E "s/(FROM lenra[/]devtools:[$][{]DEVTOOLS_IMAGE:-).*([}] as devtools)/\1${{ github.event.inputs.version }}\2/g" Dockerfile.devtools)" > Dockerfile.devtools
+            echo "$(sed -E "s/(FROM lenra[/]devtools:[$][{]DEVTOOLS_IMAGE:-).*([}] as devtools)/\1${{ steps.prepare-version.outputs.version }}\2/g" Dockerfile.devtools)" > Dockerfile.devtools
             git add Dockerfile.devtools
             
             RELEASE_NOTES="${{ github.event.inputs.release_notes }}"
