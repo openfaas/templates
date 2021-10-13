@@ -28,7 +28,7 @@ jobs:
         run: |
           docker buildx build \
           --output type=image,push=false \
-          --platform "amd64,arm64,riscv64,arm" \
+          --platform "amd64,arm64,arm" \
           --tag lenra/template-node12 \
           --build-arg CI=true \
           template/node12
@@ -36,7 +36,7 @@ jobs:
         run: | 
           docker buildx build \
           --output type=image,push=false \
-          --platform "amd64,arm64,riscv64,arm" \
+          --platform "amd64,arm64,arm" \
           --tag lenra/devtools \
           --build-arg CI=true \
           --build-arg TEMPLATE_IMAGE=lenra/template-node12 \
