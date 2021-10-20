@@ -26,20 +26,25 @@ jobs:
         uses: docker/setup-buildx-action@v1
       - name: Build node12 template image
         run: |
+          mkdir -p ~/.docker-cache || true
           docker buildx build \
           --output type=image,push=false \
           --platform "amd64,arm64,arm" \
           --tag lenra/template-node12 \
           --build-arg CI=true \
+          --cache-from type=local,src=~/.docker-cache/template-node12 \
+          --cache-to type=local,dest=~/.docker-cache/template-node12 \
           template/node12
       - name: Build devtools-node12
-        run: | 
+        run: |
           docker buildx build \
           --output type=image,push=false \
           --platform "amd64,arm64,arm" \
           --tag lenra/devtools \
           --build-arg CI=true \
           --build-arg TEMPLATE_IMAGE=lenra/template-node12 \
+          --cache-from type=local,src=~/.docker-cache/devtools-node12 \
+          --cache-to type=local,dest=~/.docker-cache/devtools-node12 \
           --file=Dockerfile.devtools \
           .
       - name: Setup node deps
