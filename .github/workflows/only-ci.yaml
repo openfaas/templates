@@ -13,5 +13,7 @@ jobs:
       - uses: actions/checkout@master
         with:
           fetch-depth: 1
+      - name: Setup faas-cli
+        run: curl -sSL https://cli.openfaas.com | sh
       - name: Make all
         run: make all
