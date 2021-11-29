@@ -39,7 +39,7 @@ jobs:
             git add Dockerfile.devtools
             
             RELEASE_NOTES="${{ github.event.inputs.release_notes }}"
-            RELEASE_TYPE="${RELEASE_NOTE/:*}"
+            RELEASE_TYPE="${RELEASE_NOTES/:*}"
             
             git commit -m "${RELEASE_TYPE}: Upgrade ${{ github.event.inputs.origin }} to ${{ github.event.inputs.version }}
             ${RELEASE_NOTES}"
