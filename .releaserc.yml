@@ -9,14 +9,5 @@ plugins:
     - preset: conventionalcommits
   - - "@semantic-release/release-notes-generator"
     - preset: conventionalcommits
-  - - "@semantic-release-plus/docker"
-    - name: "lenra/template-node12"
-      publishLatestTag: true
-      publishMajorTag: true
-      publishMinorTag: true
-  - - "@semantic-release-plus/docker"
-    - name: "lenra/devtools-node12"
-      publishLatestTag: true
-      publishMajorTag: true
-      publishMinorTag: true
-
+  - - "@semantic-release/exec"
+    - publishCmd: /bin/bash -c ".github/release.sh ${nextRelease.version}"
