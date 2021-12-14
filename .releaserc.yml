@@ -9,5 +9,6 @@ plugins:
     - preset: conventionalcommits
   - - "@semantic-release/release-notes-generator"
     - preset: conventionalcommits
+  - "@semantic-release/github"
   - - "@semantic-release/exec"
     - publishCmd: /bin/bash -c ".github/release.sh ${nextRelease.version}"
