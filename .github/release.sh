@@ -6,7 +6,7 @@ function get_tag {
   version="$1" # Get version tag
   DOCKER_IMAGE="$2"
   
-  regex='v([0-9]+.[0-9]+.[0-9]+)(-([a-z]+).([0-9]+))?'
+  regex='([0-9]+.[0-9]+.[0-9]+)(-([a-z]+).([0-9]+))?'
   
   if [[ $version =~ $regex ]]; then
     v="${BASH_REMATCH[1]}"
