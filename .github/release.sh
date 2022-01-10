@@ -21,7 +21,7 @@ function get_tag {
       minor=${BASH_REMATCH[2]}
       patch=${BASH_REMATCH[3]}
 
-      arr_version=( "${major}" "${major}.${minor}" "${major}.${minor}.${patch}" )
+      arr_version=( "v${major}" "v${major}.${minor}" "v${major}.${minor}.${patch}" )
       if [[ -n "${channel}" ]]; then
         tag="${tag} --tag ${DOCKER_IMAGE}:${channel}"
         for i in "${arr_version[@]}"; do
