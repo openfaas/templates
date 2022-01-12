@@ -56,7 +56,7 @@ fi
 
 docker buildx build \
   --output type=image,push=true \
-  --platform "amd64,arm64,arm" \
+  --platform "linux/amd64,linux/arm64,linux/arm" \
   ${tag} \
   --build-arg CI=true \
   --cache-from type=local,src=~/.docker-cache/template-node12 \
