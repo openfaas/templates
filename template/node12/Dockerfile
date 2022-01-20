@@ -32,6 +32,7 @@ COPY index.js ./
 # COPY function node packages and install, adding this as a separate
 # entry allows caching of npm install
 
+RUN mkdir -p /home/app/application
 WORKDIR /home/app/application
 
 COPY function/*.json ./
