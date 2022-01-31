@@ -29,7 +29,7 @@ Lenra provides each template on its Github registry so that you do not have to l
 ```bash
 # Go to your app folder and execute this command
 # The host port can be changed to your convenience
-docker run -it --rm -p 4000:4000 -v ${PWD}:/home/app/application lenra/devtools-node12
+docker run -it --rm -p 4000:4000 -v ${PWD}:/home/app/function lenra/devtools-node12
 ```
 
 ### Build Local Images

@@ -5,9 +5,9 @@
   "main": "index.js",
   "scripts": {
     "dev:watch": "npx concurrently --kill-others \"npm run build:watch\" \"npm run start:watch\"",
-    "build:watch": "npx watch 'npm i ../application' ../application",
+    "build:watch": "npx watch 'npm i ./function' ./function",
     "start:server": "node index.js",
-    "start:watch": "npx nodemon -L --watch '../application/*/**' index.js",
+    "start:watch": "npx nodemon -L --watch './function/*/**' index.js",
     "start": "npm run dev:watch",
     "test": "echo \"Error: no tests specified\" && exit 0"
   },
@@ -15,9 +15,9 @@
   "author": "OpenFaaS Ltd",
   "license": "MIT",
   "devDependencies": {
+    "concurrently": "^6.0.2",
     "nodemon": "^2.0.7",
-    "watch": "^1.0.2",
-    "concurrently": "^6.0.2"
+    "watch": "^1.0.2"
   },
   "dependencies": {
     "body-parser": "^1.18.2",

@@ -17,10 +17,10 @@ RUN chmod 777 /tmp
 
 USER app
 
-RUN mkdir -p /home/app/server
+RUN mkdir -p /home/app
 
 # Wrapper/boot-strapper
-WORKDIR /home/app/server
+WORKDIR /home/app
 COPY package.json ./
 
 # This ordering means the npm installation is cached for the outer function handler.
@@ -32,8 +32,7 @@ COPY index.js ./
 # COPY function node packages and install, adding this as a separate
 # entry allows caching of npm install
 
-RUN mkdir -p /home/app/application
-WORKDIR /home/app/application
+WORKDIR /home/app/function
 
 COPY function/*.json ./
 
@@ -46,7 +45,7 @@ COPY function/ ./
 RUN npm test
 
 # Set correct permissions to use non root user
-WORKDIR /home/app/server
+WORKDIR /home/app
 
 ENV cgi_headers="true"
 ENV fprocess="node index.js"

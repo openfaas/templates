@@ -1,0 +1,3 @@
+[submodule "template/node12/function"]
+	path = template/node12/function
+	url = https://github.com/lenra-io/template-hello-world-node12.git
