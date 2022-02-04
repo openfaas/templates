@@ -21,9 +21,6 @@ jobs:
     steps:
       - name: Checkout
         uses: actions/checkout@v2
-      - name: Setup yq
-        id: setup-yq
-        uses: shiipou/setup-yq-action@v2.0.1
       - name: Prepare version
         id: prepare-version
         run: |
