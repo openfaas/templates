@@ -143,6 +143,7 @@ async function handleAppListener(req, res) {
             });
     } else {
         console.error(`No listener found for action ${action} in app manifest.`);
+        res.status(404).send(`No listener found for action ${action} in app manifest.`);
     }
 }
 
