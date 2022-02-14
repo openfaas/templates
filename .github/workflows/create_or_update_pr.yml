@@ -27,7 +27,7 @@ jobs:
           VERSION="${{ github.event.inputs.version }}"
           echo "::set-output name=version::${VERSION/v}"
       - name: create_pr
-        uses: shiipou/workflows/create_or_update_pr@main
+        uses: lenra-io/create-or-update-pr-action@beta
         with:
           name: 'Update dependecies'
           token: ${{ secrets.WORKFLOW_GITHUB_TOKEN }}
