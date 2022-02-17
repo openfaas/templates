@@ -53,7 +53,7 @@ class FunctionContext {
         }
 
         this.headerValues = value;
-        return this;    
+        return this;
     }
 
     succeed(value) {
@@ -107,9 +107,16 @@ app.options('/*', middleware);
 
 const port = process.env.http_port || 3000;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`OpenFaaS Node.js listening on port: ${port}`)
 });
+
+process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server')
+    server.close(() => {
+        console.log('HTTP server closed')
+    })
+})
 
 let isArray = (a) => {
     return (!!a) && (a.constructor === Array);
