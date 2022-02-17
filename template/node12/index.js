@@ -17,7 +17,7 @@ const rawLimit = process.env.MAX_RAW_SIZE || defaultMaxSize
 const jsonLimit = process.env.MAX_JSON_SIZE || defaultMaxSize
 
 app.use(function addDefaultContentType(req, res, next) {
-    // When no content-type is given, the body element is set to 
+    // When no content-type is given, the body element is set to
     // nil, and has been a source of contention for new users.
 
     if(!req.headers['content-type']) {
@@ -75,7 +75,7 @@ class FunctionContext {
         }
 
         this.headerValues = value;
-        return this;    
+        return this;
     }
 
     succeed(value) {
@@ -137,8 +137,13 @@ app.options('/*', middleware);
 
 const port = process.env.http_port || 3000;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`node12 listening on port: ${port}`)
 });
 
-
+process.on('SIGTERM', () => {
+    console.log('SIGTERM signal received: closing HTTP server')
+    server.close(() => {
+        console.log('HTTP server closed')
+    })
+})
