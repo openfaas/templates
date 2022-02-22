@@ -59,8 +59,6 @@ docker buildx build \
   --platform "linux/amd64,linux/arm64,linux/arm" \
   ${tag} \
   --build-arg CI=true \
-  --cache-from type=local,src=~/.docker-cache/template-node12 \
-  --cache-to type=local,dest=~/.docker-cache/template-node12 \
   template/node12
 
 get_tag "$VERSION" "${docker_images[1]}"
@@ -75,7 +73,5 @@ docker buildx build \
   ${tag} \
   --build-arg CI=true \
   --build-arg TEMPLATE_IMAGE=lenra/template-node12:${version} \
-  --cache-from type=local,src=~/.docker-cache/devtools-node12 \
-  --cache-to type=local,dest=~/.docker-cache/devtools-node12 \
   --file=Dockerfile.devtools \
   .
