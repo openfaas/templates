@@ -13,9 +13,20 @@ There are two projects which make up a single gradle build:
 
 ### Function
 
-The function is written in the `./src/main/java/com/openfaas/function/OpenFaasFunction.java` file
+The function is written in the `./src/main/java/com/openfaas/function/Handler.java` file
 
 Tests are supported with junit via files in `./src/test`
+
+### Body Parsing
+
+HTTP Request body is disabled by default. This means that the environment variable `RAW_BODY` is set either missing or
+set to `true`. When the variable is explicitly set to `false`, then vert.x internal BodyHandler is used.
+
+#### Limiting Body Length
+
+By default, vert.x allows any request body length. For security reasons or resource constraints, you might want to limit
+this value. In order to do this set the `BODY_MAX_SIZE` environment variable to the allowed number of bytes, or `-1` for
+unlimited.
 
 ### External dependencies
 
@@ -53,6 +64,8 @@ functions:
     lang: java11-vert-x
     environment:
       FRONTAPP: true
+      RAW_BODY: false
+      MAX_BODY_SIZE: 102400
     handler: ./function
     image: registry.test:5000/hello-vert-x:latest
 ```

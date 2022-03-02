@@ -13,10 +13,11 @@ plugins {
     // Apply the application plugin to add support for building an application
     id 'application'
 
+    id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
 // Define the main class for the application
-mainClassName = 'com.openfaas.entrypoint.App'
+mainClassName = 'io.vertx.core.Launcher'
 
 dependencies {
     // Vert.x project
@@ -30,8 +31,13 @@ dependencies {
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'OpenFaaS Function',
-                   'Implementation-Version': version
+        attributes(
+                'Implementation-Title': 'OpenFaaS Function',
+                'Implementation-Version': archiveVersion,
+                'Main-Class': mainClassName,
+                'Main-Command': 'run',
+                'Main-Verticle': 'com.openfaas.entrypoint.App'
+        )
     }
 }
 
