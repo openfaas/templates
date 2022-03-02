@@ -13,15 +13,16 @@ plugins {
 
 dependencies {
     // Vert.x project
-    compile 'io.vertx:vertx-web:3.5.4'
+    implementation 'io.vertx:vertx-web:4.2.4'
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'    
+    testImplementation 'io.vertx:vertx-unit:4.2.4'
+    testImplementation 'junit:junit:4.13.2'
 }
 
 // In this section you declare where to find the dependencies of your project
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
+    mavenCentral()
 }

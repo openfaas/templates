@@ -2,34 +2,55 @@
 // Licensed under the MIT license. See LICENSE file in the project root for full license information.
 package com.openfaas.entrypoint;
 
-import io.vertx.core.http.HttpServer;
-import io.vertx.core.Vertx;
+import com.openfaas.function.OpenFaasFunction;
+import com.openfaas.function.OpenFaasVertxConfig;
+import io.vertx.core.AbstractVerticle;
+import io.vertx.core.Promise;
+import io.vertx.ext.web.Route;
 import io.vertx.ext.web.Router;
-import io.vertx.ext.web.RoutingContext;
-import io.vertx.ext.web.handler.StaticHandler;
+
 import java.util.Optional;
 
-public class App {
-  public static void main(String[] args) throws Exception {
-    Vertx vertx = Vertx.vertx();
-    Integer httpPort = Integer.parseInt(Optional.ofNullable(System.getenv("PORT")).orElse("8082"));
-    HttpServer server = vertx.createHttpServer();
-    Router router = Router.router(vertx);
+public class App extends AbstractVerticle {
 
-    if (Boolean.parseBoolean(Optional.ofNullable(System.getenv("FRONTAPP")).orElse("false"))) {
-      // serve static assets, see /resources/webroot directory
-      router.route("/*").handler(StaticHandler.create());
-    } else {
-      io.vertx.core.Handler<RoutingContext> handler = new com.openfaas.function.Handler();
-      router.route().handler(handler);
+    private static void fatal(Throwable err) {
+        err.printStackTrace();
+        System.exit(-1);
     }
 
-    server.requestHandler(router::accept).listen(httpPort, result -> {
-      if(result.succeeded()) {
-        System.out.println("Listening on port " + httpPort);
-      } else {
-        System.out.println("Unable to start server: " + result.cause().getMessage());
-      }
-    });
-  }
+    public static void main(String[] args) {
+        OpenFaasVertxConfig.newVertx()
+                .onFailure(App::fatal)
+                .onSuccess(vertx ->
+                        vertx
+                                .deployVerticle(new App())
+                                .onFailure(App::fatal));
+    }
+
+    @Override
+    public void start(Promise<Void> start) {
+        final Router router = Router.router(vertx);
+        final Route route = router.route();
+
+        OpenFaasVertxConfig.configureRoute(route)
+                .onFailure(App::fatal)
+                .onSuccess(v -> {
+                    route.respond(new OpenFaasFunction());
+                    vertx
+                            .createHttpServer()
+                            .requestHandler(router)
+                            .listen(Integer.parseInt(Optional.ofNullable(System.getenv("PORT")).orElse("8082")))
+                            .onFailure(App::fatal)
+                            .onSuccess(server -> {
+                                System.out.println("Listening on port " + server.actualPort());
+                            });
+                    });
+    }
+
+    @Override
+    public void stop(Promise<Void> stop) {
+        OpenFaasVertxConfig
+                .shutdown()
+                .onComplete(stop);
+    }
 }

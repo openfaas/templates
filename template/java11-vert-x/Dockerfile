@@ -1,6 +1,6 @@
-FROM openjdk:11-jdk-slim as builder
+FROM openjdk:17-slim as builder
 
-ENV GRADLE_VER=6.1.1
+ENV GRADLE_VER=7.4
 RUN apt-get update -qqy \
   && apt-get install -qqy \
    --no-install-recommends \
@@ -25,11 +25,11 @@ WORKDIR /home/app
 
 COPY . /home/app/
 
-RUN gradle build
+RUN gradle distZip
 RUN find . 
 
 FROM ghcr.io/openfaas/of-watchdog:0.9.3 as watchdog
-FROM openjdk:11-jre-slim as ship
+FROM openjdk:17-slim as ship
 RUN apt-get update -qqy \
   && apt-get install -qqy \
    --no-install-recommends \
@@ -52,9 +52,9 @@ USER app
 
 ENV upstream_url="http://127.0.0.1:8082"
 ENV mode="http"
-ENV CLASSPATH="/home/app/entrypoint-1.0/lib/*"
+ENV JAVA_OPTS="-XX:+UseContainerSupport"
 
-ENV fprocess="java -XX:+UseContainerSupport -Dvertx.cacheDirBase=/tmp/.vertx-cache com.openfaas.entrypoint.App"
+ENV fprocess="/home/app/entrypoint-1.0/bin/entrypoint"
 EXPOSE 8080
 
 HEALTHCHECK --interval=5s CMD [ -e /tmp/.lock ] || exit 1
