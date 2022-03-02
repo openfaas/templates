@@ -22,13 +22,14 @@ import java.util.function.Function;
  * <ul>
  *     <li>{@code application/json}</li>
  *     <li>{@code application/octet-stream}</li>
- *     <li>{@code text/plain}</li>
+ *     <li>{@code text/html}</li>
  * </ul>
  *
  * To customize the mime type, call the setter on {@link RoutingContext} and your choice is respected.
  */
 public class OpenFaasFunction implements Function<RoutingContext, Future<JsonObject>> {
 
+    @Override
     public Future<JsonObject> apply(RoutingContext routingContext) {
         return Future.succeededFuture(
                 new JsonObject()

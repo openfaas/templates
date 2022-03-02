@@ -2,7 +2,7 @@
 
 The Java11-Vert.x template uses gradle as a build system.
 
-Gradle version: 4.8.1
+Gradle version: 7.4
 
 ### Structure
 
@@ -11,15 +11,16 @@ There are two projects which make up a single gradle build:
 - function - (Library) your function code as a developer, you will only ever see this folder
 - entrypoint - (App) Vert.x HTTP server
 
-### Handler
+### Function
 
-The handler is written in the `./src/main/java/com/openfaas/function/Handler.java` folder
+The function is written in the `./src/main/java/com/openfaas/function/OpenFaasFunction.java` file
 
 Tests are supported with junit via files in `./src/test`
 
 ### External dependencies
 
-External dependencies can be specified in ./build.gradle in the normal way using jcenter, a local JAR or some other remote repository.
+External dependencies can be specified in ./build.gradle in the normal way using mavenCentral, a local JAR or some other
+remote repository.
 
 ### Serve a "pure" static html web application
 
