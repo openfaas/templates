@@ -1,4 +1,4 @@
-FROM openjdk:17-slim as builder
+FROM openjdk:11-slim as builder
 
 ENV GRADLE_VER=7.4
 RUN apt-get update -qqy \
@@ -29,7 +29,7 @@ RUN gradle shadowJar
 RUN find . 
 
 FROM ghcr.io/openfaas/of-watchdog:0.9.3 as watchdog
-FROM openjdk:17-slim as ship
+FROM openjdk:11-slim as ship
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
