@@ -13,26 +13,30 @@ plugins {
     // Apply the application plugin to add support for building an application
     id 'application'
 
+    id 'com.github.johnrengelman.shadow' version '7.1.2'
+
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'com.openfaas.entrypoint.App'
 
 dependencies {
     // Vert.x project
-    compile 'io.vertx:vertx-web:3.5.4'
+    implementation 'io.vertx:vertx-web:3.5.4'
 
     // Use JUnit test framework
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.12'
 
-    compile project(':function')
+    implementation project(':function')
 }
 
-jar {
+shadowJar {
     manifest {
         attributes 'Implementation-Title': 'OpenFaaS Function',
-                   'Implementation-Version': version
+                   'Implementation-Version': version,
+                   'Main-Class': mainClassName
     }
+    archiveFileName.set('app.jar')
 }
 
 // In this section you declare where to find the dependencies of your project
@@ -42,10 +46,12 @@ repositories {
     jcenter()
 }
 
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
-    }
-}
+// uploadArchives {
+//     repositories {
+//        flatDir {
+//            dirs 'repos'
+//        }
+//     }
+// }
+
+assemble.dependsOn(shadowJar)
