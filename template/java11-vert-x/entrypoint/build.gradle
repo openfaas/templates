@@ -13,25 +13,31 @@ plugins {
     // Apply the application plugin to add support for building an application
     id 'application'
 
+    id("com.github.johnrengelman.shadow") version "6.0.0"
 }
 
 // Define the main class for the application
-mainClassName = 'App'
+mainClassName = 'io.vertx.core.Launcher'
 
 dependencies {
     // Vert.x project
-    compile 'io.vertx:vertx-web:3.5.4'
+    implementation 'io.vertx:vertx-web:4.2.4'
 
     // Use JUnit test framework
-    testCompile 'junit:junit:4.12'
+    testImplementation 'junit:junit:4.13.2'
 
-    compile project(':function')
+    implementation project(':function')
 }
 
 jar {
     manifest {
-        attributes 'Implementation-Title': 'OpenFaaS Function',
-                   'Implementation-Version': version
+        attributes(
+                'Implementation-Title': 'OpenFaaS Function',
+                'Implementation-Version': archiveVersion,
+                'Main-Class': mainClassName,
+                'Main-Command': 'run',
+                'Main-Verticle': 'com.openfaas.entrypoint.App'
+        )
     }
 }
 
@@ -39,13 +45,5 @@ jar {
 repositories {
     // Use jcenter for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
-    jcenter()
-}
-
-uploadArchives {
-    repositories {
-       flatDir {
-           dirs 'repos'
-       }
-    }
+    mavenCentral()
 }
