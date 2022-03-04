@@ -1,24 +1,4 @@
-FROM openjdk:11-slim as builder
-
-ENV GRADLE_VER=7.4
-RUN apt-get update -qqy \
-  && apt-get install -qqy \
-   --no-install-recommends \
-   curl \
-   ca-certificates \
-   unzip
-
-RUN mkdir -p /opt/ && cd /opt/ \
-    && echo "Downloading gradle.." \
-    && curl -sSfL "https://services.gradle.org/distributions/gradle-${GRADLE_VER}-bin.zip" -o gradle-$GRADLE_VER-bin.zip \
-    && unzip gradle-$GRADLE_VER-bin.zip -d /opt/ \
-    && rm gradle-$GRADLE_VER-bin.zip
-
-# Export some environment variables
-ENV GRADLE_HOME=/opt/gradle-$GRADLE_VER/
-ENV PATH=$PATH:$GRADLE_HOME/bin
-
-RUN mkdir -p /home/app/libs
+FROM gradle:7-jdk11 as builder
 
 ENV GRADLE_OPTS="-Dorg.gradle.daemon=false"
 WORKDIR /home/app
