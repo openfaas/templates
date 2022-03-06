@@ -11,21 +11,17 @@ There are two projects which make up a single gradle build:
 - function - (Library) your function code as a developer, you will only ever see this folder
 - entrypoint - (App) Vert.x HTTP server
 
-### Handler
+### FaaSFunction
 
-The handler is written in the `./src/main/java/com/openfaas/function/Handler.java` folder
+The function is written in the `./src/main/java/com/openfaas/function/FaaSFunction.java` folder
 
-Tests are supported with junit via files in `./src/test`
+The function can optionally implement the interface `Handler<RoutingContext>`. When this is true, the entrypoint will mount the function on any HTTP verb at the end of the router.
 
-### External dependencies
+Helper handlers can be added to the router in the `setUp()` method. This is useful for example to enable the `BodyHandler` which will parse request body of requests.
 
-External dependencies can be specified in ./build.gradle in the normal way using jcenter, a local JAR or some other remote repository.
+#### Serve a "pure" static html web application
 
-### Serve a "pure" static html web application
-
-This template allow you to serve static html assets (eg: single page application)
-
-#### First, update your yaml deployment file:
+This template can serve static html assets (eg: single page application). This is an example of using the `setUp()` example.
 
 You only need to add to the `environment` key, a `FRONTAPP` variable (with a value set to `true`)
 
@@ -34,14 +30,19 @@ environment:
   FRONTAPP: true
 ```
 
-#### Then add assets in the webroot directory
-
 Put your static assets in this directory: `/src/main/resources/webroot`
 
-> If `FRONTAPP` is set to `false` (or does not exist), it's the `Handler` instance that serves the data.
+> If `FRONTAPP` is set to `false` (or does not exist), it's the `FaaSFunction` instance that serves the data.
 
+#### Testing the function
 
-#### Deployment yaml file sample:
+Tests are supported with junit via files in `./src/test`
+
+### External dependencies
+
+External dependencies can be specified in ./build.gradle in the normal way using jcenter, a local JAR or some other remote repository.
+
+### Deployment yaml file sample:
 
 ```yaml
 provider:
@@ -51,7 +52,7 @@ functions:
   hello-vert-x:
     lang: java11-vert-x
     environment:
-      FRONTAPP: true
+      FRONTAPP: false
     handler: ./function
     image: registry.test:5000/hello-vert-x:latest
 ```

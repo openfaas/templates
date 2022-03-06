@@ -13,10 +13,10 @@ plugins {
 
 dependencies {
     // Vert.x project
-    compile 'io.vertx:vertx-web:3.5.4'
+    compile 'io.vertx:vertx-web:4.1.2'
 
     // Use JUnit test framework
-    testImplementation 'junit:junit:4.12'    
+    testImplementation 'junit:junit:4.13.1'
 }
 
 // In this section you declare where to find the dependencies of your project

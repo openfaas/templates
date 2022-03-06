@@ -20,10 +20,10 @@ mainClassName = 'App'
 
 dependencies {
     // Vert.x project
-    compile 'io.vertx:vertx-web:3.5.4'
+    compile 'io.vertx:vertx-web:4.1.2'
 
     // Use JUnit test framework
-    testCompile 'junit:junit:4.12'
+    testCompile 'junit:junit:4.13.1'
 
     compile project(':function')
 }
