@@ -1,13 +1,10 @@
+# author: Justin Guese, 11.3.22, justin@datafortress.cloud
 from fastapi import HTTPException
+from fastapi import APIRouter
 from pydantic import BaseModel
-from typing import Dict
-import glob
+from typing import Dict, List
 from os import environ
-
-FUNCTION_NAME = 'templatefn'
-FUNCTION_VERSION = '1.0.0'
-FUNCTION_SUMMARY = "A function that does this"
-FUNCTION_RESPONSE_DESC = "Definition of object returned by function"
+import glob
 
 # reads in secrets to environment variables, such that they can be 
 # easily used with environ["SECRET_NAME"]
@@ -15,25 +12,40 @@ def readSecretToEnv(secretpath):
     secretname = secretpath.split('/')[-1]
     with open(secretpath, "r") as f:
         environ[secretname] = f.read()
-        
 for secret in glob.glob("/var/openfaas/secrets/*"):
     readSecretToEnv(secret)
-    
-class RequestModel(BaseModel):
-    data: Dict
 
+router = APIRouter()
+
+# just as an example
+class User(BaseModel):
+    id: int
+    name: str
+    age: int
+    colleagues: List[str]
 
 class ResponseModel(BaseModel):
     data: Dict
+    # user: User
+    # otherStuff: str
 
-
-def handle(req):
+@router.post("/", response_model = ResponseModel, tags=["Main Routes"])
+def handle(request: Dict):
     """handle a request to the function
     Args:
         req (dict): request body
     """
     try:
-        res = ResponseModel(data=req.data)
-    except Exception:
-        raise HTTPException(status_code=500, detail=f"An API Error occurred")
+        res = ResponseModel(data=request)
+    except Exception as e:
+        raise HTTPException(status_code=500, detail=str(repr(e)))
     return res
+
+@router.get("/", response_model = ResponseModel, tags=["Main Routes"])
+def get():
+    return ResponseModel(data={"message": "Hello from OpenFAAS!"})
+
+# again just as an example, delete this if not required
+@router.get("/users/{user_id}", response_model = User, tags=["Main Routes"])
+def getUser(user_id: int):
+    return User(id = user_id, name="Exampleuser", age=20, colleagues=["Colleague 1", "Colleague 2"])
