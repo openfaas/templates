@@ -27,7 +27,7 @@ jobs:
           VERSION="${{ github.event.inputs.version }}"
           echo "::set-output name=version::${VERSION/v}"
       - name: create_pr
-        uses: lenra-io/create-or-update-pr-action@beta
+        uses: lenra-io/create-or-update-pr-action@v1.1.0
         with:
           name: 'Update dependecies'
           token: ${{ secrets.WORKFLOW_GITHUB_TOKEN }}
