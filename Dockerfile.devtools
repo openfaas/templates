@@ -6,9 +6,7 @@ FROM lenra/devtools:${DEVTOOLS_IMAGE:-1.0.0-beta.29} as devtools
 
 FROM ${TEMPLATE_IMAGE}
 
-# This line is temporarily commented out until we can figure out how to 
-# manage the hot reload capability of the server
-# ENV fprocess=$fprocess_debug
+ENV fprocess=$fprocess_debug
 
 COPY --from=devtools /lenra/devtools /lenra/devtools
 
