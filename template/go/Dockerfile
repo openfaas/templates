@@ -1,5 +1,5 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.2.0 as watchdog
-FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.17-alpine3.15 as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.18-alpine3.15 as builder
 
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
@@ -24,13 +24,11 @@ ENV CGO_ENABLED=0
 WORKDIR /go/src/handler
 COPY . .
 
-# Add user overrides to the root go.mod, which is the only place "replace" can be used
-RUN cat function/GO_REPLACE.txt >> ./go.mod || exit 0
-
 # Run a gofmt and exclude all vendored code.
 RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./function/vendor/*"))" || { echo "Run \"gofmt -s -w\" on your Golang code"; exit 1; }
 
 WORKDIR /go/src/handler/function
+RUN go env
 
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} go test ./... -cover
 
