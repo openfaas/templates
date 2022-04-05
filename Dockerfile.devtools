@@ -11,11 +11,39 @@ ENV fprocess=$fprocess_debug
 COPY --from=devtools /lenra/devtools /lenra/devtools
 
 USER root
+
+## Postgres installation
+# Choose the postgres version at build time
+ARG PG_VERSION
+ENV PG_VERSION=${PG_VERSION:-13}
+# Choose the place where to store data
+ENV PGDATA=/var/lib/postgresql/data
+# Configure postgres user informations
+ENV POSTGRES_DB=lenra_dev
+ENV POSTGRES_USER=postgres
+ENV POSTGRES_PASSWORD=postgres
+#
+# Add the postgres user to the docker image
+RUN set -eux; \
+	mkdir -p /var/lib/postgresql /run/postgresql; \
+	chown -R app:nogroup /var/lib/postgresql /run/postgresql; \
+	chmod -R 0700 /var/lib/postgresql /run/postgresql
+#
+# make the "en_US.UTF-8" locale so postgres will be utf-8 enabled by default
+ENV LANG en_US.utf8
+#
+# Install PostgeSQL using provided version
+RUN set -eux; \
+	apk add --no-cache postgresql${PG_VERSION}
+
 # Install elixir dependencies
 RUN apk add --no-cache ncurses-libs libstdc++
+
+COPY pg_entrypoint.sh /lenra/devtools/
+RUN chmod +x /lenra/devtools/pg_entrypoint.sh
 
 USER app
 
 VOLUME [ "/home/app/application" ]
-ENTRYPOINT [ "/lenra/devtools/entrypoint.sh" ]
-CMD ["fwatchdog"]
+ENTRYPOINT [ "/bin/sh" ]
+CMD ["-c", "/lenra/devtools/pg_entrypoint.sh; /lenra/devtools/entrypoint.sh fwatchdog"]
