@@ -8,3 +8,5 @@ build
 .settings
 /**/package-lock.json
 /**/node_modules
+/go.work
+.vscode
