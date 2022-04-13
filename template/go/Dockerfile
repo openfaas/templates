@@ -1,5 +1,5 @@
 FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.2.0 as watchdog
-FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.18-alpine3.15 as builder
+FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.18-alpine3.15 as build
 
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
@@ -28,6 +28,7 @@ COPY . .
 RUN test -z "$(gofmt -l $(find . -type f -name '*.go' -not -path "./vendor/*" -not -path "./function/vendor/*"))" || { echo "Run \"gofmt -s -w\" on your Golang code"; exit 1; }
 
 WORKDIR /go/src/handler/function
+RUN mkdir -p /go/src/handler/function/static
 
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} go test ./... -cover
 
@@ -36,19 +37,16 @@ WORKDIR /go/src/handler
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} \
     go build --ldflags "-s -w" -a -installsuffix cgo -o handler .
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.12
+FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.15 as ship
+
 RUN apk --no-cache add ca-certificates \
-    && addgroup -S app && adduser -S -g app app \
-    && mkdir -p /home/app \
-    && chown app /home/app
+    && addgroup -S app && adduser -S -g app app
 
 WORKDIR /home/app
 
-COPY --from=builder /usr/bin/fwatchdog         .
-COPY --from=builder /go/src/handler/function/  .
-COPY --from=builder /go/src/handler/handler    .
-
-RUN chown -R app /home/app
+COPY --from=build --chown=app /usr/bin/fwatchdog                  .
+COPY --from=build --chown=app /go/src/handler/handler             .
+COPY --from=build --chown=app /go/src/handler/function/static   static
 
 USER app
 
