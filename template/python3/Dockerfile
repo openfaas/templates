@@ -18,19 +18,18 @@ ARG GIT_TOKEN=no_token_set
 # Install git and make the git token available as environment variable
 USER root
 RUN apk --no-cache add git
-ENV GIT_TOKEN=${GIT_TOKEN}
 
 # Install template requirements
 USER app
 WORKDIR /home/app/
 COPY requirements.txt   .
-RUN pip install -r requirements.txt --target=/home/app/python
+RUN GIT_TOKEN=${GIT_TOKEN} pip install -r requirements.txt --target=/home/app/python
 
 # Install function specific requirements
 RUN mkdir -p function
 WORKDIR /home/app/function/
 COPY function/requirements.txt	.
-RUN pip install -r requirements.txt --target=/home/app/python
+RUN GIT_TOKEN=${GIT_TOKEN} pip install -r requirements.txt --target=/home/app/python
 
 FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.2.0 as watchdog
 
