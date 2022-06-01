@@ -14,15 +14,15 @@ faas-cli new my-function --lang php8
 
 You will find in the newly created directory `my-function`:
 
-- `src/Handler.php` : entrypoint
-- `php-extension.sh` : is for installing PHP extensions if needed
-- `composer.json` : is for dependency management
+- `src/Handler.php`: entrypoint
+- `php-extension.sh`: is for installing PHP extensions if needed
+- `composer.json`: is for dependency management
 
 ## Extra Extensions
 
-If you need to install PHP extensions, check out the following example, which you could use in your functions `src/php-extension.sh` file;
+If you need to install PHP extensions, check out the following example, which you could use in your `php-extension.sh` file:
 
-- [php-extension.sh-example](php-extension.sh-example)
+- [php-extension.example.sh](php-extension.example.sh)
 
 You can also refer to the PHP Docker image [documentation](https://github.com/docker-library/docs/blob/master/php/README.md#how-to-install-more-php-extensions) for additional instructions on the installation and configuration of extensions.
 

@@ -1,4 +1,0 @@
-#!/bin/sh
-
-echo "Installing PHP extensions"
-docker-php-ext-install pdo_mysql
