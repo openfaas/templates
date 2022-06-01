@@ -2,8 +2,7 @@
 
 echo "Installing PHP extensions"
 
-# Add your extensions in here, an example is below
-# docker-php-ext-install mysqli
+# Add your extensions here, you can find a valid example in php-extension.example.sh
 #
 # See the template documentation for instructions on installing extensions;
 # - https://github.com/openfaas/templates/tree/master/template/php8
