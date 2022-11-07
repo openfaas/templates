@@ -19,26 +19,26 @@ USER app
 
 RUN mkdir -p /home/app/function
 
-# Wrapper/boot-strapper
+# Entrypoint
 WORKDIR /home/app
-COPY package.json ./
+COPY --chown=app:app package.json ./
 
 # This ordering means the npm installation is cached for the outer function handler.
 RUN npm i
 
 # Copy outer function handler
-COPY index.js ./
+COPY --chown=app:app index.js ./
 
 # COPY function node packages and install, adding this as a separate
 # entry allows caching of npm install
 
 WORKDIR /home/app/function
-COPY function/*.json ./
+COPY --chown=app:app function/*.json ./
 
 RUN npm i
 
 # COPY function files and folders
-COPY function/ ./
+COPY --chown=app:app function/ ./
 
 # Run any tests that may be available
 RUN npm test
