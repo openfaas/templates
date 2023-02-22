@@ -1,5 +1,5 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.2.1 as watchdog
-FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.18-alpine3.15 as build
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.2.2 as watchdog
+FROM --platform=${BUILDPLATFORM:-linux/amd64} golang:1.18-alpine3.17 as build
 
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
@@ -35,9 +35,9 @@ RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} go test ./.
 WORKDIR /go/src/handler
 
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} \
-    go build --ldflags "-s -w" -a -installsuffix cgo -o handler .
+    go build --ldflags "-s -w" -o handler .
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.15 as ship
+FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.17.2 as ship
 
 RUN apk --no-cache add ca-certificates \
     && addgroup -S app && adduser -S -g app app
