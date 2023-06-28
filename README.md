@@ -13,8 +13,7 @@ This repository contains the Classic OpenFaaS templates, but many more are avail
 | Name | Language | Version | Linux base | Watchdog | Link
 |:-----|:---------|:--------|:-----------|:---------|:----
 | dockerfile | Dockerfile | N/A | Alpine Linux | classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
-| go | Go | 1.18 | Alpine Linux | classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
-| node12 | NodeJS | 12 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node12)
+| go | Go | 1.20 | Alpine Linux | classic | [Go template](https://github.com/openfaas/templates/tree/master/template/go)
 | node14 | NodeJS | 14 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node14)
 | node16 | NodeJS | 16 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node16)
 | node17 | NodeJS | 17 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node17)
