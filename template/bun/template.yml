@@ -1,0 +1,4 @@
+language: bun-express
+welcome_message: |
+  This template uses the Bun framework and Express.js to 
+  build functions. To install packages run: bun install.
