@@ -1,5 +1,5 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.9.11 as watchdog
-FROM --platform=${TARGETPLATFORM:-linux/amd64} oven/bun:alpine as ship
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.9.12 as watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} oven/bun:1.0-alpine as ship
 
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
