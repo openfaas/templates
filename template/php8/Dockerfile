@@ -7,7 +7,7 @@ FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} composer:latest AS composer
 
 # continue with the official PHP image
-FROM --platform=${TARGETPLATFORM:-linux/amd64} php:8.1-alpine
+FROM --platform=${TARGETPLATFORM:-linux/amd64} php:8.2-alpine
 
 # copy the Composer PHAR from the Composer image into the PHP image
 COPY --from=composer /usr/bin/composer /usr/bin/composer
