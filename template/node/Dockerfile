@@ -29,7 +29,7 @@ COPY index.js ./
 # COPY function node packages and install, adding this as a separate
 # entry allows caching of npm install runtime dependencies
 WORKDIR /home/app/function
-COPY function/*.json ./
+COPY function/*.json function/.npmrc ./
 RUN npm i --production || :
 
 # Copy in additional function files and folders
