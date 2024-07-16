@@ -1,4 +1,4 @@
-language: python
+language: python27
 fprocess: python index.py
 build_options: 
   - name: dev
