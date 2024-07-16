@@ -8,7 +8,11 @@ To find out more about the OpenFaaS templates see the [faas-cli](https://github.
 
 ### Classic Templates
 
-This repository contains the Classic OpenFaaS templates, but many more are available in the Template Store. Read above for more information.
+This repository contains the Classic OpenFaaS templates, but many more are available in the Template Store.
+
+Most of the original Classic Templates are retained or backwards compatibility, but are deprecated.
+
+See: `faas-cli template store list` to see which templates are both: recommended and official for the language you wish to use.
 
 | Name | Language | Version | Linux base | Watchdog | Link
 |:-----|:---------|:--------|:-----------|:---------|:----
@@ -20,10 +24,10 @@ This repository contains the Classic OpenFaaS templates, but many more are avail
 | node18 | NodeJS | 18 | Alpine Linux | of-watchdog | [NodeJS template (deprecated)](https://github.com/openfaas/templates/tree/master/template/node18)
 | node20 | NodeJS | 20 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node20)
 | bun-express | Bun | 1.0 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/bun-express)
-| node | NodeJS | 20 | Alpine Linux | classic | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node)
+| node | NodeJS | 20 | Alpine Linux | classic | [Legacy NodeJS template (deprecated)](https://github.com/openfaas/templates/tree/master/template/node)
 | python3 | Python | 3 | Alpine Linux | classic | [Legacy Python 3 template](https://github.com/openfaas/templates/tree/master/template/python3)
 | python3-debian | Python | 3 | Debian Linux | classic | [Legacy Python 3 Debian template](https://github.com/openfaas/templates/tree/master/template/python3-debian)
-| python2.7 | Python | 2.7.18 | Alpine Linux | classic | [Python 2.7 template (deprecated)](https://github.com/openfaas/templates/tree/master/template/python2.7)
+| python27 | Python | 2.7.18 | Alpine Linux | classic | [Python 2.7 template (deprecated)](https://github.com/openfaas/templates/tree/master/template/python27)
 | java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11-vert-x)
 | java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
 | ruby | Ruby | 2.7 | Alpine Linux | classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
@@ -35,7 +39,7 @@ For more information on the templates check out the [docs](https://docs.openfaas
 
 ### Classic vs of-watchdog templates
 
-The current version of OpenFaaS templates use the original `watchdog` which `forks` processes - a bit like CGI. The newer watchdog [of-watchdog](https://github.com/openfaas-incubator/of-watchdog) is more similar to fastCGI/HTTP and should be used for any benchmarking or performance testing along with one of the newer templates. Contact the project for more information.
+The current version of OpenFaaS templates use the original `watchdog` which `forks` processes - a bit like CGI. The newer watchdog [of-watchdog](https://github.com/openfaas/of-watchdog) is more similar to fastCGI/HTTP and should be used for any benchmarking or performance testing along with one of the newer templates. Contact the project for more information.
 
 ### Submit your own template to the template store
 
