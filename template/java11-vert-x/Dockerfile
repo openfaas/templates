@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk-slim as builder
+FROM openjdk:11-jdk-slim AS builder
 
 RUN apt-get update -qqy \
   && apt-get install -qqy \
@@ -27,8 +27,8 @@ COPY . /home/app/
 
 RUN gradle build
 
-FROM ghcr.io/openfaas/of-watchdog:0.10.4 as watchdog
-FROM openjdk:11-jre-slim as ship
+FROM ghcr.io/openfaas/of-watchdog:0.10.4 AS watchdog
+FROM openjdk:11-jre-slim AS ship
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
