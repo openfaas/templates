@@ -138,7 +138,7 @@ app.options('/*', middleware);
 const port = process.env.http_port || 3000;
 
 app.listen(port, () => {
-    console.log(`node18 listening on port: ${port}`)
+    console.log(`node20 listening on port: ${port}`)
 });
 
 
