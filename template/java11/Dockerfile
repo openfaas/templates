@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk-slim as builder
+FROM openjdk:11-jdk-slim AS builder
 
 ENV GRADLE_VER=6.1.1
 RUN apt-get update -qqy \
@@ -28,9 +28,9 @@ COPY . /home/app/
 RUN gradle build
 RUN find . 
 
-FROM ghcr.io/openfaas/of-watchdog:0.10.4 as watchdog
+FROM ghcr.io/openfaas/of-watchdog:0.10.4 AS watchdog
 
-FROM openjdk:11-jre-slim as ship
+FROM openjdk:11-jre-slim AS ship
 RUN apt-get update -qqy \
   && apt-get install -qqy \
    --no-install-recommends \

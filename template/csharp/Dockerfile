@@ -1,6 +1,6 @@
-FROM ghcr.io/openfaas/classic-watchdog:0.3.1 as watchdog
+FROM ghcr.io/openfaas/classic-watchdog:0.3.1 AS watchdog
 
-FROM mcr.microsoft.com/dotnet/core/sdk:3.1 as builder
+FROM mcr.microsoft.com/dotnet/core/sdk:3.1 AS builder
 
 # Supress collection of data.
 ENV DOTNET_CLI_TELEMETRY_OPTOUT 1
