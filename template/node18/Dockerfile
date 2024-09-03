@@ -1,4 +1,4 @@
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.10.5 AS watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/of-watchdog:0.10.6 AS watchdog
 FROM --platform=${TARGETPLATFORM:-linux/amd64} node:18-alpine AS ship
 
 ARG TARGETPLATFORM
