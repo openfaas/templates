@@ -1,5 +1,5 @@
 {
-  "name": "NodejsBase",
+  "name": "node",
   "version": "1.0.0",
   "description": "",
   "main": "faas_index.js",

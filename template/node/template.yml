@@ -4,6 +4,6 @@ welcome_message: |
   Warning: this classic Go template has been DEPRECATED and 
   is being maintained for backwards compatibility reasons only.
 
-  Use the node18 template instead, learn more at:
+  Use the node20 template instead, learn more at:
   
   See more: https://docs.openfaas.com/cli/templates
