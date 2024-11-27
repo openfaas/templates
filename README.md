@@ -27,7 +27,7 @@ See: `faas-cli template store list` to see which templates are both: recommended
 | python27 | Python | 2.7.18 | Alpine Linux | classic | [Python 2.7 template (deprecated)](https://github.com/openfaas/templates/tree/master/template/python27)
 | java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11-vert-x)
 | java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11)
-| ruby | Ruby | 2.7 | Alpine Linux | classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
+| ruby | Ruby | 3.3 | Alpine Linux | classic| [Ruby template](https://github.com/openfaas/templates/tree/master/template/ruby)
 | php7 | PHP | 7.4 | Alpine Linux | classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
 | php8 | PHP | 8.2 | Alpine Linux | classic | [PHP 8 template](https://github.com/openfaas/templates/tree/master/template/php8)
 | csharp | C# | N/A | Debian GNU/Linux 9 | classic | [Legacy C# template (deprecated)](https://github.com/openfaas/templates/tree/master/template/csharp)
