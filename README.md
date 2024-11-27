@@ -17,7 +17,7 @@ See: `faas-cli template store list` to see which templates are both: recommended
 | Name | Language | Version | Linux base | Watchdog | Link
 |:-----|:---------|:--------|:-----------|:---------|:----
 | dockerfile | Dockerfile | N/A | Alpine Linux | classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
-| go | Go | 1.22 | Alpine Linux | classic | [Legacy Go template (deprecated)](https://github.com/openfaas/templates/tree/master/template/go)
+| go | Go | 1.23 | Alpine Linux | classic | [Legacy Go template (deprecated)](https://github.com/openfaas/templates/tree/master/template/go)
 | node18 | NodeJS | 18 | Alpine Linux | of-watchdog | [NodeJS template (deprecated)](https://github.com/openfaas/templates/tree/master/template/node18)
 | node20 | NodeJS | 20 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node20)
 | bun-express | Bun | 1.0 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/bun-express)
