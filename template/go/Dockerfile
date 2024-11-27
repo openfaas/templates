@@ -37,7 +37,7 @@ WORKDIR /go/src/handler
 RUN GOOS=${TARGETOS} GOARCH=${TARGETARCH} CGO_ENABLED=${CGO_ENABLED} \
     go build --ldflags "-s -w" -o handler .
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.20.1 AS ship
+FROM --platform=${TARGETPLATFORM:-linux/amd64} alpine:3.20.3 AS ship
 
 RUN apk --no-cache add ca-certificates \
     && addgroup -S app && adduser -S -g app app
