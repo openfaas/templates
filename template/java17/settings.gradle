@@ -1,0 +1,3 @@
+rootProject.name = 'java23'
+
+include 'model', 'function', 'entrypoint'

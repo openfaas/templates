@@ -1,0 +1,79 @@
+plugins {
+    id 'java-library'
+    id 'distribution'
+    id 'maven-publish'
+}
+
+dependencies {
+    api 'org.apache.commons:commons-math3:3.6.1'
+    implementation 'com.google.guava:guava:23.0'
+    testImplementation 'junit:junit:4.12'
+    implementation 'com.openfaas:model:0.1.1'
+    implementation 'com.openfaas:entrypoint:0.1.0'
+}
+
+repositories {
+    mavenCentral()
+
+    flatDir {
+        dirs '../libs'
+    }
+}
+
+jar {
+    manifest {
+        attributes 'Implementation-Title': 'OpenFaaS Function',
+                   'Implementation-Version': '1.0'
+    }
+}
+
+distributions {
+    main {
+        contents {
+            from jar
+            into('lib') {
+                from(project.configurations.runtimeClasspath)
+            }
+        }
+    }
+}
+
+// Configure publishing with the maven-publish plugin
+publishing {
+    publications {
+        mavenJava(MavenPublication) {
+            from components.java
+            artifact jar
+
+            pom {
+                name.set('OpenFaaS Function')
+                description.set('An OpenFaaS function implementation.')
+                url.set('https://www.openfaas.com/')
+                licenses {
+                    license {
+                        name.set('MIT')
+                        url.set('https://opensource.org/licenses/MIT')
+                    }
+                }
+                developers {
+                    developer {
+                        id.set('openfaas')
+                        name.set('OpenFaaS Ltd')
+                        email.set('info@openfaas.com')
+                    }
+                }
+                scm {
+                    connection.set('scm:git:https://github.com/openfaas/templates.git')
+                    developerConnection.set('scm:git:https://github.com/openfaas/templates.git')
+                    url.set('https://github.com/openfaas/templates')
+                }
+            }
+        }
+    }
+
+    repositories {
+        flatDir {
+            dirs 'repos'
+        }
+    }
+}
