@@ -27,7 +27,7 @@ COPY . /home/app/
 
 RUN gradle build
 
-FROM ghcr.io/openfaas/of-watchdog:0.10.6 AS watchdog
+FROM ghcr.io/openfaas/of-watchdog:0.10.7 AS watchdog
 FROM openjdk:11-jre-slim AS ship
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
