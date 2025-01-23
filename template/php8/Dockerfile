@@ -1,7 +1,7 @@
 ARG TARGETPLATFORM
 ARG BUILDPLATFORM
 
-FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.3.1 AS watchdog
+FROM --platform=${TARGETPLATFORM:-linux/amd64} ghcr.io/openfaas/classic-watchdog:0.3.2 AS watchdog
 
 # start with the official Composer image and name it
 FROM --platform=${TARGETPLATFORM:-linux/amd64} composer:latest AS composer
