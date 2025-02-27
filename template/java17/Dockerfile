@@ -29,7 +29,7 @@ COPY . /home/app/
 RUN gradle build --debug
 RUN find . 
 
-FROM ghcr.io/openfaas/of-watchdog:0.10.7 AS watchdog
+FROM ghcr.io/openfaas/of-watchdog:0.10.8 AS watchdog
 
 FROM openjdk:17-slim AS ship
 RUN apt-get update -qqy \
