@@ -10,7 +10,7 @@ build_template()
     echo Building $template
     func_name=$template-ci
     $CLI new $func_name --lang $template 2>/dev/null 1>&2
-    $CLI build -f $func_name.yml
+    $CLI build
 }
 
 verify_and_clean()
@@ -64,19 +64,14 @@ do
     dirname=${dir%*/}
     template=${dirname##*/}
     
-    # skip arm templates
-    case "$template" in
-    *-arm* ) continue ;;
-    esac 
 
     pushd ../ 2>/dev/null 1>&2
 
     build_template $template
     verify_and_clean $template
-    
+
+    rm -rf *-ci stack.yaml
+
     popd 2>/dev/null 1>&2
 done
 
-# remove the generated files and folders if successful
-cd ../
-rm -rf *-ci *-ci.yml
