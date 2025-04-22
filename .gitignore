@@ -10,3 +10,8 @@ build
 /**/node_modules
 /go.work
 .vscode
+.secrets
+/*-ci/
+/stack.yaml
+
+template
