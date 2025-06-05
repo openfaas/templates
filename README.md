@@ -19,6 +19,7 @@ See: `faas-cli template store list` to see which templates are both: recommended
 | dockerfile | Dockerfile | N/A | Alpine Linux | classic | [Dockerfile template](https://github.com/openfaas/templates/tree/master/template/dockerfile)
 | node18 | NodeJS | 18 | Alpine Linux | of-watchdog | [NodeJS template (deprecated)](https://github.com/openfaas/templates/tree/master/template/node18)
 | node20 | NodeJS | 20 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node20)
+| node22 | NodeJS | 22 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node22)
 | java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11-vert-x)
 | java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Deprecated Java template](https://github.com/openfaas/templates/tree/master/template/java11)
 | java17 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java17)
