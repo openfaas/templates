@@ -1,6 +1,6 @@
-FROM ghcr.io/openfaas/classic-watchdog:0.3.3 AS watchdog
+FROM ghcr.io/openfaas/classic-watchdog:0.3.4 AS watchdog
 
-FROM alpine:3.21.3
+FROM alpine:3.22.1
 
 RUN mkdir -p /home/app
 
