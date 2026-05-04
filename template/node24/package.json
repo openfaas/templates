@@ -1,0 +1,16 @@
+{
+  "name": "openfaas-node22",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no tests specified\" && exit 0"
+  },
+  "keywords": [],
+  "author": "OpenFaaS Ltd",
+  "license": "MIT",
+  "dependencies": {
+    "body-parser": "^2.2.0",
+    "express": "^5.1.0"
+  }
+}
