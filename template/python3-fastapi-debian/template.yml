@@ -1,0 +1,2 @@
+language: python3-fastapi-debian
+fprocess: uvicorn index:app --workers 1 --host 0.0.0.0 --port 8000
