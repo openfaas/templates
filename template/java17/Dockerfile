@@ -1,4 +1,4 @@
-FROM openjdk:17-jdk-slim AS builder
+FROM eclipse-temurin:17-jdk-noble AS builder
 
 ENV GRADLE_VER=7.6.3
 
@@ -31,7 +31,7 @@ RUN find .
 
 FROM ghcr.io/openfaas/of-watchdog:0.11.6 AS watchdog
 
-FROM openjdk:17-slim AS ship
+FROM eclipse-temurin:17-jre-noble AS ship
 RUN apt-get update -qqy \
   && apt-get install -qqy \
    --no-install-recommends \
@@ -44,6 +44,7 @@ RUN chmod +x /usr/bin/fwatchdog
 
 WORKDIR /home/app
 COPY --from=builder /home/app/function/build/distributions/function-1.0.zip ./function-1.0.zip
+RUN chown -R app /home/app
 USER app
 RUN unzip ./function-1.0.zip
 
