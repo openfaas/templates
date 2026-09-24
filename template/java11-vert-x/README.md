@@ -2,7 +2,7 @@
 
 The Java11-Vert.x template uses gradle as a build system.
 
-Gradle version: 4.8.1
+Gradle version: 7.3.3
 
 ### Structure
 

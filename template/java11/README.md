@@ -2,7 +2,7 @@
 
 The Java11 template uses gradle as a build system.
 
-Gradle version: 5.5.1
+Gradle version: 6.1.1
 
 ### Structure
 
@@ -14,7 +14,7 @@ There are three projects which make up a single gradle build:
 
 ### Handler
 
-The handler is written in the `./src/main/Handler.java` folder
+The handler is written in the `./src/main/java/com/openfaas/function/Handler.java` folder
 
 Tests are supported with junit via files in `./src/test`
 

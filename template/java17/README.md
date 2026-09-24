@@ -1,8 +1,8 @@
-## Template: java24
+## Template: java17
 
-The Java11 template uses gradle as a build system.
+The Java17 template uses gradle as a build system.
 
-Gradle version: 5.5.1
+Gradle version: 7.6.3
 
 ### Structure
 
@@ -14,11 +14,11 @@ There are three projects which make up a single gradle build:
 
 ### Handler
 
-The handler is written in the `./src/main/Handler.java` folder
+The handler is written in the `./src/main/java/com/openfaas/function/Handler.java` folder
 
 Tests are supported with junit via files in `./src/test`
 
 ### External dependencies
 
-External dependencies can be specified in ./build.gradle in the normal way using jcenter, a local JAR or some other remote repository.
+External dependencies can be specified in ./build.gradle in the normal way using Maven Central, a local JAR or some other remote repository.
 
