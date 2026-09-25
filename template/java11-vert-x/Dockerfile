@@ -1,4 +1,4 @@
-FROM openjdk:11-jdk-slim AS builder
+FROM eclipse-temurin:11-jdk-noble AS builder
 
 RUN apt-get update -qqy \
   && apt-get install -qqy \
@@ -28,7 +28,7 @@ COPY . /home/app/
 RUN gradle build
 
 FROM ghcr.io/openfaas/of-watchdog:0.11.6 AS watchdog
-FROM openjdk:11-jre-slim AS ship
+FROM eclipse-temurin:11-jre-noble AS ship
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
