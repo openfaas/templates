@@ -1,6 +1,6 @@
 allprojects {
     repositories {
-        jcenter() 
+        mavenCentral()
     }
 }
 
@@ -9,7 +9,7 @@ subprojects {
 }
 
 repositories {
-    jcenter()
+    mavenCentral()
     
     flatDir {
         dirs 'libs'

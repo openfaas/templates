@@ -20,5 +20,5 @@ Tests are supported with junit via files in `./src/test`
 
 ### External dependencies
 
-External dependencies can be specified in ./build.gradle in the normal way using jcenter, a local JAR or some other remote repository.
+External dependencies can be specified in ./build.gradle in the normal way using Maven Central, a local JAR or some other remote repository.
 
