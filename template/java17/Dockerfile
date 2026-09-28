@@ -29,7 +29,7 @@ COPY . /home/app/
 RUN gradle build --debug
 RUN find . 
 
-FROM ghcr.io/openfaas/of-watchdog:0.11.6 AS watchdog
+FROM ghcr.io/openfaas/of-watchdog:0.12.2 AS watchdog
 
 FROM eclipse-temurin:17-jre-noble AS ship
 RUN apt-get update -qqy \
