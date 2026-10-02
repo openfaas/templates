@@ -6,6 +6,7 @@ import io.vertx.core.http.HttpServer;
 import io.vertx.core.Vertx;
 import io.vertx.ext.web.Router;
 import io.vertx.ext.web.RoutingContext;
+import io.vertx.ext.web.handler.BodyHandler;
 import io.vertx.ext.web.handler.StaticHandler;
 import java.util.Optional;
 
@@ -16,6 +17,7 @@ public class App {
     HttpServer server = vertx.createHttpServer();
     Router router = Router.router(vertx);
 
+    router.route().handler(BodyHandler.create());
     if (Boolean.parseBoolean(Optional.ofNullable(System.getenv("FRONTAPP")).orElse("false"))) {
       // serve static assets, see /resources/webroot directory
       router.route("/*").handler(StaticHandler.create());
