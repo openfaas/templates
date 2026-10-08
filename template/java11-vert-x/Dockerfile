@@ -27,7 +27,7 @@ COPY . /home/app/
 
 RUN gradle build
 
-FROM ghcr.io/openfaas/of-watchdog:0.12.3 AS watchdog
+FROM ghcr.io/openfaas/of-watchdog:0.12.4 AS watchdog
 FROM eclipse-temurin:11-jre-noble AS ship
 
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
