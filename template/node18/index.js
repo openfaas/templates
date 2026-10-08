@@ -7,7 +7,7 @@
 const express = require('express')
 const app = express()
 const handler = require('./function/handler');
-const bodyParser = require('body-parser')
+const bodyParser = require('body-parser');
 
 const defaultMaxSize = '100kb' // body-parser default
 
@@ -137,8 +137,25 @@ app.options('/*', middleware);
 
 const port = process.env.http_port || 3000;
 
-app.listen(port, () => {
+const server = app.listen(port, () => {
     console.log(`node18 listening on port: ${port}`)
 });
 
+const writeTimeout = process.env.write_timeout; 
+
+process.on('SIGTERM', async () => {
+  console.log(`Function got SIGTERM event, draining up to: ${writeTimeout}`);
+  await gracefulShutdown();
+})
+
+async function gracefulShutdown() {
+  await new Promise((resolve) => {
+    setTimeout(resolve, writeTimeout);
+  })
+
+  server.close(() => {
+    console.log('Server gracefully shut down');
+    process.exit(0);
+  });
+}
 
