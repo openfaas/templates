@@ -1,0 +1,2 @@
+rootProject.name = 'java21-vertx'
+include 'function'
