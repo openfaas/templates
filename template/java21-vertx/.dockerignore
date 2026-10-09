@@ -1,0 +1,6 @@
+**/.git
+**/.gradle
+**/build
+**/.secrets
+**/.idea
+**/*.iml
