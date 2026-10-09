@@ -1,0 +1,5 @@
+language: java21-vertx
+fprocess: java -cp /home/app/lib/* com.openfaas.entrypoint.App
+welcome_message: |
+  Java 21 with Vert.x and Gradle.
+  Edit src/main/java/com/openfaas/function/Handler.java and add dependencies in build.gradle.
