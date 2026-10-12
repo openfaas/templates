@@ -23,6 +23,7 @@ See: `faas-cli template store list` to see which templates are both: recommended
 | node24 | NodeJS | 24 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node24)
 | node25 | NodeJS | 25 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node25)
 | node26 | NodeJS | 26 | Alpine Linux | of-watchdog | [NodeJS template](https://github.com/openfaas/templates/tree/master/template/node26)
+| java21-vertx | Java and [Vert.x](https://vertx.io/) | 21 | Ubuntu Noble | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java21-vertx)
 | java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11-vert-x)
 | java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Deprecated Java template](https://github.com/openfaas/templates/tree/master/template/java11)
 | java17 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java17)
