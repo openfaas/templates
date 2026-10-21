@@ -27,7 +27,6 @@ See: `faas-cli template store list` to see which templates are both: recommended
 | java11-vert-x | Java and [Vert.x](https://vertx.io/) | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java11-vert-x)
 | java11 | Java | 11 | Debian GNU/Linux | of-watchdog | [Deprecated Java template](https://github.com/openfaas/templates/tree/master/template/java11)
 | java17 | Java | 11 | Debian GNU/Linux | of-watchdog | [Java LTS template](https://github.com/openfaas/templates/tree/master/template/java17)
-| php7 | PHP | 7.4 | Alpine Linux | classic | [PHP 7 template](https://github.com/openfaas/templates/tree/master/template/php7)
 | php8 | PHP | 8.2 | Alpine Linux | classic | [PHP 8 template](https://github.com/openfaas/templates/tree/master/template/php8)
 
 For more information on the templates check out the [docs](https://docs.openfaas.com/cli/templates/).

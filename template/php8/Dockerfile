@@ -19,6 +19,12 @@ ENV COMPOSER_AUTH=${COMPOSER_AUTH}
 COPY --from=watchdog /fwatchdog /usr/bin/fwatchdog
 RUN chmod +x /usr/bin/fwatchdog
 
+# The Classic Watchdog passes HTTP bodies to PHP CLI over stdin, so PHP's
+# RFC1867 upload progress feature is unused. Keep it disabled as defence in
+# depth for functions which customise the PHP execution mode.
+RUN printf '%s\n' 'session.upload_progress.enabled=Off' > \
+    /usr/local/etc/php/conf.d/openfaas-security.ini
+
 RUN apk add --no-cache git
 
 # create non-root user
